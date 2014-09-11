@@ -58,7 +58,12 @@ module Vitos
       disable :static
       set :erb, escape_html: true
       set :slim, :pretty => true
-      use Rack::Session::Moneta, :store => :Mongo
+      if(ENV['PRODUCTION'].blank?)
+        db = URI.parse(ENV['MONGO_URL'])
+        use Rack::Session::Moneta, :store => Moneta.new(:Mongo,host: db.host,user: db.user,password: db.password,db:db.path[1..-1],port:db.port)
+      else
+        use Rack::Session::Moneta, :store => :Mongo
+      end
     end
 
     use Rack::Deflater
