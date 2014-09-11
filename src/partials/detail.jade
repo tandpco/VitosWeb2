@@ -1,0 +1,119 @@
+.overlay: .dialog
+  ul.tabs(ng-show="$sp.extraSides.length || $sp.toppings.length || $sp.sauces.length")
+    li(ng-class="{active:tab == 'size'}",ng-click="tab = 'size'"): a Size
+      span(ng-show="isBread()")  &amp; Crust
+      span(ng-show="!isBread() && $sp.styles.length")  &amp; Style
+    li(ng-class="{active:tab == 'sauce'}",ng-click="tab = 'sauce'",ng-show="$sp.toppings.filter(filterCheese).length || $sp.sauces.length"): a Cheese 
+      span(ng-show="$sp.sauces.length") &amp; Sauce
+    li(ng-class="{active:tab == 'toppings'}",ng-click="tab = 'toppings'",ng-show="$sp.toppings.length"): a Toppings
+    li(ng-class="{active:tab == 'sides'}",ng-click="tab = 'sides'",ng-show="$sp.extraSides.length"): a Sides
+  .content
+    div(ng-show="tab == 'size'")
+      a(ng-click="orderItem()") Submit Order
+      |  | 
+      a(ui-sref="home") &times; close
+      .row(ng-hide="!$sp.styles.length && !$sp.toppers.length")
+        .col-md-6(ng-show="$sp.styles")
+          h5 {{isBread() && 'Crust' || ''}} Options
+          ul.selection
+            li(ng-repeat="x in $sp.styles"): label(ng-class="{active:x.StyleID == $line.StyleID}")
+              input(type="radio",ng-model="$line.StyleID",ng-value="x.StyleID")
+              | {{x.StyleShortDescription}}
+        .col-md-6(ng-show="$sp.toppers")
+          h5 {{isBread() && 'Crust' || ''}} Flavor
+          ul.selection
+            li(ng-repeat="x in $sp.toppers"): label(ng-class="{active:$selectedToppers[x.TopperID]}")
+              input(type="checkbox",ng-model="$selectedToppers[x.TopperID]",ng-change="setTopper(x,$selectedToppers[x.TopperID])")
+              | {{x.TopperDescription}}
+        .col-md-6(ng-show="(!$sp.styles.length || $line.StyleID) && ((!$sp.toppers.length && $sp.styles.length) || ($sp.toppers.length && !$sp.styles.length))")
+          div(ng-show="!checkingSizes")
+            h5 Size
+            div(style="margin:0 -3px"): table
+              tbody
+                tr(ng-repeat="x in $sp.sizes")
+                  td
+                    .sizeSelect(ng-class="{active:x.SizeID == $line.SizeID}",ng-click="$line.SizeID = x.SizeID")
+                      strong {{x.SizeDescription}}
+                      | {{calcPrice(x) | currency}}
+          div(ng-show="checkingSizes && (!$sp.toppers.length && $sp.styles.length)").loadingMessage
+            img(src="/img/ajax-loader.gif")
+            |  Updating...
+      div(ng-show="checkingSizes && !(!$sp.toppers.length && $sp.styles.length)").loadingMessage
+        img(src="/img/ajax-loader.gif")
+        |  Updating size options.
+      div(ng-show="(!$sp.styles.length || $line.StyleID) && !checkingSizes && !((!$sp.toppers.length && $sp.styles.length) || ($sp.toppers.length && !$sp.styles.length))")
+        h5(style="margin-top:25px") Size
+        div(style="margin:0 -3px"): table
+          tbody
+            tr
+              td(ng-repeat="x in $sp.sizes",style="width:{{100 / $sp.sizes.length}}%")
+                .sizeSelect(ng-class="{active:x.SizeID == $line.SizeID}",ng-click="$line.SizeID = x.SizeID")
+                  strong {{x.SizeDescription}}
+                  | {{calcPrice(x) | currency}}
+    div(ng-show="tab == 'sauce'")
+      div(ng-show="$sp.sauces")
+        select(ng-options="x.SauceModifierID as x.SauceModifierShortDescription for x in $sp.sauceModifiers",ng-model="$line.SauceModifierID").pull-right
+          option(value="") Sauce Options
+        h5 Sauce Options
+        .row
+          .col-md-6(ng-repeat="x in $sp.sauces")
+            ul.selection: li: label(ng-class="{active:x.SauceID == $line.SauceID}")
+              input(type="radio",ng-model="$line.SauceID",ng-value="x.SauceID")
+              | {{x.SauceShortDescription}}
+        hr
+      table.toppings
+        tbody
+          tr
+            td: h5 Cheese
+            td(style="width:29px"): img(src="/img/topping-whole.png")
+            td(style="width:29px"): img(src="/img/topping-left.png")
+            td(style="width:29px"): img(src="/img/topping-right.png")
+            td(style="width:29px"): img(src="/img/topping-2x.png")
+          tr(ng-repeat="$topping in $sp.toppings.filter(filterCheese)")
+            td: label.sel(ng-click="$selectedToppings[$topping.ItemID] != 'whole' ? setTopping($topping,true,'whole') : setTopping($topping,false,'whole')") {{$topping.ItemDescription}} {{$topping.FreeItemFlag && '†' || ''}}
+            td
+              img(src="/img/checkbox_checked.jpeg",ng-show="$selectedToppings[$topping.ItemID] == 'whole'",ng-click="setTopping($topping,false,'whole')")
+              img(src="/img/checkbox_unchecked.jpg",ng-hide="$selectedToppings[$topping.ItemID] == 'whole'",ng-click="setTopping($topping,true,'whole')")
+            td
+              img(src="/img/checkbox_checked.jpeg",ng-show="$selectedToppings[$topping.ItemID] == 'left'",ng-click="setTopping($topping,false,'left')")
+              img(src="/img/checkbox_unchecked.jpg",ng-hide="$selectedToppings[$topping.ItemID] == 'left'",ng-click="setTopping($topping,true,'left')")
+            td
+              img(src="/img/checkbox_checked.jpeg",ng-show="$selectedToppings[$topping.ItemID] == 'right'",ng-click="setTopping($topping,false,'right')")
+              img(src="/img/checkbox_unchecked.jpg",ng-hide="$selectedToppings[$topping.ItemID] == 'right'",ng-click="setTopping($topping,true,'right')")
+            td
+              img(src="/img/checkbox_checked.jpeg",ng-show="$selectedToppings[$topping.ItemID] == '2x'",ng-click="setTopping($topping,false,'2x')")
+              img(src="/img/checkbox_unchecked.jpg",ng-hide="$selectedToppings[$topping.ItemID] == '2x'",ng-click="setTopping($topping,true,'2x')")
+    div(ng-show="tab == 'toppings'")
+      table.toppings
+        tbody
+          tr
+            td
+              span(ng-click="onMeat = true",ng-class="{active:onMeat}").toggle-meat meat
+              |  | 
+              span(ng-click="onMeat = false",ng-class="{active:!onMeat}").toggle-meat non-meat
+            td(style="width:29px"): img(src="/img/topping-whole.png")
+            td(style="width:29px"): img(src="/img/topping-left.png")
+            td(style="width:29px"): img(src="/img/topping-right.png")
+            td(style="width:29px"): img(src="/img/topping-2x.png")
+          tr(ng-repeat="$topping in $sp.toppings.filter(filterMeat)")
+            td: label.sel(ng-click="$selectedToppings[$topping.ItemID] != 'whole' ? setTopping($topping,true,'whole') : setTopping($topping,false,'whole')") {{$topping.ItemDescription}} {{$topping.FreeItemFlag && '†' || ''}}
+            td
+              img(src="/img/checkbox_checked.jpeg",ng-show="$selectedToppings[$topping.ItemID] == 'whole'",ng-click="setTopping($topping,false,'whole')")
+              img(src="/img/checkbox_unchecked.jpg",ng-hide="$selectedToppings[$topping.ItemID] == 'whole'",ng-click="setTopping($topping,true,'whole')")
+            td
+              img(src="/img/checkbox_checked.jpeg",ng-show="$selectedToppings[$topping.ItemID] == 'left'",ng-click="setTopping($topping,false,'left')")
+              img(src="/img/checkbox_unchecked.jpg",ng-hide="$selectedToppings[$topping.ItemID] == 'left'",ng-click="setTopping($topping,true,'left')")
+            td
+              img(src="/img/checkbox_checked.jpeg",ng-show="$selectedToppings[$topping.ItemID] == 'right'",ng-click="setTopping($topping,false,'right')")
+              img(src="/img/checkbox_unchecked.jpg",ng-hide="$selectedToppings[$topping.ItemID] == 'right'",ng-click="setTopping($topping,true,'right')")
+            td
+              img(src="/img/checkbox_checked.jpeg",ng-show="$selectedToppings[$topping.ItemID] == '2x'",ng-click="setTopping($topping,false,'2x')")
+              img(src="/img/checkbox_unchecked.jpg",ng-hide="$selectedToppings[$topping.ItemID] == '2x'",ng-click="setTopping($topping,true,'2x')")
+    div(ng-show="tab == 'sides'")
+      table.toppings
+        tbody
+          tr(ng-repeat="$side in $sp.extraSides")
+            td: label.sel(ng-click="$selectedSides[$side.SideID] > 0 ? setSide($side,0) : setSide($side,1)") {{$side.SideDescription}} 
+              span.pull-right {{$side.SidePrice | currency}}
+            td
+              input(type="text",ng-model="$selectedSides[$side.SideID]",ng-change="setSide($side,$selectedSides[$side.SideID])").sideQty

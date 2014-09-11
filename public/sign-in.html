@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <link href="/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/css/custom-theme.css" rel="stylesheet">
+        <link rel="shortcut icon" href="/img/vitoslogo.png">
+        <script src="/js/jquery-1.8.3.js"></script>
+        <script src="/js/jquery.session.js"></script>
+        <script src="/js/bootstrap.min.js"></script>
+        <script src="/js/jquery.md5.js"></script>
+        <script src="/js/bootstrap.touchspin.js"></script> <!-- Added for touchspin(Quantity) -->
+        <script src="/js-classes/common-utils.js"></script>
+        <script src="/js-classes/sign-in-controller.js"></script>
+        <script src="/js-classes/order-items-controller.js"></script>
+        <script type="text/javascript" language="javascript">
+            var pageController;
+            var geo;
+            var delay;
+
+            $(function() {
+                pageController     = new SignInController();
+                pageController.constructSession();
+                pageController.init();
+            });
+        </script>
+        <script type="text/javascript"
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB0JT9DTtgL7tG2hxafuW9gppl8sVOY3e8&sensor=false">
+        </script>
+    </head>
+  
+    <body>
+        <div id="wrap">
+            <img src="/img/vitoslogo.png" id="logo"/>
+            <div id="header">
+                <div id="nav-container" class="nav-container"></div>
+            </div>
+            <div id="main" class="container"> 
+                <div id="sign-in-panel">
+                    <div class="container">
+                        <div class="col-md-6">
+                            <div>
+                                <div class="row">
+                                    <p>RETURN CUSTOMER</p>
+                                </div>
+                                <div class="row">
+                                    <p>Email Address</p>
+                                    <input class="shaded-input" type="text" id="sign-in-email-address">
+                                </div>
+                                <div class="row">
+                                    <p>Password</p>
+                                    <input class="shaded-input" type="password" id="sign-in-password">
+                                </div>
+                                <div class="row">
+                                    <button class="red-gradient-button" onclick="pageController.signIn()">SIGN IN</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div>
+                                <div class="row">
+                                    <p>NEW CUSTOMER</p>
+                                </div>
+                                <div class="row">
+                                    <p>Email Address</p>
+                                    <input class="shaded-input" type="text" id="sign-up-email-address">
+                                </div>
+                                <div class="row">
+                                    <p>Zip Code</p>
+                                    <input class="shaded-input" type="text" id="sign-up-zip-code">
+                                </div>
+                                <div class="row">
+                                    <p>Street Number and Street Name</p>
+                                    <input class="shaded-input" type="text" id="sign-up-street">
+                                </div>
+                                <div class="row">
+                                    <p>Apt./Suite/Floor/Room/Unit</p>
+                                    <p class="little">(Letters and Numbers only, please)</p>
+                                    <input class="shaded-input" type="text" id="sign-up-apt">
+                                </div>
+                                <div class="row">
+                                    <button class="red-gradient-button" onclick="pageController.signUp()">CONTINUE</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- sign-in-panel CUSTOM CONTENT END -->
+            </div>
+        </div>
+        <div id="footer"></div>
+        <script type="text/javascript" src="//use.typekit.net/fyw7slw.js"></script>
+        <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+    </body>
+</html>

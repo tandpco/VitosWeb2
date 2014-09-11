@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <link href="/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/css/custom-theme.css" rel="stylesheet">
+        <link rel="shortcut icon" href="/img/vitoslogo.png">
+        <script src="/js/jquery-1.8.3.js"></script>
+        <script src="/js/jquery.session.js"></script>
+        <script src="/js/bootstrap.min.js"></script>
+        <script src="/js-classes/payment-information-controller.js"></script>
+         <script src="/js-classes/common-utils.js"></script>
+        <script type="text/javascript">
+       
+        $(document).ready(function(){
+          var orderItems = JSON.parse($.session.get('orderItems'));
+          if(orderItems == undefined || orderItems == null || orderItems.length==0)
+           {
+             window.location.href = '/order-pizza';
+           }
+        });
+       
+        </script>
+        <script type="text/javascript" language="javascript">
+            var pageController;
+            $(function() {
+                pageController = new PaymentInformationController();
+                pageController.init();
+            });
+        </script>
+    </head>
+  
+    <body>
+        <div id="wrap"  style="background-color:#fff">
+            <img src="/img/vitoslogo.png" id="logo"/>
+             <div id="header">
+                <div id="nav-container" class="nav-container"></div>
+            </div>
+            <div id="main" class="container">
+             <div class="modal fade" id="modal-modify-item1"></div>
+          
+                <!-- main-panel CUSTOM CONTENT BEGIN isCustomized:false -->
+                <div id="main-panel" class="col-md-8" style="background-color:#fff">
+                <br>
+                   <div id="order-items-panel-sm" class="container visible-sm visible-xs"></div>
+                 
+                     <div id="grid-panel" class="col-md-12">
+                          <div style="margin-top:20px">
+                              <p style="font-weight:bold">PAYMENT INFORMATION</p> <hr>
+                          </div>
+                          <div class="col-sm-4"> 
+                             <div class="row">
+                                <p>*Name On Card</p>
+                                <input type="text" class="shaded-input" id="email_address">
+                             </div>
+                          </div>
+                          <div class="col-sm-5">
+                             <div class="row">
+                                <p>*Card Number</p>
+                                <input type="text" class="shaded-input" id="confirm_email_address">
+                             </div>
+                          </div>
+                          <div class="col-sm-9" style="padding-left:0px;"> 
+                          <p>*Expiration Date</p>
+                               <div class="col-sm-2">
+                                    <div class="row">
+                                     <input type="text" class="shaded-input" id="MM" placeholder="MM" style="width:50px;">
+                                    </div>
+                               </div>
+                               <div class="col-sm-1">
+                                    <div class="row">
+                                     <input type="text" style="width:70px" placeholder="YYYY" id="YYYY" class="shaded-input">
+                                    </div>
+                               </div>
+                          </div>
+                          <div class="col-sm-9"> 
+                             <div class="row">
+                                <input id="applyAddr" type="checkbox" class="checkbox shaded-input" style="display:inline;margin-top:1px"> Billing address same as delivery address
+                             </div>
+                          </div>
+                          <div class="col-sm-4"> 
+                             <div class="row">
+                                <p>*Address1</p>
+                                <input type="text" class="shaded-input" id="address">
+                             </div>
+                          </div>
+                          <div class="col-sm-5">
+                             <div class="row">
+                                <p>Apartment /Suite /Floor /Room</p>
+                                <input type="text" class="shaded-input" id="apartType">
+                             </div>
+                           </div>
+                           <div class="col-sm-4">  
+                              <div class="row">
+                                 <p>*City</p>
+                                 <input type="text" class="shaded-input" id="city">
+                              </div>
+                           </div>
+                           <div class="col-sm-5" style="padding-left:0px">
+                              <div class="col-sm-6">   
+                                 <div class="row"> 
+                                    <p>*State</p>
+                                     <select name="normal" id="state" class="input-large shaded-input">
+                                        <option value=""> </option>
+                                        <option value="PA">Pennsylvania</option>
+                                        <option value="CT">Connecticut</option>
+                                        <option value="NY">New York</option>
+                                        <option value="MD">Maryland</option>
+                                        <option value="VA">Virginia</option>
+                                        <option value="OH">Ohio</option>
+                                     </select>
+                                  </div>
+                               </div>
+                               <div class="col-sm-4">
+                                  <div class="row">
+                                   <p>*Zip Code</p>
+                                   <input type="text" class="shaded-input" id="zipCode" style="width:130px">
+                                  </div>
+                               </div>
+                           </div> 
+                           <div class="col-sm-9"><br></div>
+                           <div class="col-sm-offset-3 col-sm-6"> 
+                               <div class="row">
+                                   <button class="red-gradient-button" onclick="window.location.href = '/order-confirmation'" style="width:50%">SUBMIT ORDER</button>
+                               </div>
+                           </div>
+                        </div>
+               </div>
+                <!-- main-panel CUSTOM CONTENT END -->
+                <div id="order-items-panel" class="col-md-4 visible-lg visible-md"></div>
+           </div>
+        </div>
+        <div id="footer">
+     
+        </div>
+        <script type="text/javascript" src="//use.typekit.net/fyw7slw.js"></script>
+        <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+    </body>
+</html>

@@ -1,0 +1,32 @@
+#sign-in-panel
+  .container
+    .col-md-6
+      form method="post" action="/login"
+        .row
+          p RETURN CUSTOMER
+        .row
+          p Email Address
+          input#sign-in-email-address.shaded-input type='email' name='email'
+        .row
+          p Password
+          input#sign-in-password.shaded-input type='password' name="password"
+        .row: input.red-gradient-button type="submit" value="SIGN IN"
+    .col-md-6
+      form
+        .row
+          p NEW CUSTOMER
+        .row
+          p Email Address
+          input#sign-up-email-address.shaded-input(type='text')
+        .row
+          p Zip Code
+          input#sign-up-zip-code.shaded-input(type='text')
+        .row
+          p Street Number and Street Name
+          input#sign-up-street.shaded-input(type='text')
+        .row
+          p Apt./Suite/Floor/Room/Unit
+          p.little
+            | (Letters and Numbers only, please)
+          input#sign-up-apt.shaded-input(type='text')
+        .row: button.red-gradient-button(onclick='pageController.signUp()') CONTINUE

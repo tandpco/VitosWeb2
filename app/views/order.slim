@@ -1,0 +1,23 @@
+#items-panel.col-md-8
+  #items-grid-panel.container
+    .row
+      - @units.each do |x|
+        .col-md-6: .item-panel-box: table#grid-table: tbody: tr
+          td.item-panel-image style="background-image:url(#{x['Photo']})" 
+            img src="/img/Supreme300x300.jpg" width="100" height="100"
+          td.item-panel-content valign="top" 
+            p.header #{x[:items].count != 0 ? "Build Your Own" : ""} #{x['UnitDescription']}
+            p.body=x["CustomDescription"]
+            button.red-gradient-button ui-sref="detail({unitId:#{x['UnitID']}})" style="margin-right:4%" ORDER NOW
+        / li.list-group-item: a(ui-sref="detail({unitId:#{x['UnitID']}})") #{x[:items].count != 0 ? "Build Your Own" : ""} #{x['UnitDescription']}
+        - x[:items].each do |y|
+          .col-md-6: .item-panel-box: table#grid-table: tbody: tr
+            td.item-panel-image style="background-image:url(#{y[:photo]})" 
+              img src="/img/Supreme300x300.jpg" width="100" height="100"
+            td.item-panel-content valign="top" 
+              p.header=y["SpecialtyDescription"]
+              p.body=y["InternetDescription"]
+              button.red-gradient-button ui-sref="detail({unitId:#{x['UnitID']},specialtyId:#{y['SpecialtyID']}})" style="margin-right:4%" ORDER NOW
+          / li.list-group-item: a(ui-sref="detail({unitId:#{x['UnitID']},specialtyId:#{y['SpecialtyID']}})")= y['SpecialtyDescription']
+.col-md-4#order-items-panel(ng-include src="'app/partials/order.html'")
+ui-view

@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="app">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <link href="/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/css/custom-theme.css" rel="stylesheet">
+        <link href="/app/css/app.css" rel="stylesheet">
+        <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+        <link rel="shortcut icon" href="/img/vitoslogo.png">
+        <script src="/js/jquery-1.8.3.js"></script>
+        <script src="/js/jquery.session.js"></script>
+        <script src="/js/bootstrap.min.js"></script>
+        <script src="/js/bootstrap.touchspin.js"></script> <!-- Added for touchspin(Quantity) -->
+        <script src="/js-classes/sign-in-controller.js"></script>
+        <script src="/js-classes/common-utils.js"></script>
+        <script src="/js-classes/order-items-controller.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.min.js" type="text/javascript"></script>
+        <script src="/js/lodash.js"></script>
+        <script src="/js/ng-route.js"></script>
+        <script src="/js/ui-router.js"></script>
+        <script src="/js/restangular.js"></script>
+        <script src="/app/js/app.js"></script>
+        <script type="text/javascript" language="javascript">
+            
+            var PIZZA               = "1";
+            var SUBS                = "32";
+            var SALADS              = "3";
+            var SIDES               = "8000";
+            var VITOSBREAD          = "8002";
+            var WINGS               = "8004";
+            var CINNAMONBREADSTICKS = "8005";
+            var BEVERAGES           = "8015";
+            var DIPPERS             = "8007";
+
+            var CURRENT_ORDER_LOC ="PIZZA";
+            var UNIT_ID = PIZZA;
+            
+            var curr_loc= window.location.pathname;
+            if(curr_loc.indexOf("pizza")!=-1){
+              CURRENT_ORDER_LOC ="PIZZA";
+              UNIT_ID = PIZZA;
+            }
+            else if(curr_loc.indexOf("subs")!=-1){
+              CURRENT_ORDER_LOC ="SUBS";
+              UNIT_ID = SUBS;
+            }
+            else if(curr_loc.indexOf("salads")!=-1){
+              CURRENT_ORDER_LOC ="SALADS";
+               UNIT_ID = SALADS;
+            }
+            else if(curr_loc.indexOf("sides")!=-1){
+              CURRENT_ORDER_LOC ="SIDES";
+              UNIT_ID = SIDES;
+            }
+            
+            var pageController;
+            var geo;
+            var delay;
+            
+            $(function() {
+                pageController = new OrderItemsController();
+                pageController.init();
+            });
+        </script>
+        <script type="text/javascript"
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB0JT9DTtgL7tG2hxafuW9gppl8sVOY3e8&sensor=false">
+        </script>
+    </head>
+  
+    <body style="background-color: #F0E8DE;">
+        <ui-view></ui-view>
+        <div id="wrap">
+            <div class="container"><img src="/img/vitoslogo.png" id="logo"/></div>
+            <div id="header">
+                <div id="nav-container" class="nav-container"></div>
+            </div>
+            <div id="main" class="container"> 
+                <div class="modal fade modal-modify" id="modal-modify-item"></div>
+
+                <div class="modal fade modal-modify" id="modal-modify-item1"></div>
+
+                <div id="items-panel" class="col-md-8">
+
+                    <div id="order-items-panel-sm" class="container visible-sm visible-xs"></div>
+    
+                    <div id="items-grid-panel" class="container"></div>
+                </div>
+    
+                <div id="order-items-panel" class="col-md-4 visible-lg visible-md">
+                    <div ng-include src="'app/partials/order.html'"></div>
+                </div>
+
+            </div>
+        </div>
+        
+        <div id="footer"></div>
+        <script type="text/javascript" src="//use.typekit.net/fyw7slw.js"></script>
+        <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+    </body>
+</html>

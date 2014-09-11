@@ -1,0 +1,17 @@
+{
+  "settings":{
+    "todoreview": {
+        "exclude_folders": [
+            "*node_modules*",
+            "*public*"
+        ]
+    }
+  },
+	"folders":
+	[
+		{
+			"follow_symlinks": true,
+			"path": "."
+		}
+	]
+}

@@ -1,0 +1,13 @@
+/ a ui-sref="detail {unitId:#{x[ "UnitID "]}} "  #{x[:items].count != 0 ? "Build Your Own" : ""} #{x[ "UnitDescription "]}
+.col-md-6
+  .item-panel-box
+    table#grid-table
+      tbody
+        tr
+          td.item-panel-image style="background-image:url(/img/Supreme300x300.jpg)" 
+            img src="/img/Supreme300x300.jpg" width="100" height="100"
+          td.item-panel-content valign="top" 
+            p.header=x["UnitDescription"]
+            p.body=x["CustomDescription"]
+            button.red-gradient-button ui-sref="detail({unitId:#{x['UnitID']}})" style="margin-right:4%" ORDER NOW
+            / button.red-gradient-button onclick= "$ "a[href=#size-and-crust]" .tab "show" ;pageController.getSpecialtyItems 1, 5, null, 6  " SEE DETAILS

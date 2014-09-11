@@ -1,0 +1,187 @@
+@import 'nib'
+
+a
+  cursor pointer
+.overlay
+  font-family "Proxima Nova"
+  background-color rgba(238,232,221,0.8)
+  padding 20px
+  font-size 16px
+  position fixed
+  top 0
+  left 0
+  width 100%
+  bottom 0
+  z-index 999
+  overflow auto
+  .dialog
+    max-width 500px
+    background-color #fff
+    margin 0 auto
+    padding 30px
+    .loadingMessage
+      text-align: center;
+      padding: 20px;
+      border: 2px dashed #bbb09e;
+      color: #bbb09e;
+      margin-top 20px
+      &:first-child
+        margin-top 0
+      img
+        margin-right 20px
+    table
+      width 100%
+      border-collapse collapse
+      td
+        padding 0 3px
+      &.toppings td
+        padding 3px
+    h5
+      font-weight bold
+      margin 0 0 8px
+      font-size 16px
+    .sideQty
+      width:40px
+    .toggle-meat
+      color gray
+      cursor pointer
+      &.active
+        color #000
+        font-weight bold
+      &:hover
+        color #000
+    .sizeSelect
+      text-align center
+      cursor pointer
+      &:hover
+        background-color darken(#f0e8de,10%)
+      font-weight 100
+      display block
+      margin 0
+      // padding 0 5px
+      list-style-type none
+      background-color #f0e8de
+      box-shadow 0px 1px 0px #ddd3c6
+      border-radius 1px
+      margin-bottom 5px
+      line-height 30px
+      &.active
+        background-color #bbb09e
+        box-shadow 0px 1px 0px darken(#bbb09e,10%)
+        color #fff
+        font-weight bold
+        // border-bottom 2px solid darken(#bbb09e,10%)
+      strong
+        background-color #c9282d
+        display block
+        color #fff
+    label.sel
+      &:hover
+        background-color darken(#f0e8de,10%)
+      font-weight 100
+      display block
+      margin 0
+      padding 0 10px
+      background-color #f0e8de
+      box-shadow 0px 1px 0px #ddd3c6
+      // margin-bottom 5px
+      line-height 30px
+      border-radius 1px
+      font-weight 100
+    ul.selection
+      margin 0
+      padding 0
+      li
+        input[type="radio"]
+        input[type="checkbox"]
+          display inline
+          visibility hidden
+          width 35px
+        &:hover
+          background-color darken(#f0e8de,10%)
+        font-weight 100
+        display block
+        margin 0
+        // padding 0 5px
+        list-style-type none
+        background-color #f0e8de
+        box-shadow 0px 1px 0px #ddd3c6
+        margin-bottom 5px
+        line-height 30px
+        border-radius 1px
+        label
+          display block
+          margin 0
+          background url(/img/checkbox_unchecked.jpg) no-repeat 5px center
+          margin 0px
+          font-weight 100
+          &.active
+            background url(/img/checkbox_checked.jpeg) no-repeat 5px center
+    ul.tabs
+      margin -30px -30px 30px -30px
+      padding 0
+      display block
+      background-color #679268
+      // padding 0 25px
+      clearfix()
+      li
+        list-style-type none
+        margin 0
+        padding 0
+        height 50px
+        float left
+        font-weight bold
+        &.active
+          text-transform uppercase
+          background-image linear-gradient(to bottom, #007043 0%, #00482c 100%)
+          margin-left 25px
+          &:first-child
+            margin-left 0
+          a
+            padding-right 25px
+            color #fff
+        a
+          line-height 50px
+          display block
+          font-size 15px
+          color #3c663d
+          padding 0 0 0 25px
+
+table.grid
+  width 100%
+  border-collapse collapse
+  margin-bottom 10px
+  &.mini
+    font-size 12px
+  td
+    padding 0 0 6px 0
+    border-bottom 1px solid #706353 !important
+table.cols
+  width 100%
+  border-collapse collapse
+  // margin-bottom 10px
+  td
+    vertical-align top
+  ul
+    margin 0
+    padding 0
+    li
+      margin 0
+      padding 0
+      list-style-type none
+  &.mini
+    font-size 12px
+  td:last-child
+    padding-left 6px
+  td:first-child
+    padding 0 6px 0 0
+    border-right 1px solid #706353 !important
+.micro-badge
+  border-radius 10px !important
+  display inline-block
+  font-size 9px
+  color #fff
+  background-color #706353
+  vertical-align middle
+  padding 2px 6px
+  font-weight bold

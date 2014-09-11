@@ -1,0 +1,7 @@
+tmp
+.DS_Store
+.env
+mails
+node_modules
+.sass-cache
+Gemfile.lock
