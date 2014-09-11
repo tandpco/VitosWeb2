@@ -15,7 +15,7 @@ module Vitos
       end
 
       def registered(app)
-        Stylus.use :nib
+        # Stylus.use :nib
         # puts(app.settings.root)
         # Assets
         app.set :assets, assets = Sprockets::Environment.new(app.settings.root)
