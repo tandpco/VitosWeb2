@@ -38,6 +38,7 @@ require 'slim'
 # require 'slim/include'
 require 'warden'
 
+puts(ENV.to_hash)
 module Vitos
   class App < Sinatra::Application
     configure :production, :development do
