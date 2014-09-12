@@ -6,7 +6,6 @@ html ng-app="app"
     meta name="viewport" content="width=device-width, initial-scale=1"
     script type="text/javascript" src=asset_path("layout.js")
     script type="text/javascript" src="/js/jquery-1.8.3.js"
-    / @TODO: install bower and brunch for compiling assets, local angular file
     script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.min.js" 
     script type="text/javascript" src="/js/lodash.js"
     script type="text/javascript" src="/js/ng-route.js"
@@ -22,17 +21,21 @@ html ng-app="app"
         img#logo src="/img/vitoslogo.png"
         div(style="margin-top:20px;position:absolute;right:0;")
           - if !current_user.blank?
+            span Hi 
             span = current_user[:FirstName]+" "+current_user[:LastName]
             - address = current_user.address
-            strong  &mdash; #{address[:AddressLine1]} #{address[:AddressLine2]} &bull; #{address[:City]} &bull; #{address[:PostalCode]} 
+            - store = address.store
             / a change delivery address
-            / @TODO: change delivery address
+            / @TODO: Allow editing of delivery address (requires same address normalization via USPS as signup) [github.com/tandpco/VitosWeb2/issues/5]
+            / @TODO: When switching to delivery, make sure to revert the store to the deliverable store even if the user has modified prev. [github.com/tandpco/VitosWeb2/issues/6]
+            / @TODO: Apply promo code needs to be debugged. [github.com/tandpco/VitosWeb2/issues/7]
             / |  | 
             - if session[:deliveryMethod].blank? or session[:deliveryMethod] === 1
+              strong  &mdash; we'll deliver your order to <u>#{address[:AddressLine1]} #{address[:AddressLine2]} &bull; #{address[:City]}</u> 
               a(href="/order/switch-method?deliveryMethod=2") switch to pickup
             - else
+              strong  &mdash; you're picking up from <u>#{store.Address1} &bull; #{{store.Address2}} &bull; #{store.City}</u> 
               a(href="/order/switch-method?deliveryMethod=1") switch to delivery
-            / @TODO: toggle pickup / delivery
             |  | 
             a(href="/logout") logout
       #header

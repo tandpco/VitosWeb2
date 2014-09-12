@@ -41,8 +41,9 @@ module Vitos
           user = Customer.where(EMail: params["email"],Password: Digest::MD5.hexdigest(params["password"])).first
           if user
             address = user.address
+            # @TODO: Make sure that we ask the user for an address on login if there's none linked.
             session[:addressID] = address['AddressID']
-            session[:storeID] = address['StoreId']
+            session[:storeID] = address['StoreID']
             success!(user)
           else
             fail!("Could not log in")

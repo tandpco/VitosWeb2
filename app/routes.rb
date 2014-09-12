@@ -7,6 +7,7 @@ module Vitos
     # Other routes:
     autoload :Nav, 'app/routes/nav'
     autoload :API, 'app/routes/api'
+    autoload :Test, 'app/routes/test'
     autoload :Ordering, 'app/routes/ordering'
   end
 end

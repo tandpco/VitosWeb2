@@ -13,10 +13,8 @@ module Vitos
           json Inventory.item(params[:StoreID], params[:UnitID], params[:SizeID], params[:SpecialtyID])
       end
       get '/api/item-sizes' do
-          request.body.rewind  # in case someone already read it
-          data = {"StoreID"=>params[:StoreID],"UnitID"=>params[:UnitID],"StyleID"=>params[:StyleID],"SpecialtyID"=>params[:SpecialtyID]}
-          content_type :json
-          StyleViewController.listSizesForStyle(data)
+        puts(session[:storeID])
+          json Inventory.listSizesForStyle(session[:storeID],params[:UnitID],params[:StyleID])
       end
 
       put '/api/order' do

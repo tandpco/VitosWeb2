@@ -12,6 +12,7 @@
           input#sign-in-password.shaded-input type='password' name="password"
         .row: input.red-gradient-button type="submit" value="SIGN IN"
     .col-md-6
+      / @TODO: The registration process needs USPS address normalization. Recommending SmartyStreets. [github.com/tandpco/VitosWeb2/issues/4]
       form
         .row
           p NEW CUSTOMER
@@ -29,4 +30,4 @@
           p.little
             | (Letters and Numbers only, please)
           input#sign-up-apt.shaded-input(type='text')
-        .row: button.red-gradient-button(onclick='pageController.signUp()') CONTINUE
+        .row: button.red-gradient-button(onclick='alert("awaiting USPS API recommendation")') CONTINUE

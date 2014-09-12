@@ -72,7 +72,7 @@ class OrderLineViewController
         ActiveRecord::Base.connection.execute("DELETE FROM Tblorderlines WHERE OrderLineID = #{orderLineId}")
 
         orderId = session[:orderId] && session[:orderId].to_i || nil
-        storeId = session[:storeId] && session[:storeId].to_i || 1
+        storeId = session[:storeID] && session[:storeID].to_i || 1
         # Update Price
         updatePrice = {
             :pOrderID => orderId,

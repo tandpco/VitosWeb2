@@ -15,7 +15,7 @@ $app.config ($stateProvider, $urlRouterProvider,RestangularProvider)->
       resolve:
         $specialty: (Restangular,$stateParams)->
           Restangular.one('item').get
-            "StoreID": "7" # @TODO: Make sure StoreID isn't hard coded
+            "StoreID": "7" # @TODO: Make sure StoreID isn't hard coded [github.com/tandpco/VitosWeb2/issues/11]
             "UnitID":  $stateParams.unitId
             "SpecialtyID":  $stateParams.specialtyId
             "SizeID":  null
@@ -24,7 +24,7 @@ $app.config ($stateProvider, $urlRouterProvider,RestangularProvider)->
         $scope.onMeat = true
         $scope.__orderingItem = false
         $scope.tab = 'size'
-        $scope.$line = {SauceID:$specialty.specialty && $specialty.specialty.SauceID || null,SizeID:null,Sides:[],Toppings:[],StyleID:$specialty.specialty && $specialty.specialty.StyleID || null,Toppers:[],notes:''}
+        $scope.$line = {SauceID:$specialty.specialty && $specialty.specialty.SauceID || null,SizeID:null,Sides:[],Toppings:[],StyleID:null,Toppers:[],notes:''}
         $scope.$selectedSides = {}
         $scope.$selectedToppings = {}
         $scope.$selectedToppers = {}
@@ -34,7 +34,7 @@ $app.config ($stateProvider, $urlRouterProvider,RestangularProvider)->
         if $specialty.styles.length > 0 and !$scope.$line.StyleID
           $scope.$line.StyleID = $specialty.styles[0].StyleID
         # @NOTE: Ideally get these units flagged in the database for easier management later.
-        # @TODO: Get all of these ID sets centralized.
+        # @TODO: Get all of these ID sets centralized. [github.com/tandpco/VitosWeb2/issues/12]
         $scope.isBread = ->
           if [1,2,32].indexOf($UnitID) isnt -1
             true
@@ -59,7 +59,7 @@ $app.config ($stateProvider, $urlRouterProvider,RestangularProvider)->
           if sel is false
             $scope.$line.SizeID = sizes[0].SizeID
 
-        # @TODO: @database flag toppings as cheese vs meat
+        # @TODO: @database flag toppings as cheese vs meat [github.com/tandpco/VitosWeb2/issues/13]
         $scope.filterCheese = (i)->
           return true if [10,12,13,49,52,53,59,60,84,104].indexOf(i.ItemID) isnt -1
           return false
@@ -294,7 +294,7 @@ $app.run ($state,$rootScope,Restangular)->
       
   $scope.$watch "$orderSubtotal", updateTotal
   $scope.$watch "$order.Tip", updateTotal
-  # $scope.$watch "$order.Tip", updateTotal # @TODO: Make sure the tip is updated to the order.
+  # $scope.$watch "$order.Tip", updateTotal # @TODO: Make sure the tip is updated to the order. [github.com/tandpco/VitosWeb2/issues/14]
   $scope.updateOrder()
 
   return

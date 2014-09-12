@@ -78,6 +78,7 @@ module Vitos
     use Routes::Nav
     use Routes::Ordering
     use Routes::API
+    use Routes::Test
   end
 end
 

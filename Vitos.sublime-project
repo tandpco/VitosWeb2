@@ -4,7 +4,13 @@
         "exclude_folders": [
             "*node_modules*",
             "*public*"
-        ]
+        ],
+        "patterns": {
+            "TODO": "TODO[\\s]*?:+(?P<todo>.*)$",
+            "NOTE": "NOTE[\\s]*?:+(?P<note>.*)$",
+            "FIXME": "FIX ?ME[\\s]*?:+(?P<fixme>.*)$",
+            "CHANGED": "CHANGED[\\s]*?:+(?P<changed>.*)$"
+        }
     }
   },
 	"folders":

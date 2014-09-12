@@ -18,11 +18,15 @@ class Inventory
         return result
     end
 
+    def self.listSizesForStyle(storeID,unitID,styleID)
+        return ActiveRecord::Base.connection.select_all("SELECT [tblsizes].*,trelStoreSizeStyle.StyleSurcharge,trelStoreUnitSize.* FROM [tblsizes] inner join trelSizeStyle on trelSizeStyle.SizeID = tblSizes.SizeID inner join trelStoreSizeStyle on trelStoreSizeStyle.SizeID = tblSizes.SizeID and trelStoreSizeStyle.StoreID = #{storeID} and trelStoreSizeStyle.StyleID =#{styleID} inner join trelStoreUnitSize on trelStoreUnitSize.SizeID = tblSizes.SizeID and trelStoreUnitSize.StoreID = #{storeID} and trelStoreUnitSize.UnitID = #{unitID} and tblSizes.IsActive <> 0 and trelSizeStyle.StyleID = #{styleID} order by trelStoreUnitSize.SpecialtyBasePrice ASC")
+    end
+    # @TODO: Currently returns Ideal cost data over the API, make sure this isn't secure information. [github.com/tandpco/VitosWeb2/issues/10]
     def self.toppings(storeID,unitID)
         return ActiveRecord::Base.connection.select_all("select tblItems.ItemID, ItemDescription, ItemCount, FreeItemFlag, AllowHalfItems,isCheese,IsBaseCheese from trelStoreItem inner join tblItems on trelStoreItem.ItemID = tblItems.ItemID inner join trelUnitItems on tblItems.ItemID = trelUnitItems.ItemID inner join tblUnit on trelUnitItems.UnitID = tblUnit.UnitID where StoreID = #{storeID} and trelUnitItems.UnitID = #{unitID} and tblItems.IsActive <> 0 and tblItems.IsInternet <> 0 order by ItemDescription")
     end
     def self.sauceModifiers
-        return ActiveRecord::Base.connection.select_all('SELECT [tblsaucemodifier].* FROM [tblsaucemodifier] WHERE (IsActive <> 0) ORDER BY [tblsaucemodifier].[SauceModifierID] ASC')
+        return ActiveRecord::Base.connection.select_all("SELECT [tblsaucemodifier].* FROM [tblsaucemodifier] WHERE (IsActive <> 0) ORDER BY [tblsaucemodifier].[SauceModifierID] ASC")
     end
     
     def self.styles(storeID,unitID)
@@ -34,7 +38,6 @@ class Inventory
     end
     def self.sizes(storeID,unitID,sizeID)
         if(!sizeID.blank?) then return nil end
-        # return ActiveRecord::Base.connection.select_all("SELECT [tblsizes].* FROM [tblsizes] inner join trelStoreUnitSize on trelStoreUnitSize.SizeID = tblSizes.SizeID and trelStoreUnitSize.StoreID = #{storeID} and trelStoreUnitSize.UnitID = #{unitID} and tblSizes.IsActive <> 0 order by tblSizes.SizeID")
         return ActiveRecord::Base.connection.select_all("SELECT [tblsizes].*,trelStoreUnitSize.* FROM [tblsizes] inner join trelStoreUnitSize on trelStoreUnitSize.SizeID = tblSizes.SizeID and trelStoreUnitSize.StoreID = #{storeID} and trelStoreUnitSize.UnitID = #{unitID} and tblSizes.IsActive <> 0 order by trelStoreUnitSize.SpecialtyBasePrice ASC")
     end
     

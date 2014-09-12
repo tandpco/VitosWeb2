@@ -32,7 +32,7 @@ class OrderViewController
     end
     def self.updateDeliveryMethod(method,session)
         orderId = session[:orderId] && session[:orderId].to_i || nil
-        storeId = session[:storeId] && session[:storeId].to_i || 1
+        storeId = session[:storeID] && session[:storeID].to_i || 1
         theStore = Store.find(storeId)
         if(orderId.blank?) then return nil end
         if(method.to_i == 2)
@@ -58,7 +58,7 @@ class OrderViewController
         order = data['order']
         orderItem = data['orderItem']
         orderId = session[:orderId] && session[:orderId].to_i || nil
-        storeId = session[:storeId] && session[:storeId].to_i || 7
+        storeId = session[:storeID] && session[:storeID].to_i || 7
         orderTypeID = session[:deliveryMethod].blank? && 1 || session[:deliveryMethod]
         session[:deliveryMethod] = orderTypeID
 
@@ -75,7 +75,7 @@ class OrderViewController
             newOrder['pEmpID']           = 0
             newOrder['pRefID']           = nil
             newOrder['pTransactionDate'] = Time.now.utc.iso8601
-            newOrder['pStoreID']         = address['StoreID']
+            newOrder['pStoreID']         = storeId
 
             # get from session
             newOrder['pCustomerID']      = current_user['CustomerID']
@@ -208,7 +208,7 @@ class OrderViewController
                     ActiveRecord::Base.connection.execute_procedure("AddOrderLineSide", {
                         :pOrderLineID => convertToInt(orderItemResult[0]['newid']),
                         :pSideID => side['SideID'],
-                        :pIsFreeSide => 0
+                        :pIsFreeSide => 0 # @TODO: (1) Make sure the free vs. pay side data is passed here in a secure way. [github.com/tandpco/VitosWeb2/issues/27]
                     });
                     i += 1
                 end

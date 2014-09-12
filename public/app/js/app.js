@@ -34,7 +34,7 @@
           SizeID: null,
           Sides: [],
           Toppings: [],
-          StyleID: $specialty.specialty && $specialty.specialty.StyleID || null,
+          StyleID: null,
           Toppers: [],
           notes: ''
         };

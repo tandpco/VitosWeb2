@@ -1,6 +1,7 @@
 class Hacks
   public
   def self.specialtyImages(spec,unit)
+    # @TODO: get photos for the different subs and salads to put into play. [github.com/tandpco/VitosWeb2/issues/8]
     assoc = {
       5     => "Supreme300x300.jpg",
       6     => "TheWorks300x300.jpg",
@@ -41,7 +42,7 @@ class Hacks
     # Unit photos
     uassoc = {
       1     => "background.jpg",
-      3     => "buildyourownsalad.jpg",  # @TODO: replace with purchased photo, stolen from shutterstock
+      3     => "buildyourownsalad.jpg",  # @TODO: replace build salad, wings, dippers, bread with real or purchased photo, stolen from google images currently [github.com/tandpco/VitosWeb2/issues/9]
       14    => "buildyourownsalad.jpg", 
       5     => "CinnamonBread300x300.jpg", 
       4     => "wings.jpg",
