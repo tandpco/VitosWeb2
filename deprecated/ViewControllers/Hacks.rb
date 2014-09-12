@@ -1,6 +1,6 @@
 class Hacks
   public
-  def self.specialtyImages(spec)
+  def self.specialtyImages(spec,unit)
     assoc = {
       5     => "Supreme300x300.jpg",
       6     => "TheWorks300x300.jpg",
@@ -27,10 +27,10 @@ class Hacks
       44    => "ItalianFoldoverSub300x300.jpg",
       45    => "ItalianFoldoverSub300x300.jpg",
       38    => "ChickenSalad3000x300.jpg",
-      39    => "ItalianSalad3000x300.jpg",
+      39    => "salads-background.jpg",
       40    => "ItalianSalad3000x300.jpg",
-      41    => "ItalianSalad3000x300.jpg",
-      42    => "ItalianSalad3000x300.jpg",
+      41    => "salads-background.jpg",
+      42    => "salads-background.jpg",
       8002  => "VitoBread300x300.jpg",
       8004  => "ChickenWings300x300.jpg",
       8005  => "CinnamonBread300x300.jpg",
@@ -38,8 +38,20 @@ class Hacks
       8015  => "CokeEtc300x300.jpg"
     }
 
-    puts('specialtyImages'+spec.to_s,assoc[spec])
-    return assoc[spec].blank? ? assoc[5] : assoc[spec];
+    # Unit photos
+    uassoc = {
+      1     => "background.jpg",
+      3     => "buildyourownsalad.jpg",  # @TODO: replace with purchased photo, stolen from shutterstock
+      14    => "buildyourownsalad.jpg", 
+      5     => "CinnamonBread300x300.jpg", 
+      4     => "wings.jpg",
+      15    => "CokeEtc300x300.jpg",
+      7     => "dippers.jpg",
+      2     => "bread.jpg" 
+    }
+    if spec.blank? and !unit.blank? then return uassoc[unit].blank? ? uassoc[1] : uassoc[unit] end
+
+    return assoc[spec].blank? ? assoc[5] : assoc[spec]
   end
 
 end

@@ -4,7 +4,9 @@ ruby '2.1.2'
 gem 'sinatra', require: 'sinatra/base'
 gem 'sinatra-contrib', github: 'maccman/sinatra-contrib'
 gem 'rack-standards'
-gem 'rack-session-mongo'
+# gem 'rack-session-mongo'
+gem 'mongo', "1.10.2"
+gem 'bson_ext', "1.10.2"
 gem 'unicorn'
 gem 'erubis'
 gem 'i18n'

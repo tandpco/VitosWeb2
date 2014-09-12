@@ -1,6 +1,8 @@
 .order-items-listing
   h2 Your Order
-  table#order-table-right(cellspacing="10")
+  .loading-order(ng-show="__loadingOrder")
+    img(src="/img/ajax-loader-tan.gif")
+  table#order-table-right(cellspacing="10",ng-hide="__loadingOrder")
     tbody
       tr(ng-repeat="$line in $lines")
         td
@@ -10,46 +12,48 @@
                 table(width="100%" cellspacing="10" class="order-item-table")
                   tbody
                     tr
-                      td(ng-class="{noSize:$line.UnitID == 15}")
+                      td(ng-class="{noSize:$line.UnitID == 15 || $line.UnitID == 7}")
                         span(style="float:right" class="itemQty") <b>× {{$line.Quantity}}</b>
                         //- @TODO: remove item from order
-                        a(class="removeItem" onclick="OrderItems.cancelOrder(2264716);") ×
-                        span(class="itemSize" data-size="{{$line.extra.size.SizeDescription}}",ng-hide="$line.UnitID == 15") {{sizePretty($line.extra.size.SizeShortDescription)}}
+                        a(class="removeItem" ng-click="deleteLineItem($line)") ×
+                        span(class="itemSize" data-size="{{$line.extra.size.SizeDescription}}",ng-hide="$line.UnitID == 15 || $line.UnitID == 7") {{sizePretty($line.extra.size.SizeShortDescription)}}
                         a(class="accordion-toggle" style="display:block;color:#fff;font-size:14px")
                           span.itemDescription {{adjustUnitName($line.extra)}}
                       td {{$line.Cost | currency}}
             .panel-collapse(style="margin-top: 6px; height: auto;",ng-show="$line.active")
               .panel-body
-                table.grid.mini
+                table.grid.mini(ng-show="$line.extra.style.StyleDescription || $line.extra.sauce.SauceDescription")
                   tr
-                    td
+                    td(ng-show="$line.extra.sauce.StyleDescription")
                       .micro-badge Style
                       |  {{$line.extra.style.StyleDescription}} 
-                    td
+                    td(ng-show="$line.extra.sauce.SauceDescription")
                       .micro-badge Sauce
                       |  {{$line.extra.sauce.SauceDescription}} 
                 table.cols.mini
                   tr
-                    td
+                    td(ng-show="$line.extra.toppings")
                       div: strong Toppings
                       ul
                         li(ng-repeat="$topping in $line.extra.toppings") {{$topping.ItemDescription}} 
                         span(ng-show="$topping.HalfID").micro-badge {{halfPretty($topping.HalfID)}}
-                    td
-                      div: strong Crust Flavor
-                      ul
-                        li(ng-repeat="$topper in $line.extra.toppers") {{$topper.TopperDescription}}
-                      div: strong Sides
-                      ul
-                        li(ng-repeat="$side in $line.extra.sides") {{$side.SideDescription}}
+                    td(ng-show="$line.extra.toppers ||  $line.extra.sides")
+                      div(ng-show="$line.extra.toppers")
+                        div: strong Crust Flavor
+                        ul
+                          li(ng-repeat="$topper in $line.extra.toppers") {{$topper.TopperDescription}}
+                      div(ng-show="$line.extra.sides")
+                        div: strong Sides
+                        ul
+                          li(ng-repeat="$side in $line.extra.sides") {{$side.SideDescription}}
   .order-table-total-wrapper(style="margin-top:30px")
     //- @TODO: (0) Get promo codes working
     .promo-code-input
       input(type="text" id="promoCode-lg" placeholder="Promo Code")
-      button(class="btn" type="button" onclick="pageController.updatePromo()") Apply
+      button(class="btn" type="button") Apply
     h2 Order Total
     table#order-totals-table-right(cellpadding="0" cellspacing="0" width="100%")
-      tr
+      tr.total-line
         td SUB TOTAL
         td {{$orderSubtotal | currency}}
       tr
@@ -65,4 +69,12 @@
         td TIP
         td
           input(type="text",ng-model="$order.Tip" class="ordrTip" maxlength="4" size="4" style="text-align:right")
+      tr: td(colspan="2"): hr
+      tr.total-line
+        td TOTAL
+        td#total {{$orderTotal | currency}}
+      tr: td(colspan="2")
+        hr
+        //- @TODO: Make submit order button actually work.
+        button(type="button" class="red-gradient-button" onclick="alert('awaiting deployment')") SUBMIT ORDER
 

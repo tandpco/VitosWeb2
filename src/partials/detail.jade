@@ -6,12 +6,12 @@
     li(ng-class="{active:tab == 'sauce'}",ng-click="tab = 'sauce'",ng-show="$sp.toppings.filter(filterCheese).length || $sp.sauces.length"): a Cheese 
       span(ng-show="$sp.sauces.length") &amp; Sauce
     li(ng-class="{active:tab == 'toppings'}",ng-click="tab = 'toppings'",ng-show="$sp.toppings.length"): a Toppings
+      //- span.count {{$line.Toppings.length}}
     li(ng-class="{active:tab == 'sides'}",ng-click="tab = 'sides'",ng-show="$sp.extraSides.length"): a Sides
+      //- span.count {{$line.Sides.length}}
+    li.closeIcon: a(ui-sref="home") &times;
   .content
     div(ng-show="tab == 'size'")
-      a(ng-click="orderItem()") Submit Order
-      |  | 
-      a(ui-sref="home") &times; close
       .row(ng-hide="!$sp.styles.length && !$sp.toppers.length")
         .col-md-6(ng-show="$sp.styles")
           h5 {{isBread() && 'Crust' || ''}} Options
@@ -50,6 +50,17 @@
                 .sizeSelect(ng-class="{active:x.SizeID == $line.SizeID}",ng-click="$line.SizeID = x.SizeID")
                   strong {{x.SizeDescription}}
                   | {{calcPrice(x) | currency}}
+
+      hr
+      .row
+        .col-md-6
+          button(type="button" class="red-gradient-button" ng-click="orderItem()").r {{__orderingItem && 'One Moment...' || 'Add to Order'}}
+        .col-md-6(ng-show="$sp.toppings.filter(filterCheese).length || $sp.sauces.length")
+          button(type="button" class="outline-button" ng-click="tab = 'sauce'") Sauce / Cheese &rarr;
+        .col-md-6(ng-show="!($sp.toppings.filter(filterCheese).length || $sp.sauces.length) && $sp.toppings.length")
+          button(type="button" class="outline-button" ng-click="tab = 'toppings'") Choose Toppings &rarr;
+        .col-md-6(ng-show="!($sp.toppings.filter(filterCheese).length || $sp.sauces.length) && !$sp.toppings.length && $sp.extraSides.length")
+          button(type="button" class="outline-button" ng-click="tab = 'sides'") Choose Sides &rarr;
     div(ng-show="tab == 'sauce'")
       div(ng-show="$sp.sauces")
         select(ng-options="x.SauceModifierID as x.SauceModifierShortDescription for x in $sp.sauceModifiers",ng-model="$line.SauceModifierID").pull-right
@@ -66,23 +77,32 @@
           tr
             td: h5 Cheese
             td(style="width:29px"): img(src="/img/topping-whole.png")
-            td(style="width:29px"): img(src="/img/topping-left.png")
-            td(style="width:29px"): img(src="/img/topping-right.png")
+            td(style="width:29px",ng-hide="!isBread()"): img(src="/img/topping-left.png")
+            td(style="width:29px",ng-hide="!isBread()"): img(src="/img/topping-right.png")
             td(style="width:29px"): img(src="/img/topping-2x.png")
           tr(ng-repeat="$topping in $sp.toppings.filter(filterCheese)")
             td: label.sel(ng-click="$selectedToppings[$topping.ItemID] != 'whole' ? setTopping($topping,true,'whole') : setTopping($topping,false,'whole')") {{$topping.ItemDescription}} {{$topping.FreeItemFlag && '†' || ''}}
             td
               img(src="/img/checkbox_checked.jpeg",ng-show="$selectedToppings[$topping.ItemID] == 'whole'",ng-click="setTopping($topping,false,'whole')")
               img(src="/img/checkbox_unchecked.jpg",ng-hide="$selectedToppings[$topping.ItemID] == 'whole'",ng-click="setTopping($topping,true,'whole')")
-            td
+            //- @TODO: Make sure the half-side selection is disabled on salads
+            td(ng-hide="!isBread()")
               img(src="/img/checkbox_checked.jpeg",ng-show="$selectedToppings[$topping.ItemID] == 'left'",ng-click="setTopping($topping,false,'left')")
               img(src="/img/checkbox_unchecked.jpg",ng-hide="$selectedToppings[$topping.ItemID] == 'left'",ng-click="setTopping($topping,true,'left')")
-            td
+            td(ng-hide="!isBread()")
               img(src="/img/checkbox_checked.jpeg",ng-show="$selectedToppings[$topping.ItemID] == 'right'",ng-click="setTopping($topping,false,'right')")
               img(src="/img/checkbox_unchecked.jpg",ng-hide="$selectedToppings[$topping.ItemID] == 'right'",ng-click="setTopping($topping,true,'right')")
             td
               img(src="/img/checkbox_checked.jpeg",ng-show="$selectedToppings[$topping.ItemID] == '2x'",ng-click="setTopping($topping,false,'2x')")
               img(src="/img/checkbox_unchecked.jpg",ng-hide="$selectedToppings[$topping.ItemID] == '2x'",ng-click="setTopping($topping,true,'2x')")
+      hr
+      .row
+        .col-md-6
+          button(type="button" class="red-gradient-button" ng-click="orderItem()").r {{__orderingItem && 'One Moment...' || 'Add to Order'}}
+        .col-md-6(ng-show="$sp.toppings.length")
+          button(type="button" class="outline-button" ng-click="tab = 'toppings'") Choose Toppings &rarr;
+        .col-md-6(ng-show="!$sp.toppings.length && $sp.extraSides.length")
+          button(type="button" class="outline-button" ng-click="tab = 'sides'") Choose Sides &rarr;
     div(ng-show="tab == 'toppings'")
       table.toppings
         tbody
@@ -92,28 +112,39 @@
               |  | 
               span(ng-click="onMeat = false",ng-class="{active:!onMeat}").toggle-meat non-meat
             td(style="width:29px"): img(src="/img/topping-whole.png")
-            td(style="width:29px"): img(src="/img/topping-left.png")
-            td(style="width:29px"): img(src="/img/topping-right.png")
+            td(style="width:29px",ng-hide="!isBread()"): img(src="/img/topping-left.png")
+            td(style="width:29px",ng-hide="!isBread()"): img(src="/img/topping-right.png")
             td(style="width:29px"): img(src="/img/topping-2x.png")
           tr(ng-repeat="$topping in $sp.toppings.filter(filterMeat)")
             td: label.sel(ng-click="$selectedToppings[$topping.ItemID] != 'whole' ? setTopping($topping,true,'whole') : setTopping($topping,false,'whole')") {{$topping.ItemDescription}} {{$topping.FreeItemFlag && '†' || ''}}
             td
               img(src="/img/checkbox_checked.jpeg",ng-show="$selectedToppings[$topping.ItemID] == 'whole'",ng-click="setTopping($topping,false,'whole')")
               img(src="/img/checkbox_unchecked.jpg",ng-hide="$selectedToppings[$topping.ItemID] == 'whole'",ng-click="setTopping($topping,true,'whole')")
-            td
+            td(ng-hide="!isBread()")
               img(src="/img/checkbox_checked.jpeg",ng-show="$selectedToppings[$topping.ItemID] == 'left'",ng-click="setTopping($topping,false,'left')")
               img(src="/img/checkbox_unchecked.jpg",ng-hide="$selectedToppings[$topping.ItemID] == 'left'",ng-click="setTopping($topping,true,'left')")
-            td
+            td(ng-hide="!isBread()")
               img(src="/img/checkbox_checked.jpeg",ng-show="$selectedToppings[$topping.ItemID] == 'right'",ng-click="setTopping($topping,false,'right')")
               img(src="/img/checkbox_unchecked.jpg",ng-hide="$selectedToppings[$topping.ItemID] == 'right'",ng-click="setTopping($topping,true,'right')")
             td
               img(src="/img/checkbox_checked.jpeg",ng-show="$selectedToppings[$topping.ItemID] == '2x'",ng-click="setTopping($topping,false,'2x')")
               img(src="/img/checkbox_unchecked.jpg",ng-hide="$selectedToppings[$topping.ItemID] == '2x'",ng-click="setTopping($topping,true,'2x')")
+      hr
+      .row
+        .col-md-6
+          button(type="button" class="red-gradient-button" ng-click="orderItem()").r {{__orderingItem && 'One Moment...' || 'Add to Order'}}
+        .col-md-6(ng-show="$sp.extraSides.length")
+          button(type="button" class="outline-button" ng-click="tab = 'sides'") Choose Sides &rarr;
     div(ng-show="tab == 'sides'")
       table.toppings
         tbody
           tr(ng-repeat="$side in $sp.extraSides")
             td: label.sel(ng-click="$selectedSides[$side.SideID] > 0 ? setSide($side,0) : setSide($side,1)") {{$side.SideDescription}} 
               span.pull-right {{$side.SidePrice | currency}}
-            td
+            td(width="5")
               input(type="text",ng-model="$selectedSides[$side.SideID]",ng-change="setSide($side,$selectedSides[$side.SideID])").sideQty
+      hr
+      .row
+        .col-md-6.col-md-push-6
+          button(type="button" class="red-gradient-button" ng-click="orderItem()").r {{__orderingItem && 'One Moment...' || 'Add to Order'}}
+

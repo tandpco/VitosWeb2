@@ -22,13 +22,25 @@ module Vitos
       put '/api/order' do
           data = JSON.parse request.body.read
           content_type :json
-          OrderViewController.createOrder(data,session)
+          OrderViewController.createOrder(data,session,current_user)
       end
       get '/api/order' do
-          json OrderViewController.getOrderNew({},session)
+          if(session[:orderId].blank?)
+            json nil
+          else
+            json OrderViewController.getOrderNew({},session)
+          end
       end
-      get '/api/order/lines' do
-          json OrderLineViewController.getOrderLines({},session)
+      get '/api/order/:lines' do
+          if(session[:orderId].blank?) then return nil end
+          if(session[:orderId].blank?)
+            json nil
+          else
+            json OrderLineViewController.getOrderLines({},session)
+          end
+      end
+      delete '/api/order/lines/:id' do |lineId|
+          json OrderLineViewController.deleteOrderLine(lineId,session)
       end
     end
   end

@@ -12,7 +12,7 @@ class OrderViewController
 
         rows.each do |row|
             row.keys.each do |key|
-                puts("#{key} -> #{row[key].class.to_s}, #{row[key].to_s}")
+                # puts("#{key} -> #{row[key].class.to_s}, #{row[key].to_s}")
                 # if(row[key].class.to_s == "String")
                     # row[key].gsub!(/'/,"\u2019")
                 # end
@@ -30,17 +30,42 @@ class OrderViewController
         row = ActiveRecord::Base.connection.select_one('SELECT tblorders.* FROM tblorders WHERE OrderID = ' + orderId)
         return row
     end
-    
-    def self.createOrder(data,session)
+    def self.updateDeliveryMethod(method,session)
+        orderId = session[:orderId] && session[:orderId].to_i || nil
+        storeId = session[:storeId] && session[:storeId].to_i || 1
+        theStore = Store.find(storeId)
+        if(orderId.blank?) then return nil end
+        if(method.to_i == 2)
+            ActiveRecord::Base.connection.execute("UPDATE tblOrders SET OrderTypeID = 2,DeliveryCharge=0,DriverMoney=0 WHERE OrderID = #{orderId}")
+        else
+            ActiveRecord::Base.connection.execute("UPDATE tblOrders SET OrderTypeID = 1,DeliveryCharge=#{theStore['DefaultDeliveryCharge']},DriverMoney=#{theStore['DefaultDriverMoney']} WHERE OrderID = #{orderId}")
+        end
+
+        # Update Price
+        updatePrice = {
+            :pOrderID => orderId,
+            :pStoreID => storeId,
+            :pCouponIDs => "",
+            :pPromoCodes => ""
+        }
+
+        ActiveRecord::Base.connection.execute_procedure("WebRecalculateOrderPrice", updatePrice)
+    end
+    def self.createOrder(data,session,current_user)
         result = Hash.new()
 
         # Order
         order = data['order']
         orderItem = data['orderItem']
         orderId = session[:orderId] && session[:orderId].to_i || nil
-        storeId = session[:storeId] && session[:storeId].to_i || 1
+        storeId = session[:storeId] && session[:storeId].to_i || 7
+        orderTypeID = session[:deliveryMethod].blank? && 1 || session[:deliveryMethod]
+        session[:deliveryMethod] = orderTypeID
 
-        puts("OrderID: " + orderId.to_s)
+        theStore = Store.find(storeId)
+
+        # puts("OrderID: " + orderId.to_s)
+        address = current_user.address
         if(orderId == nil || orderId < 1)
 
             newOrder = Hash.new()
@@ -50,20 +75,24 @@ class OrderViewController
             newOrder['pEmpID']           = 0
             newOrder['pRefID']           = nil
             newOrder['pTransactionDate'] = Time.now.utc.iso8601
-            newOrder['pStoreID']         = storeId
+            newOrder['pStoreID']         = address['StoreID']
 
             # get from session
-            newOrder['pCustomerID']      = convertToInt(order['pCustomerID'])
+            newOrder['pCustomerID']      = current_user['CustomerID']
 
-            newOrder['pCustomerName']    = order['pCustomerName']
+            newOrder['pCustomerName']    = current_user['FirstName']+' '+current_user['LastName']
             newOrder['pCustomerPhone']   = order['pCustomerPhone']
-            newOrder['pAddressID']       = convertToInt(order['pAddressID'])
-            newOrder['pOrderTypeID']     = convertToInt(order['pOrderTypeID'])
+            newOrder['pAddressID']       = address['AddressID']
+            newOrder['pOrderTypeID']     = convertToInt(orderTypeID)
 
             # auto determine this
-            newOrder['pDeliveryCharge']  = convertToFloat(order['pDeliveryCharge'])
-
-            newOrder['pDriverMoney']     = convertToFloat(order['pDriverMoney'])
+            if orderTypeID != 2
+                newOrder['pDeliveryCharge']  = theStore['DefaultDeliveryCharge']
+                newOrder['pDriverMoney']     = theStore['DefaultDriverMoney']
+            else
+                newOrder['pDeliveryCharge']  = 0
+                newOrder['pDriverMoney']     = 0
+            end
             newOrder['pOrderNotes']      = order['pOrderNotes']
             
             orderResult = ActiveRecord::Base.connection.execute_procedure("AddOrder", newOrder)
@@ -113,7 +142,7 @@ class OrderViewController
         orderItem['pInternetDescription']  = orderItem['pInternetDescription']
         orderItem['pQuantity']             = convertToInt(orderItem['pQuantity'])
 
-        puts(JSON.pretty_generate(orderItem))
+        # puts(JSON.pretty_generate(orderItem))
 
         orderItemResult = ActiveRecord::Base.connection.execute_procedure("AddOrderLine", orderItem);
 
@@ -174,7 +203,7 @@ class OrderViewController
         if(data['orderItemSides'] != nil && data['orderItemSides'].count > 0)
             data['orderItemSides'].each do |side|
                 i = 0
-                puts(side)
+                # puts(side)
                 while i < side['Quantity'] do
                     ActiveRecord::Base.connection.execute_procedure("AddOrderLineSide", {
                         :pOrderLineID => convertToInt(orderItemResult[0]['newid']),

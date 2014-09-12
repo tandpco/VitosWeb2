@@ -3,8 +3,8 @@
     .row
       - @units.each do |x|
         .col-md-6: .item-panel-box: table#grid-table: tbody: tr
-          td.item-panel-image style="background-image:url(#{x['Photo']})" 
-            img src="/img/Supreme300x300.jpg" width="100" height="100"
+          td.item-panel-image style="background-image:url(#{x[:photo]})" 
+            img src=x[:photo] width="100" height="100"
           td.item-panel-content valign="top" 
             p.header #{x[:items].count != 0 ? "Build Your Own" : ""} #{x['UnitDescription']}
             p.body=x["CustomDescription"]
@@ -13,7 +13,7 @@
         - x[:items].each do |y|
           .col-md-6: .item-panel-box: table#grid-table: tbody: tr
             td.item-panel-image style="background-image:url(#{y[:photo]})" 
-              img src="/img/Supreme300x300.jpg" width="100" height="100"
+              img src=y[:photo] width="100" height="100"
             td.item-panel-content valign="top" 
               p.header=y["SpecialtyDescription"]
               p.body=y["InternetDescription"]

@@ -25,10 +25,13 @@ html ng-app="app"
             span = current_user[:FirstName]+" "+current_user[:LastName]
             - address = current_user.address
             strong  &mdash; #{address[:AddressLine1]} #{address[:AddressLine2]} &bull; #{address[:City]} &bull; #{address[:PostalCode]} 
-            a change delivery address
+            / a change delivery address
             / @TODO: change delivery address
-            |  | 
-            a switch to pickup
+            / |  | 
+            - if session[:deliveryMethod].blank? or session[:deliveryMethod] === 1
+              a(href="/order/switch-method?deliveryMethod=2") switch to pickup
+            - else
+              a(href="/order/switch-method?deliveryMethod=1") switch to delivery
             / @TODO: toggle pickup / delivery
             |  | 
             a(href="/logout") logout
@@ -43,16 +46,16 @@ html ng-app="app"
                   span.icon-bar
                   span.icon-bar
               .collapse.navbar-collapse: ul.nav.navbar-nav.navbar-right
-                li: a.white-shadow.active href="/order-pizza" MENU
-                li: a.white-shadow href="/order-subs" DEALS
-                li: a.white-shadow href="/order-salads" LOCATIONS
+                li: a.white-shadow.active href="/order?UnitID=1" MENU
+                li: a.white-shadow href="/deals" DEALS
+                li: a.white-shadow href="/locations" LOCATIONS
           nav.navbar-default.sub-navbar role="navigation"
             .container: .collapse.navbar-collapse: ul.nav.navbar-nav.navbar-right
-              li: a.white-no-shadow href="/order?UnitID=1" PIZZAS
-              li: a.white-no-shadow href="/order?UnitID=32" SUBS
-              li: a.white-no-shadow href="/order?UnitID=3" SALADS
-              li: a.white-no-shadow href="/order?UnitID=14" PARTY SALADS
-              li: a.white-no-shadow href="/order" SIDES
+              li: a.white-no-shadow href="/order?UnitID=1" class=(params[:UnitID] == '1' ? 'active' : '') PIZZAS
+              li: a.white-no-shadow href="/order?UnitID=32" class=(params[:UnitID] == '32' ? 'active' : '') SUBS
+              li: a.white-no-shadow href="/order?UnitID=3" class=(params[:UnitID] == '3' ? 'active' : '') SALADS
+              li: a.white-no-shadow href="/order?UnitID=14" class=(params[:UnitID] == '14' ? 'active' : '') PARTY SALADS
+              li: a.white-no-shadow href="/order" class=(params[:UnitID].blank? ? 'active' : '') SIDES
       #main.container == yield
     #footer
     script(type="text/javascript" src="//use.typekit.net/fyw7slw.js")

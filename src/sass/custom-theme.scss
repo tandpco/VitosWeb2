@@ -126,7 +126,7 @@ h1, h2, h3, h4, h5, h6 {
 #main {
     // margin:0px;
     padding:0px;
-    background-color:$COLOR_DARK_TAN !important;
+    background-color:#a49685 !important;
     // width:100%;
 }
 
@@ -279,9 +279,11 @@ h1, h2, h3, h4, h5, h6 {
 #order-items-panel {
     float: right;
     padding:30px;
+    padding-bottom: 0;
     right: 0px;
     background-color: $COLOR_DARK_TAN;
     color:#6f6962;
+    overflow: hidden;
     h2 {
         margin:0;
         font-size:25px;
@@ -298,6 +300,10 @@ h1, h2, h3, h4, h5, h6 {
     .panel {
         background-color: transparent;
         box-shadow: none;
+    }
+    .loading-order {
+        padding: 20px;
+        text-align: center;
     }
     table.order-item-table {
         border-collapse: separate;
@@ -454,6 +460,7 @@ h1, h2, h3, h4, h5, h6 {
         margin:0 -30px;
         padding:30px;
         color:#fff;
+        box-shadow: 0px -4px 35px rgba(0,0,0,0.2);
         &.fixed {
             margin:0;
             position: fixed;
@@ -471,9 +478,11 @@ h1, h2, h3, h4, h5, h6 {
             td {
                 padding: 5px 0;
                 font-weight:500;
+                font-size:12px;
             }
             td:last-child {
                 padding-right:10px;
+                text-align: right;
             }
             tr.total-line td {
                 font-weight: bold;
@@ -491,6 +500,7 @@ h1, h2, h3, h4, h5, h6 {
                 margin-right: -12px;
                 padding-right: 10px;
                 border:2px solid #A49685;
+                font-size:14px;
                 color: #6f6962;
                 font-weight: 500;
                 &:focus {
@@ -864,6 +874,26 @@ label.btn.active {
 
     /* W3C Markup, IE10 Release Preview */
     background-image: linear-gradient(to bottom, #CC1231 0%, #8F0923 100%);
+    &.r {
+        border-radius: 3px;
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+    }
+}
+.outline-button {
+    color:gray;
+    font-weight:bold;
+    border:1px solid #dadada;
+    height:$HUGE_MARGIN;
+    width:100%;
+    background-color: #ededed;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    &:hover {
+        border-color: gray;
+    }
+    // @include background-image(linear-gradient(white, #eeeeee))
 }
 
 .green-gradient-button {

@@ -16,6 +16,7 @@ require 'active_support/core_ext/string'
 require 'active_support/core_ext/array'
 require 'active_support/core_ext/hash'
 require 'active_support/json'
+require 'mongo'
 require 'moneta'
 require 'rack/session/moneta'
 

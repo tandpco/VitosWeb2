@@ -23,10 +23,11 @@
           });
         }
       },
-      controller: function($scope, $specialty, $stateParams, Restangular) {
+      controller: function($scope, $specialty, $stateParams, $state, Restangular) {
         var $UnitID, verifySelectedSize, x, _i, _j, _len, _len1, _ref, _ref1;
         $scope.$sp = $specialty;
         $scope.onMeat = true;
+        $scope.__orderingItem = false;
         $scope.tab = 'size';
         $scope.$line = {
           SauceID: $specialty.specialty && $specialty.specialty.SauceID || null,
@@ -108,6 +109,7 @@
         };
         $scope.orderItem = function() {
           var URL, deliveryMode, json, mode, orderItemJson, orderJson, toppingsJson, x, _i, _len, _ref;
+          $scope.__orderingItem = true;
           orderItemJson = {
             pUnitID: $stateParams.unitId,
             pSpecialtyID: $stateParams.specialtyId,
@@ -153,7 +155,10 @@
             data: JSON.stringify(json),
             success: function(data) {
               console.log(data);
-              return $scope.$root.updateOrder();
+              $scope.__orderingItem = false;
+              $scope.$root.updateOrder();
+              $scope.$apply();
+              return $state.go("home");
             }
           });
         };
@@ -265,8 +270,11 @@
   });
 
   $app.run(function($state, $rootScope, Restangular) {
-    $rootScope.$order = {};
-    $rootScope.$lines = [];
+    var $scope, updateSubtotal, updateTotal;
+    $scope = $rootScope;
+    $scope.$order = {};
+    $scope.$lines = [];
+    $scope.__loadingOrder = true;
     window.__itemDetail = function(unitId, specialtyId) {
       return $state.go('detail', {
         unitId: unitId,
@@ -274,11 +282,33 @@
       });
     };
     window.updateOrder = function() {
-      return $rootScope.updateOrder();
+      return $scope.updateOrder();
     };
-    $rootScope.adjustUnitName = function(d) {
+    $scope.deleteLineItem = function($line) {
+      var $cl, $i, _i, _len, _ref;
+      _ref = $scope.$lines;
+      for ($i = _i = 0, _len = _ref.length; _i < _len; $i = ++_i) {
+        $cl = _ref[$i];
+        if ($cl.OrderLineID === $line.OrderLineID) {
+          $scope.$lines.splice($i, 1);
+          break;
+        }
+      }
+      $line.remove().then(function() {
+        $scope.__loadingOrder = true;
+        return Restangular.one("order").get().then(function($order) {
+          $scope.$order = $order;
+          return $scope.__loadingOrder = false;
+        });
+      });
+      return updateSubtotal($scope.$lines);
+    };
+    $scope.adjustUnitName = function(d) {
       if (d.unit.UnitID === 15) {
         return d.size.SizeDescription + ' ' + d.style.StyleDescription;
+      }
+      if (d.unit.UnitID === 7) {
+        return d.size.SizeDescription + ' ' + d.unit.UnitDescription;
       }
       if (d.specialty != null) {
         return d.specialty.SpecialtyShortDescription + ' ' + d.unit.UnitDescription;
@@ -288,7 +318,7 @@
       }
       return d.unit.UnitDescription;
     };
-    $rootScope.sizePretty = function(size) {
+    $scope.sizePretty = function(size) {
       var i, out, words, _i, _len;
       if (size == null) {
         return '•';
@@ -311,29 +341,53 @@
       }
       return out;
     };
-    $rootScope.halfPretty = function(half) {
+    $scope.halfPretty = function(half) {
       var halfs;
       half = parseInt(half);
       halfs = ['Whole', 'Left', 'Right', '2x'];
       return halfs[half];
     };
-    $rootScope.updateOrder = function() {
-      Restangular.one("order").get().then(function(v) {
-        console.log('order', v);
-        return $rootScope.$order = v;
-      });
-      return Restangular.one("order").all("lines").getList().then(function(v) {
-        var i, total, _i, _len;
-        total = 0;
-        for (_i = 0, _len = v.length; _i < _len; _i++) {
-          i = v[_i];
-          total += i.Cost - i.Discount;
+    $scope.updateOrder = function() {
+      $scope.__loadingOrder = true;
+      return Restangular.one("order").get().then(function($order) {
+        $scope.$order = $order;
+        if (!angular.isFunction($order.getList)) {
+          $scope.__loadingOrder = false;
+          return;
         }
-        $rootScope.$orderSubtotal = total;
-        return $rootScope.$lines = v;
+        return $order.getList('lines').then(function($items) {
+          $scope.$lines = $items;
+          updateSubtotal($scope.$lines);
+          return $scope.__loadingOrder = false;
+        })["catch"](function() {
+          $scope.__loadingError = true;
+          return $scope.__loadingOrder = false;
+        });
+      })["catch"](function() {
+        $scope.__loadingError = true;
+        return $scope.__loadingOrder = false;
       });
     };
-    $rootScope.updateOrder();
+    updateSubtotal = function($items) {
+      var item, total, _i, _len;
+      if ($items.length > 0) {
+        total = 0;
+        for (_i = 0, _len = $items.length; _i < _len; _i++) {
+          item = $items[_i];
+          total += item.Cost - item.Discount;
+        }
+        return $scope.$orderSubtotal = total;
+      }
+    };
+    $scope.$orderTotal = 0;
+    updateTotal = function(v) {
+      if (($scope.$orderSubtotal != null) && $scope.$orderSubtotal > 0) {
+        return $scope.$orderTotal = $scope.$orderSubtotal + $scope.$order.Tax + $scope.$order.Tax2 + parseInt($scope.$order.Tip) + $scope.$order.DriverMoney + $scope.$order.DeliveryCharge;
+      }
+    };
+    $scope.$watch("$orderSubtotal", updateTotal);
+    $scope.$watch("$order.Tip", updateTotal);
+    $scope.updateOrder();
   });
 
 }).call(this);

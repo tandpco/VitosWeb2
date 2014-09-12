@@ -19,9 +19,10 @@ $app.config ($stateProvider, $urlRouterProvider,RestangularProvider)->
             "UnitID":  $stateParams.unitId
             "SpecialtyID":  $stateParams.specialtyId
             "SizeID":  null
-      controller: ($scope,$specialty,$stateParams,Restangular)->
+      controller: ($scope,$specialty,$stateParams,$state,Restangular)->
         $scope.$sp = $specialty
         $scope.onMeat = true
+        $scope.__orderingItem = false
         $scope.tab = 'size'
         $scope.$line = {SauceID:$specialty.specialty && $specialty.specialty.SauceID || null,SizeID:null,Sides:[],Toppings:[],StyleID:$specialty.specialty && $specialty.specialty.StyleID || null,Toppers:[],notes:''}
         $scope.$selectedSides = {}
@@ -71,6 +72,7 @@ $app.config ($stateProvider, $urlRouterProvider,RestangularProvider)->
 
         $scope.orderItem = ()->
           # orderId = Session.get("orderId")
+          $scope.__orderingItem = true
           orderItemJson =
             # pOrderID: orderId
             pUnitID: $stateParams.unitId
@@ -122,7 +124,10 @@ $app.config ($stateProvider, $urlRouterProvider,RestangularProvider)->
             data: JSON.stringify(json)
             success: (data) ->
               console.log data
+              $scope.__orderingItem = false
               $scope.$root.updateOrder()
+              $scope.$apply()
+              $state.go "home"
               # unless orderId?
               #   console.log "Created Order Id: " + data["order"][0]["newid"]
               #   Session.set "orderId", data["order"][0]["newid"]
@@ -205,22 +210,38 @@ $app.config ($stateProvider, $urlRouterProvider,RestangularProvider)->
     })
 
 $app.run ($state,$rootScope,Restangular)->
-  $rootScope.$order = {}
-  $rootScope.$lines = []
+  $scope = $rootScope
+  $scope.$order = {}
+  $scope.$lines = []
+  $scope.__loadingOrder = true
   window.__itemDetail = (unitId,specialtyId)->
     $state.go('detail',{unitId:unitId,specialtyId:specialtyId})
   window.updateOrder = ()->
-    $rootScope.updateOrder()
+    $scope.updateOrder()
+  $scope.deleteLineItem = ($line)->
+    for $cl,$i in $scope.$lines
+      if $cl.OrderLineID is $line.OrderLineID
+        $scope.$lines.splice($i,1)
+        # $scope.$apply()
+        break
+    $line.remove().then ()->
+      $scope.__loadingOrder = true
+      Restangular.one("order").get().then ($order)->
+        $scope.$order = $order
+        $scope.__loadingOrder = false
+    updateSubtotal($scope.$lines)
 
-  $rootScope.adjustUnitName = (d)->
+  $scope.adjustUnitName = (d)->
     if d.unit.UnitID is 15
       return d.size.SizeDescription + ' ' + d.style.StyleDescription
+    if d.unit.UnitID is 7
+      return d.size.SizeDescription + ' ' + d.unit.UnitDescription
     if d.specialty?
       return d.specialty.SpecialtyShortDescription + ' ' + d.unit.UnitDescription
     if d.unit.UnitID is 1
       return "Build your Own Pizza"
     return d.unit.UnitDescription
-  $rootScope.sizePretty = (size)->
+  $scope.sizePretty = (size)->
     if !size?
       return '•'
     out = ""
@@ -237,21 +258,43 @@ $app.run ($state,$rootScope,Restangular)->
     return out
       
 
-  $rootScope.halfPretty = (half)->
+  $scope.halfPretty = (half)->
     half = parseInt half
     halfs = ['Whole','Left','Right','2x']
     return halfs[half]
-  $rootScope.updateOrder = ()->
-    Restangular.one("order").get().then (v)->
-      console.log 'order',v
-      $rootScope.$order = v
-    Restangular.one("order").all("lines").getList().then (v)->
+  $scope.updateOrder = ()->
+    $scope.__loadingOrder = true
+    Restangular.one("order").get().then ($order)->
+      # console.log 'order',v
+      $scope.$order = $order
+      if not angular.isFunction $order.getList
+        $scope.__loadingOrder = false
+        return
+      $order.getList('lines').then ($items)->
+        $scope.$lines = $items
+        updateSubtotal($scope.$lines)
+        $scope.__loadingOrder = false
+      .catch ()->
+        $scope.__loadingError = true
+        $scope.__loadingOrder = false
+    .catch ()->
+      $scope.__loadingError = true
+      $scope.__loadingOrder = false
+  # $scope.$watchCollection "$lines", updateSubtotal
+  updateSubtotal = ($items)->
+    if $items.length > 0
       total = 0
-      for i in v
-        total += i.Cost - i.Discount
-      $rootScope.$orderSubtotal = total
+      for item in $items
+        total += item.Cost - item.Discount
+      $scope.$orderSubtotal = total
+  $scope.$orderTotal = 0
+  updateTotal = (v)->
+    if $scope.$orderSubtotal? and $scope.$orderSubtotal > 0
+      $scope.$orderTotal = $scope.$orderSubtotal + $scope.$order.Tax + $scope.$order.Tax2 + parseInt($scope.$order.Tip) + $scope.$order.DriverMoney + $scope.$order.DeliveryCharge
       
-      $rootScope.$lines = v
-  $rootScope.updateOrder()
+  $scope.$watch "$orderSubtotal", updateTotal
+  $scope.$watch "$order.Tip", updateTotal
+  # $scope.$watch "$order.Tip", updateTotal # @TODO: Make sure the tip is updated to the order.
+  $scope.updateOrder()
 
   return

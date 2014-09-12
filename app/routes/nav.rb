@@ -3,17 +3,13 @@ module Vitos
   module Routes
     class Nav < Base
       get '/' do
-        slim :index
-      end
-      get '/login' do
         if warden_handler.authenticated?
-          redirect "/order"
+          redirect "/order?UnitID=1"
         end
         slim :login
       end
-      get '/me' do
-        # json session
-        json current_user
+      get '/login' do
+        redirect "/"
       end
       get '/logout' do
         warden_handler.logout
@@ -22,7 +18,7 @@ module Vitos
       post '/login' do
         warden_handler.authenticate!
         if warden_handler.authenticated?
-          redirect "/order" 
+          redirect "/order?UnitID=1" 
         else
           redirect "/"
         end

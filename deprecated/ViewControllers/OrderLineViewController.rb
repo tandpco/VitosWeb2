@@ -6,9 +6,10 @@ class OrderLineViewController
 
         rows = ActiveRecord::Base.connection.select_all('SELECT [tblorderLines].* FROM [tblorderLines] WHERE OrderID = ' + orderId + ' AND 1 = 1 ORDER BY OrderLineID ASC')
         rows.each do |row|
+            row['id'] = row["OrderLineID"]
             row['extra'] = getOrderLineData(row["OrderLineID"])
             row.keys.each do |key|
-                puts("#{key} -> #{row[key].class.to_s}, #{row[key].to_s}")
+                # puts("#{key} -> #{row[key].class.to_s}, #{row[key].to_s}")
                 # if(row[key].class.to_s == "String")
                     # row[key].gsub!(/'/,"\u2019")
                 # end
@@ -66,11 +67,21 @@ class OrderLineViewController
         return ret
     end
     
-    def self.deleteOrderLine(data)
-        orderLineId = data['OrderLineID'].to_s
+    def self.deleteOrderLine(orderLineId,session)
+        if orderLineId.blank? then return nil end
+        ActiveRecord::Base.connection.execute("DELETE FROM Tblorderlines WHERE OrderLineID = #{orderLineId}")
 
-        result = ActiveRecord::Base.connection.execute('DELETE FROM Tblorderlines WHERE OrderLineID = ' + orderLineId)
-        return result.to_json
+        orderId = session[:orderId] && session[:orderId].to_i || nil
+        storeId = session[:storeId] && session[:storeId].to_i || 1
+        # Update Price
+        updatePrice = {
+            :pOrderID => orderId,
+            :pStoreID => storeId,
+            :pCouponIDs => "",
+            :pPromoCodes => ""
+        }
+
+        updatePriceResult = ActiveRecord::Base.connection.execute_procedure("WebRecalculateOrderPrice", updatePrice)
     end
 
     def self.convertToInt(value)
