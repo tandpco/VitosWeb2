@@ -4,7 +4,7 @@ module Vitos
       get '/order/switch-method' do
         session[:deliveryMethod] = params[:deliveryMethod].to_i
         if(!session[:orderId].blank?)
-          puts('switchimgmethod '+params[:deliveryMethod])
+          # puts('switchimgmethod '+params[:deliveryMethod])
           OrderViewController.updateDeliveryMethod(params[:deliveryMethod],session)
         end
         redirect request.referrer

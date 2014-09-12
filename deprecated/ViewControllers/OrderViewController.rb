@@ -59,7 +59,7 @@ class OrderViewController
         orderItem = data['orderItem']
         orderId = session[:orderId] && session[:orderId].to_i || nil
         storeId = session[:storeID] && session[:storeID].to_i || 7
-        orderTypeID = session[:deliveryMethod].blank? && 1 || session[:deliveryMethod]
+        orderTypeID = session[:deliveryMethod].blank? && 1 || session[:deliveryMethod].to_i
         session[:deliveryMethod] = orderTypeID
 
         theStore = Store.find(storeId)
