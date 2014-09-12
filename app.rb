@@ -71,9 +71,9 @@ module Vitos
     use Rack::Deflater
     use Rack::Standards
     use Routes::Static
-    unless settings.production?
-      use Routes::Assets
-    end
+    # unless settings.production?
+    #   use Routes::Assets
+    # end
 
     # Other routes:
     use Routes::Nav

@@ -17,7 +17,7 @@ module Vitos
         enable :use_code
       end
 
-      register Extensions::Assets
+      # register Extensions::Assets
       helpers Helpers
       helpers Sinatra::ContentFor
 
