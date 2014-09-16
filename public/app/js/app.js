@@ -382,7 +382,7 @@
     $scope.$orderTotal = 0;
     updateTotal = function(v) {
       if (($scope.$orderSubtotal != null) && $scope.$orderSubtotal > 0) {
-        return $scope.$orderTotal = $scope.$orderSubtotal + $scope.$order.Tax + $scope.$order.Tax2 + parseInt($scope.$order.Tip) + $scope.$order.DriverMoney + $scope.$order.DeliveryCharge;
+        return $scope.$orderTotal = $scope.$orderSubtotal + $scope.$order.Tax + $scope.$order.Tax2 + parseInt($scope.$order.Tip) + $scope.$order.DeliveryCharge;
       }
     };
     $scope.$watch("$orderSubtotal", updateTotal);

@@ -1,33 +1,53 @@
+script src="//d79i1fxsrar4t.cloudfront.net/jquery.liveaddress/2.4/jquery.liveaddress.min.js"
+javascript:
+  $(function(){
+    $.LiveAddress({
+      key: '916686627451130706',
+      debug: true,
+      autoVerify:true,
+      addresses: [{
+        // id: 'address', 
+        street: '#street',
+        secondary: '#unit',
+        zipcode: '#zip',
+        city: '#city',
+        state: '#state'
+      }]
+    });
+  });
 #sign-in-panel
   .container
     .col-md-6
-      form method="post" action="/login"
-        .row
-          p RETURN CUSTOMER
-        .row
+      form.block-form method="post" action="/login"
+        h2 RETURN CUSTOMER
+        .row: .col-md-12
           p Email Address
-          input#sign-in-email-address.shaded-input type='email' name='email'
-        .row
+          input#sign-in-email-address.shaded-input type="email" name="email" required="required"
+        .row: .col-md-12
           p Password
-          input#sign-in-password.shaded-input type='password' name="password"
-        .row: input.red-gradient-button type="submit" value="SIGN IN"
+          input#sign-in-password.shaded-input type="password" name="password"
+        .row: .col-md-12: input.red-gradient-button type="submit" value="SIGN IN"
     .col-md-6
-      / @TODO: The registration process needs USPS address normalization. Recommending SmartyStreets. [github.com/tandpco/VitosWeb2/issues/4]
-      form
-        .row
-          p NEW CUSTOMER
-        .row
+      form.block-form method="post" action="/signup"
+        h2 NEW CUSTOMER
+        .row: .col-md-12
           p Email Address
-          input#sign-up-email-address.shaded-input(type='text')
+          input.shaded-input type="text" name="email" required="required"
         .row
-          p Zip Code
-          input#sign-up-zip-code.shaded-input(type='text')
+          .col-md-8
+            p Street Number and Street Name
+            input#street.shaded-input(type="text" name="street")
+          .col-md-4
+            p Unit
+            input#unit.shaded-input(type="text" name="unit")
         .row
-          p Street Number and Street Name
-          input#sign-up-street.shaded-input(type='text')
-        .row
-          p Apt./Suite/Floor/Room/Unit
-          p.little
-            | (Letters and Numbers only, please)
-          input#sign-up-apt.shaded-input(type='text')
-        .row: button.red-gradient-button(onclick='alert("awaiting USPS API recommendation")') CONTINUE
+          .col-md-5
+            p City
+            input#city.shaded-input(type="text" name="city")
+          .col-md-3
+            p State
+            input#state.shaded-input(type="text" name="state")
+          .col-md-4
+            p Zip Code
+            input#zip.shaded-input(type="text" name="zip")
+        .row: .col-md-12: input.red-gradient-button type="submit" value="SIGN IN"

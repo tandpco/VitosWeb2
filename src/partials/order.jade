@@ -47,7 +47,7 @@
                         div: strong Sides
                         ul
                           li(ng-repeat="$side in $line.extra.sides") {{$side.SideDescription}}
-  .order-table-total-wrapper(style="margin-top:30px")
+  .order-table-total-wrapper(style="margin-top:30px",ng-show="$orderSubtotal")
     //- @TODO: (0) Get promo codes working [github.com/tandpco/VitosWeb2/issues/25]
     .promo-code-input
       input(type="text" id="promoCode-lg" placeholder="Promo Code")
@@ -63,7 +63,7 @@
       tr
         td DELIVERY CHARGE
         td {{$order.DeliveryCharge | currency}}
-      tr
+      //- tr
         td DRIVER MONEY
         td {{$order.DriverMoney | currency}}
       tr

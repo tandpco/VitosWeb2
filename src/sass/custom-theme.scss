@@ -223,56 +223,41 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #sign-in-panel {
-    > .container {
-        padding: 0px;
-        margin-top: $HUGE_MARGIN;
-        margin-bottom: $HUGE_MARGIN;
-        > div {
-            padding-right:$BIG_MARGIN;
-            padding-left:$BIG_MARGIN;
-            margin-bottom: $HUGE_MARGIN;
-            > form {
-                padding-top:$HUGE_MARGIN;
-                padding-bottom:$HUGE_MARGIN;
-                background-color: white;
-                > .row:last-child {
-                    margin-bottom:0px;
-                }
-                > .row:first-child {
-                    > p {
-                        width:100%;
-                        text-align:center;
-                        font-weight:bold;
-                        font-size:$BIG_MARGIN;
-                        padding:0px;
-                        margin:0px;
-                    }
-                }
-                > .row {
-                    margin-right:$GIANT_MARGIN;
-                    margin-left:$GIANT_MARGIN;
-                    margin-bottom:$BIG_MARGIN;
-                    > p {
-                        margin:0px;
-                        padding:0px;
-                        font-size:14px;
-                    }
-                    > p + p {
-                        color:$COLOR_GREY;
-                        font-size:12px;
-                    }
-                    > input {
-                        width: 100%;
-                    }
-                    > button {
-                        width: 100%;
-                        height: $HUGE_MARGIN;
-                        font-size:$BIG_MARGIN;
-                        text-shadow: 1px 1px black;
-                    }
-                }
-            }
+    form.block-form {
+        padding:$HUGE_MARGIN;
+        // padding-bottom:$HUGE_MARGIN;
+        background-color: white;
+        .row {
+            margin-bottom: 14px;
         }
+        h2 {
+            width:100%;
+            text-align:center;
+            font-weight:bold;
+            font-size:$BIG_MARGIN;
+            padding:0px;
+            margin:0px;
+        }
+    
+        p {
+            margin:0px;
+            padding:0px;
+            font-size:14px;
+        }
+        p + p {
+            color:$COLOR_GREY;
+            font-size:12px;
+        }
+        input {
+            width: 100%;
+        }
+        button {
+            width: 100%;
+            height: $HUGE_MARGIN;
+            font-size:$BIG_MARGIN;
+            text-shadow: 1px 1px black;
+        }
+        
     }
 }
 

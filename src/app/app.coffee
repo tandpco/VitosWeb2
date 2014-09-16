@@ -290,7 +290,7 @@ $app.run ($state,$rootScope,Restangular)->
   $scope.$orderTotal = 0
   updateTotal = (v)->
     if $scope.$orderSubtotal? and $scope.$orderSubtotal > 0
-      $scope.$orderTotal = $scope.$orderSubtotal + $scope.$order.Tax + $scope.$order.Tax2 + parseInt($scope.$order.Tip) + $scope.$order.DriverMoney + $scope.$order.DeliveryCharge
+      $scope.$orderTotal = $scope.$orderSubtotal + $scope.$order.Tax + $scope.$order.Tax2 + parseInt($scope.$order.Tip) + $scope.$order.DeliveryCharge
       
   $scope.$watch "$orderSubtotal", updateTotal
   $scope.$watch "$order.Tip", updateTotal
