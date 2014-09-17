@@ -35,7 +35,6 @@ require 'app/models'
 require 'app/helpers'
 require 'app/routes'
 require 'slim'
-# require 'slim/include'
 require 'warden'
 
 # puts(ENV.to_hash)
@@ -77,6 +76,7 @@ module Vitos
 
     # Other routes:
     use Routes::Nav
+    use Routes::Account
     use Routes::Ordering
     use Routes::API
     use Routes::Test

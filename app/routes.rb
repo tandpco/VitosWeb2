@@ -9,5 +9,6 @@ module Vitos
     autoload :API, 'app/routes/api'
     autoload :Test, 'app/routes/test'
     autoload :Ordering, 'app/routes/ordering'
+    autoload :Account, 'app/routes/account'
   end
 end

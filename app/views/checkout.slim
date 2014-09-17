@@ -1,0 +1,65 @@
+.col-md-8(style="padding:0")
+  #sign-in-panel
+    form.block-form method="post" action="/order/complete"
+      div
+        input.form-control type='hidden' name="ClientSessionID" placeholder="ClientSessionID" value=select_order[:OrderID]
+        input.form-control type='hidden' name="ProcessType" placeholder="ProcessType" value='CreditCard'
+        input.form-control type='hidden' name="TransType" placeholder="TransType" value='Auth'
+        input.form-control type='hidden' name="UserName" placeholder="UserName" value='vitos1'
+        input.form-control type='hidden' name="Amount" placeholder="Amount" value=Hacks.totalOrder(select_order)
+        input.form-control type='hidden' name="TransNum" placeholder="TransNum" value=select_order[:OrderID]
+        input.form-control type='hidden' name="ReturnURL" placeholder="ReturnURL" value='http://localhost:3000/order/pay-return'
+        input.form-control type='hidden' name="HasHeader" placeholder="HasHeader" value='false'
+        input.form-control type='hidden' name="NameOnCard" placeholder="NameOnCard" value="#{current_user[:FirstName]} #{current_user[:LastName]}"
+        input.form-control type='hidden' name="Address" placeholder="Address" value=select_address[:AddressLine1]
+        input.form-control type='hidden' name="City" placeholder="City" value=select_address[:City]
+        input.form-control type='hidden' name="State" placeholder="State" value=select_address[:State]
+        input.form-control type='hidden' name="Zip" placeholder="Zip" value=select_address[:PostalCode]
+        input.form-control type='hidden' name="CanSaveCard" placeholder="CanSaveCard" value='No'
+        input.form-control type='hidden' name="InvoiceNo" placeholder="InvoiceNo" value=select_order[:OrderID]
+        input.form-control type='hidden' name="FirstName" placeholder="FirstName" value=current_user[:FirstName]
+        input.form-control type='hidden' name="LastName" placeholder="LastName" value=current_user[:LastName]
+        input.form-control type='hidden' name="CustomerFirstName" placeholder="CustomerFirstName" value=current_user[:FirstName]
+        input.form-control type='hidden' name="CustomerLastName" placeholder="CustomerLastName" value=current_user[:LastName]
+
+      .row
+        - if session[:deliveryMethod] == 1
+          .col-md-6
+            a.pull-right href="/order/change-location" Change Location
+            h3(style="margin-top:0") Your Location:
+            div #{current_user[:FirstName]} #{current_user[:LastName]}
+            div #{select_address[:AddressLine1]}
+            div #{select_address[:AddressLine2]}
+            div #{select_address[:City]}, #{select_address[:State]} #{select_address[:PostalCode]}
+            div #{select_address[:Phone]}
+            div: a(href="/order/change-location") Deliver my pizza to a different location.
+        .col-md-6
+          - if session[:deliveryMethod] == 1
+            a.pull-right href="/order/switch-method?deliveryMethod=2" Switch to Pickup
+            h3(style="margin-top:0") Delivering from:
+          - else
+            a.pull-right href="/order/switch-method?deliveryMethod=1" Switch to Delivery
+            h3(style="margin-top:0") Pickup location:
+          div: strong=select_store[:StoreName]
+          div=select_store[:Address1]
+          div #{{select_store[:Address2]}}
+          div #{select_store[:City]}, #{select_store[:State]} #{select_store[:PostalCode]}
+          div #{select_store[:Phone]} &mdash; #{select_store[:Hours]}
+          - if session[:deliveryMethod] == 2
+            div
+              a(href="/locations") Pickup for a different store.
+              |  |  
+              a href="https://www.google.com/maps/preview?q=Vito's Pizza and Subs, #{select_store[:Address1]} #{select_store[:City]} #{select_store[:State]}" target="_blank" Get Directions
+          / div.small=select_store[:MetaDescription]
+        - if session[:deliveryMethod] == 2
+          .col-md-6
+            a href="https://www.google.com/maps/preview?q=Vito's Pizza and Subs, #{select_store[:Address1]} #{select_store[:City]} #{select_store[:State]}" target="_blank" style="background: #fff url(/img/store-#{select_store[:StoreID]}-map.png) no-repeat center center; background-size:cover; height:180px;display:block"
+        
+      hr
+      p Add a note to your order.
+      textarea.shaded-input(name="notes" style="width:100%;height:80px")
+      hr
+      .row
+        .col-md-6: input.red-gradient-button type="submit" name="payCard" value="PAY WITH CREDIT / DEBIT CARD"
+        .col-md-6: input.red-gradient-button type="submit" name="payCash" value="PAY WITH CASH / GIFT CARD"
+.col-md-4#order-items-panel(ng-include src="'app/partials/order.html'")

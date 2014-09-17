@@ -27,6 +27,7 @@ $FONT_FAMILY: "Proxima Nova","proxima-nova","Helvetica Neue","Arial",sans-serif;
 
 // And our css. Lets start at the top and move down, generally speaking
 // @import "compass/css3";
+// @import "compass/utilities/general/clearfix";   
 * {
     position:static;
 }
@@ -84,6 +85,9 @@ h1, h2, h3, h4, h5, h6 {
                 &:last-child a {
                     border-right-width:0px !important;
                     padding-right:0px !important;
+                    &.active {
+                        padding-right: 15px !important;
+                    }
                 }
             }
         }
@@ -124,6 +128,15 @@ h1, h2, h3, h4, h5, h6 {
 
 
 #main {
+    // @include clearfix();
+    &:after {
+     visibility: hidden;
+     display: block;
+     font-size: 0;
+     content: " ";
+     clear: both;
+     height: 0;
+     }
     // margin:0px;
     padding:0px;
     background-color:#a49685 !important;
@@ -208,7 +221,7 @@ h1, h2, h3, h4, h5, h6 {
                         overflow: auto;
                         display: block;
                     }
-                    button {
+                    button,a.red-gradient-button {
                         width:48%;
                         font-size:12px;
                         height:26px;
@@ -838,6 +851,10 @@ label.btn.active {
 .red-gradient-button {
     color:white;
     font-weight:bold;
+    display: block;
+    line-height: $HUGE_MARGIN;
+    text-align: center;
+    font-size: 16px;
     border:none;
     height:$HUGE_MARGIN;
     width:100%;
@@ -863,6 +880,10 @@ label.btn.active {
         border-radius: 3px;
         -webkit-border-radius: 3px;
         -moz-border-radius: 3px;
+    }
+    &:hover {
+        text-decoration: none;
+        color: #fff;
     }
 }
 .outline-button {

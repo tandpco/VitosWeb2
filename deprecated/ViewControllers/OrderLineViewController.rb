@@ -19,6 +19,10 @@ class OrderLineViewController
         return rows
     end
 
+    def self.getOrderSubtotal(orderId)
+        return ActiveRecord::Base.connection.select_all("SELECT SUM(Cost) as Cost, SUM(Discount) as Discount FROM  tblorderLines WHERE OrderID = #{orderId}").first
+    end
+
     def self.getSpecialty(specialtyId)
         rows = ActiveRecord::Base.connection.select_all("select tblSpecialty.* from tblSpecialty where SpecialtyID = " +specialtyId.to_s)
         return rows[0]

@@ -1,0 +1,16 @@
+#items-panel.col-md-8
+  #items-grid-panel.container
+    .row
+      - @locations.each do |x|
+        .col-md-6: .item-panel-box: table#grid-table: tbody: tr
+          td.item-panel-image style="background-image:url(/img/store-#{x[:StoreID]}-map.png);background-size:200%" 
+            img src="/img/store-#{x[:StoreID]}-map.png" width="100" height="100"
+          td.item-panel-content valign="top" 
+            p.header=x[:Address1]
+            p.body=x[:FriendlyLocation]
+            - if select_store[:StoreID] == x[:StoreID]
+              a.red-gradient-button style="background:#2d2d2d;width:100%" selected currently
+            - else
+              a.red-gradient-button href="/order/change-store?StoreID=#{x[:StoreID]}" style="width:100%" PICKUP HERE
+.col-md-4#order-items-panel(ng-include src="'app/partials/order.html'")
+ui-view

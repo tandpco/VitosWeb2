@@ -1,9 +1,9 @@
 script src="//d79i1fxsrar4t.cloudfront.net/jquery.liveaddress/2.4/jquery.liveaddress.min.js"
 javascript:
   $(function(){
-    $.LiveAddress({
+    liveaddress = $.LiveAddress({
       key: '916686627451130706',
-      debug: true,
+      debug: false,
       autoVerify:true,
       addresses: [{
         // id: 'address', 
@@ -14,6 +14,13 @@ javascript:
         state: '#state'
       }]
     });
+    liveaddress.on('AddressAccepted',function(event,data,previousHandler){
+      // @NOTE: better validation around secondary address?
+      console.log(data.response.isMissingSecondary(),data.response.raw)
+      $("#components").val(JSON.stringify(data.response.raw[0].components))
+      previousHandler(event,data)
+      // alert('test')
+    })
   });
 #sign-in-panel
   .container
@@ -28,8 +35,15 @@ javascript:
           input#sign-in-password.shaded-input type="password" name="password"
         .row: .col-md-12: input.red-gradient-button type="submit" value="SIGN IN"
     .col-md-6
-      form.block-form method="post" action="/signup"
+      form.block-form method="post" action="/test-signup"
         h2 NEW CUSTOMER
+        .row
+          .col-md-5
+            p First Name
+            input.shaded-input type="text" name="firstname" required="required"
+          .col-md-7
+            p Last Name
+            input.shaded-input type="text" name="lastname" required="required"
         .row: .col-md-12
           p Email Address
           input.shaded-input type="text" name="email" required="required"
@@ -50,4 +64,5 @@ javascript:
           .col-md-4
             p Zip Code
             input#zip.shaded-input(type="text" name="zip")
+            input#components(type="text" name="components")
         .row: .col-md-12: input.red-gradient-button type="submit" value="SIGN IN"

@@ -1,7 +1,77 @@
 class Hacks
   public
+
+  def self.totalOrder(order)
+    subs = OrderLineViewController.getOrderSubtotal(order[:OrderID])
+    puts(subs)
+    subtotal = subs['Cost'] - subs['Discount']
+    total = subtotal + order[:Tax] + order[:Tax2] + order[:Tip] + order[:DeliveryCharge]
+    # @TODO: Make sure Sides affect order subtotal
+    return total
+  end
+  def self.getStoreByAddress(pieces)
+    query = ["select distinct tblCASSAddresses.StoreID from tblCASSAddresses where tblCASSAddresses.storeid > 0 and tblCASSAddresses.postalcode = '#{pieces['zipcode']}' and tblCASSAddresses.street like '" +getAddressStreet(pieces,{:streetonly =>true})+ "%'"]
+    if !pieces["primary_number"].nil?
+      query.push("and tblCASSAddresses.lownumber <= '#{pieces['primary_number']}' and tblCASSAddresses.highnumber >= '#{pieces['primary_number']}'")
+    end
+    puts(query.join(" "))
+    store = ActiveRecord::Base.connection.select_all(query.join(" ")).first
+    if !store.nil? and !store["StoreID"].nil?
+      return Store.find(store["StoreID"])
+    end
+    return nil
+  end
+  def self.findOrCreateAddress(pieces,store)
+    if getAddressSecondary(pieces)
+      address = Address.where("AddressLine1 LIKE ?",getAddressStreet(pieces)+'%').where(AddressLine2: getAddressSecondary(pieces),City: pieces["city_name"].upcase,State: pieces["state_abbreviation"].upcase, PostalCode: pieces["zipcode"].upcase).first
+    else
+      address = Address.where("AddressLine1 LIKE ?",getAddressStreet(pieces)+'%').where(City: pieces["city_name"].upcase,State: pieces["state_abbreviation"].upcase, PostalCode: pieces["zipcode"].upcase).first
+    end
+
+    if address.nil?
+      newAddress = {
+        'pStoreID' => store.StoreID,
+        'pAddressLine1' => Hacks.getAddressStreet(pieces,{:postdirection => true}),
+        'pAddressLine2' => Hacks.getAddressSecondary(pieces),
+        'pCity' => pieces["city_name"].upcase,
+        'pState' => pieces["state_abbreviation"].upcase,
+        'pPostalCode' => pieces["zipcode"],
+        'pAddressNotes' => nil,
+        'pIsManual' => 0,
+      }
+      newa = ActiveRecord::Base.connection.execute_procedure("AddAddress",newAddress)
+      return Address.find(newa[0]['newid'])
+    else
+      return address
+    end
+  end
+  def self.getAddressStreet(pieces,options = {})
+
+        __street = []
+        if !pieces["primary_number"].nil? and options[:streetonly].blank?
+          __street.push(pieces["primary_number"])
+        end
+        if !options[:predirection].blank? and !pieces["street_predirection"].nil?
+          __street.push(pieces["street_predirection"])
+        end
+        __street.push(pieces["street_name"])
+
+        if(!pieces["street_suffix"].nil?)
+          __street.push(pieces["street_suffix"])
+        end
+        if !options[:postdirection].blank? and !pieces["street_postdirection"].nil?
+          __street.push(pieces["street_postdirection"])
+        end
+        return __street.join(" ").upcase
+  end
+  def self.getAddressSecondary(pieces)
+    if !pieces["secondary_number"].nil?
+      return pieces["secondary_number"].to_s.upcase
+    end
+    return nil
+  end
   def self.specialtyImages(spec,unit)
-    # @TODO: get photos for the different subs and salads to put into play. [github.com/tandpco/VitosWeb2/issues/8]
+    # @NOTE: get photos for the different subs and salads to put into play. [github.com/tandpco/VitosWeb2/issues/8]
     assoc = {
       5     => "Supreme300x300.jpg",
       6     => "TheWorks300x300.jpg",
@@ -42,7 +112,7 @@ class Hacks
     # Unit photos
     uassoc = {
       1     => "background.jpg",
-      3     => "buildyourownsalad.jpg",  # @TODO: replace build salad, wings, dippers, bread with real or purchased photo, stolen from google images currently [github.com/tandpco/VitosWeb2/issues/9]
+      3     => "buildyourownsalad.jpg",  # @NOTE: replace build salad, wings, dippers, bread with real or purchased photo, stolen from google images currently [github.com/tandpco/VitosWeb2/issues/9]
       14    => "buildyourownsalad.jpg", 
       5     => "CinnamonBread300x300.jpg", 
       4     => "wings.jpg",

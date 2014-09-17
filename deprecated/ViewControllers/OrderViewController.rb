@@ -1,7 +1,6 @@
 require 'time'
 class OrderViewController
     public
-
     def self.getOrder(data,session)
         orderId = session[:orderId]
         if !orderId
@@ -204,11 +203,11 @@ class OrderViewController
             data['orderItemSides'].each do |side|
                 i = 0
                 # puts(side)
-                while i < side['Quantity'] do
+                while i < side['Quantity'] and i < 20 do
                     ActiveRecord::Base.connection.execute_procedure("AddOrderLineSide", {
                         :pOrderLineID => convertToInt(orderItemResult[0]['newid']),
                         :pSideID => side['SideID'],
-                        :pIsFreeSide => 0 # @TODO: (1) Make sure the free vs. pay side data is passed here in a secure way. [github.com/tandpco/VitosWeb2/issues/27]
+                        :pIsFreeSide => 0 # @TODO: Make sure the free vs. pay side data is passed here in a secure way. [github.com/tandpco/VitosWeb2/issues/27]
                     });
                     i += 1
                 end

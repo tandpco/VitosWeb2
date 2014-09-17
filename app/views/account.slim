@@ -1,0 +1,83 @@
+script src="//d79i1fxsrar4t.cloudfront.net/jquery.liveaddress/2.4/jquery.liveaddress.min.js"
+javascript:
+  $(function(){
+    liveaddress = $.LiveAddress({
+      key: '916686627451130706',
+      debug: false,
+      autoVerify:true,
+      addresses: [{
+        // id: 'address', 
+        street: '#street',
+        secondary: '#unit',
+        zipcode: '#zip',
+        city: '#city',
+        state: '#state'
+      }]
+    });
+    liveaddress.on('AddressAccepted',function(event,data,previousHandler){
+      console.log(data.response.isMissingSecondary(),data.response.raw)
+      $("#components").val(JSON.stringify(data.response.raw[0].components))
+      previousHandler(event,data)
+    })
+  });
+.col-md-8
+
+  - address = current_user.address
+  #sign-in-panel
+    form.block-form method="post" action="/update-account"
+      h2 Complete Your Account
+      .row: .col-md-12
+        p Email Address
+        input.shaded-input type="text" name="email" value=current_user[:EMail] required="required"
+      .row
+        .col-md-5
+          p First Name
+          input.shaded-input type="text" name="firstname" value=current_user[:FirstName] required="required"
+        .col-md-7
+          p Last Name
+          input.shaded-input type="text" name="lastname" value=current_user[:LastName] required="required"
+      - if current_user[:Password].blank?
+        .row
+          .col-md-5
+            p Password
+            input.shaded-input type="text" name="firstname" required="required"
+          .col-md-7
+            p Confirm Password
+            input.shaded-input type="text" name="lastname" required="required"
+      .row
+        .col-md-8
+          p Street Number and Street Name
+          input#street.shaded-input(type="text" value=address[:AddressLine1] name="street")
+        .col-md-4
+          p Unit
+          input#unit.shaded-input(type="text" value=address[:AddressLine2] name="unit")
+      .row
+        .col-md-5
+          p City
+          input#city.shaded-input(type="text" value=address[:City] name="city")
+        .col-md-3
+          p State
+          input#state.shaded-input(type="text" value=address[:State] name="state")
+        .col-md-4
+          p Zip Code
+          input#zip.shaded-input(type="text" value=address[:PostalCode] name="zip")
+          input#components(type="hidden" name="components")
+      .row
+        .col-md-4
+          p Phone Number
+          input.shaded-input(type="text" value=current_user[:CellPhone] name="phone")
+        .col-md-3
+          p Phone Type
+          select.shaded-input(name="phone_type" style="width:100%")
+            option(value="cell") Cell Phone
+            / option(value="home") Home Phone
+            / option(value="work") Work Phone
+        .col-md-3
+          p Birthdate
+          input.shaded-input(type="text" name="birth_year" placeholder="MM")
+        .col-md-2
+          p &nbsp;
+          input.shaded-input(type="text" name="birth_month" placeholder="YYYY")
+      .row: .col-md-12: input.red-gradient-button type="submit" value="UPDATE ACCOUNT DETAILS"
+.col-md-4#order-items-panel(ng-include src="'app/partials/order.html'")
+ui-view

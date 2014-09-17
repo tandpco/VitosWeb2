@@ -41,7 +41,7 @@ module Vitos
           user = Customer.where(EMail: params["email"],Password: Digest::MD5.hexdigest(params["password"])).first
           if user
             address = user.address
-            # @TODO: Make sure that we ask the user for an address on login if there's none linked.
+            # @NOTE: Possibly verify the user for an address on login if there's none linked.
             session[:addressID] = address['AddressID']
             session[:storeID] = address['StoreID']
             success!(user)
@@ -59,6 +59,39 @@ module Vitos
         unless warden_handler.authenticated?
           redirect '/login'
         end
+      end
+
+      def select_store
+        if !@store.nil?
+          return @store
+        end
+        if !session[:storeID].blank?
+          @store = Store.find(session[:storeID])
+          return @store
+        end
+        return nil
+      end
+
+      def select_address
+        if !@address.nil?
+          return @address
+        end
+        if !session[:addressID].blank?
+          @address = Address.find(session[:addressID])
+          return @address
+        end
+        return nil
+      end
+     
+      def select_order
+        if !@order.nil?
+          return @order
+        end
+        if !session[:orderId].blank?
+          @order = Order.find(session[:orderId])
+          return @order
+        end
+        return nil
       end
      
       def current_user

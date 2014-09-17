@@ -4,13 +4,16 @@ module Vitos
       get '/api/me' do
         json current_user
       end
+      get '/api/session' do
+        json session
+      end
       get '/api/specialties' do
         rows = ActiveRecord::Base.connection.select_all('SELECT tblspecialty.* FROM tblspecialty inner join trelStoreSpecialty on trelStoreSpecialty.SpecialtyID = tblSpecialty.SpecialtyID where StoreID = ' + params[:StoreID] + ' and UnitID = ' + params[:UnitID] + ' and IsActive <> 0 and IsInternet <> 0 order by tblSpecialty.SpecialtyID').to_hash
         json rows
       end
 
       get '/api/item' do
-          json Inventory.item(params[:StoreID], params[:UnitID], params[:SizeID], params[:SpecialtyID])
+          json Inventory.item(session[:storeID], params[:UnitID], params[:SizeID], params[:SpecialtyID])
       end
       get '/api/item-sizes' do
         puts(session[:storeID])
@@ -29,8 +32,19 @@ module Vitos
             json OrderViewController.getOrderNew({},session)
           end
       end
-      get '/api/order/:lines' do
-          if(session[:orderId].blank?) then return nil end
+      post '/api/order/update-tip' do
+          data = JSON.parse request.body.read
+          # if(session[:orderId].blank?) then return nil end
+          if(session[:orderId].blank?)
+            json nil
+          else
+            select_order[:Tip] = data['tip'].blank? ? 0 : data['tip']
+            select_order.save()
+            json true
+          end
+      end
+      get '/api/order/lines' do
+          # if(session[:orderId].blank?) then return nil end
           if(session[:orderId].blank?)
             json nil
           else

@@ -1,8 +1,10 @@
-require 'digest/md5'
 module Vitos
   module Routes
-    class Test < Base
-      post '/test-signup' do
+    class Account < Base
+      get '/account' do
+        slim :account
+      end
+      post '/signup' do
         if(params[:components].blank?) then redirect '/?error=no address' end
         pieces =  JSON.parse(params[:components])
 

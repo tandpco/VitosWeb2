@@ -11,7 +11,16 @@ module Vitos
       get '/login' do
         redirect "/"
       end
+      get '/locations' do
+        @locations = Store.where(isActive: true)
+        slim :locations
+      end
       get '/logout' do
+        session[:completeOrder] = nil
+        session[:storeID] = nil
+        session[:addressID] = nil
+        session[:orderId] = nil
+        session[:deliveryMethod] = 1
         warden_handler.logout
         redirect "/login"
       end

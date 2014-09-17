@@ -3,15 +3,84 @@ module Vitos
     class Ordering < Base
       get '/order/switch-method' do
         session[:deliveryMethod] = params[:deliveryMethod].to_i
+        if session[:deliveryMethod] == 1
+          session[:storeID] = select_address.store[:StoreID]
+        end
         if(!session[:orderId].blank?)
+          select_order[:StoreID] = session[:storeID]
+          select_order[:OrderTypeID] = session[:deliveryMethod]
+          select_order.save()
+          # puts('switchimgmethod '+params[:deliveryMethod])
+          # OrderViewController.updateDeliveryMethod(params[:deliveryMethod],session)
+        end
+        redirect request.referrer
+      end
+      post '/order/pay-return' do
+        json params.to_hash
+
+        select_order[:PaymentTypeID] = 3
+        select_order[:PaymentAuthorization] = params[:ReferenceNumber]
+        select_order[:PaymentEmpID] = 1
+        select_order[:IsPaid] = 1
+        # select_order[:PaidDate] = new CDbExpression('GetDate()')
+        # select_order[:OrderNotes] = params[:notes]
+        select_order.save()
+        ActiveRecord::Base.connection.execute("UPDATE tblOrders SET PaidDate = GetDate() WHERE OrderID = #{select_order[:OrderID]}")
+
+        session[:completeOrder] = select_order[:OrderID]
+        session[:orderId] = nil
+        redirect '/order/thanks'
+      end
+      get '/order/change-store' do
+        session[:storeID] = params[:StoreID].to_i
+        if session[:deliveryMethod] == 1 && session[:storeID] != select_address.store[:StoreID]
+          session[:deliveryMethod] = 2
+        end
+        if(!session[:orderId].blank?)
+          if session[:storeID] != select_address.store[:StoreID]
+            OrderViewController.updateDeliveryMethod(2,session)
+          end
+          select_order[:StoreID] = session[:storeID]
+          select_order.save()
           # puts('switchimgmethod '+params[:deliveryMethod])
           OrderViewController.updateDeliveryMethod(params[:deliveryMethod],session)
         end
         redirect request.referrer
       end
+      get '/order/create-new' do
+        session[:deliveryMethod] = 1
+        session[:completeOrder] = nil
+        session[:orderId] = nil
+        redirect '/order?UnitID=1'
+      end
+      post '/order/complete' do
+        if !params[:payCash].blank?
+          select_order[:PaymentTypeID] = 1
+          select_order[:OrderNotes] = params[:notes]
+          select_order.save()
+          # @NOTE: Activate order printing after verifying it won't cause confusion
+          # ActiveRecord::Base.connection.execute_procedure("WebPrintOrder" {:pStoreID => select_store[:StoreID], :pOrderID => select_order[:OrderID]})
+          session[:completeOrder] = select_order[:OrderID]
+          session[:orderId] = nil
+          redirect '/order/thanks'
+        else
+          select_order[:PaymentTypeID] = 3
+          select_order[:OrderNotes] = params[:notes]
+          select_order.save()
+          redirect 'https://hps.webportal.test.secureexchange.net/PaymentMain.aspx', 307
+        end
+      end
+      get '/order/thanks' do
+        if session[:completeOrder].blank?
+          redirect '/checkout'
+        end
+        slim :thanks
+      end
+      get '/checkout' do
+        slim :checkout
+      end
       get '/order' do
         check_authentication
-        # @TODO: make sure database is updated to ignore subx and mac'n'cheese @database [github.com/tandpco/VitosWeb2/issues/28]
         if(params[:UnitID].blank?)
           @units = ActiveRecord::Base.connection.select_all("SELECT tblUnit.* FROM tblUnit WHERE UnitID NOT IN (1,3,14,32) and UnitID NOT IN (17,21,18,28) and IsActive <> 0 and IsInternet <> 0 order by UnitMenuSortOrder")
         else

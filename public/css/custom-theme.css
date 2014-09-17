@@ -1,30 +1,30 @@
-/* line 30, ../../src/sass/custom-theme.scss */
+/* line 31, ../../src/sass/custom-theme.scss */
 * {
   position: static;
 }
 
-/* line 37, ../../src/sass/custom-theme.scss */
+/* line 38, ../../src/sass/custom-theme.scss */
 body {
   background-color: #f0e8de !important;
   font-family: "Proxima Nova", "proxima-nova", "Helvetica Neue", "Arial", sans-serif;
 }
 
-/* line 41, ../../src/sass/custom-theme.scss */
+/* line 42, ../../src/sass/custom-theme.scss */
 h1, h2, h3, h4, h5, h6 {
   font-family: "Proxima Nova", "proxima-nova", "Helvetica Neue", "Arial", sans-serif;
 }
 
-/* line 47, ../../src/sass/custom-theme.scss */
+/* line 48, ../../src/sass/custom-theme.scss */
 .container {
   position: relative;
 }
 
-/* line 51, ../../src/sass/custom-theme.scss */
+/* line 52, ../../src/sass/custom-theme.scss */
 #header .nav-container {
   width: 100%;
   margin-top: 65px;
 }
-/* line 54, ../../src/sass/custom-theme.scss */
+/* line 55, ../../src/sass/custom-theme.scss */
 #header .nav-container .main-navbar {
   width: 100%;
   /* IE10 Consumer Preview */
@@ -40,48 +40,52 @@ h1, h2, h3, h4, h5, h6 {
   /* W3C Markup, IE10 Release Preview */
   background-image: linear-gradient(to bottom, #cc1231 0%, #8f0923 100%);
 }
-/* line 73, ../../src/sass/custom-theme.scss */
+/* line 74, ../../src/sass/custom-theme.scss */
 #header .nav-container .main-navbar .white-shadow {
   font-size: 20px;
   font-weight: bold;
   color: white;
   text-shadow: 2px 2px black;
 }
-/* line 79, ../../src/sass/custom-theme.scss */
+/* line 80, ../../src/sass/custom-theme.scss */
 #header .nav-container .main-navbar .white-shadow.active {
   background-color: #00482c;
 }
-/* line 84, ../../src/sass/custom-theme.scss */
+/* line 85, ../../src/sass/custom-theme.scss */
 #header .nav-container .main-navbar li:last-child a {
   border-right-width: 0px !important;
   padding-right: 0px !important;
 }
-/* line 90, ../../src/sass/custom-theme.scss */
+/* line 88, ../../src/sass/custom-theme.scss */
+#header .nav-container .main-navbar li:last-child a.active {
+  padding-right: 15px !important;
+}
+/* line 94, ../../src/sass/custom-theme.scss */
 #header .nav-container .sub-navbar {
   width: 100%;
   background-color: #00482c;
 }
-/* line 93, ../../src/sass/custom-theme.scss */
+/* line 97, ../../src/sass/custom-theme.scss */
 #header .nav-container .sub-navbar .white-no-shadow {
   font-size: 18px;
   font-weight: bold;
   color: #7ca678;
 }
-/* line 98, ../../src/sass/custom-theme.scss */
+/* line 102, ../../src/sass/custom-theme.scss */
 #header .nav-container .sub-navbar li {
   padding: 6px 0;
 }
-/* line 100, ../../src/sass/custom-theme.scss */
+/* line 104, ../../src/sass/custom-theme.scss */
 #header .nav-container .sub-navbar li:last-child a {
   border-right-width: 0px !important;
   padding-right: 0px !important;
 }
-/* line 106, ../../src/sass/custom-theme.scss */
+/* line 110, ../../src/sass/custom-theme.scss */
 #header .nav-container .sub-navbar .white-no-shadow.active {
   color: white;
 }
 
-/* line 112, ../../src/sass/custom-theme.scss */
+/* line 116, ../../src/sass/custom-theme.scss */
 #logo {
   position: absolute;
   z-index: 2;
@@ -91,18 +95,27 @@ h1, h2, h3, h4, h5, h6 {
   top: 0%;
 }
 
-/* line 121, ../../src/sass/custom-theme.scss */
+/* line 125, ../../src/sass/custom-theme.scss */
 #collapse-button:hover, #collapse-button:focus {
   background-color: transparent;
 }
 
-/* line 126, ../../src/sass/custom-theme.scss */
+/* line 130, ../../src/sass/custom-theme.scss */
 #main {
   padding: 0px;
   background-color: #a49685 !important;
 }
+/* line 132, ../../src/sass/custom-theme.scss */
+#main:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+}
 
-/* line 133, ../../src/sass/custom-theme.scss */
+/* line 146, ../../src/sass/custom-theme.scss */
 #items-panel {
   padding-top: 20px;
   float: left;
@@ -111,7 +124,7 @@ h1, h2, h3, h4, h5, h6 {
   position: relative;
   padding-bottom: 50px;
 }
-/* line 140, ../../src/sass/custom-theme.scss */
+/* line 153, ../../src/sass/custom-theme.scss */
 #items-panel:after {
   content: '';
   height: 10px;
@@ -121,20 +134,20 @@ h1, h2, h3, h4, h5, h6 {
   left: 0;
   box-shadow: 0px 0px 50px 40px #f0e8de;
 }
-/* line 149, ../../src/sass/custom-theme.scss */
+/* line 162, ../../src/sass/custom-theme.scss */
 #items-panel > .container {
   width: 100%;
   margin: 0px;
 }
-/* line 152, ../../src/sass/custom-theme.scss */
+/* line 165, ../../src/sass/custom-theme.scss */
 #items-panel > .container > .row {
   margin: 0 -10px;
 }
-/* line 154, ../../src/sass/custom-theme.scss */
+/* line 167, ../../src/sass/custom-theme.scss */
 #items-panel > .container > .row > div {
   padding: 10px;
 }
-/* line 158, ../../src/sass/custom-theme.scss */
+/* line 171, ../../src/sass/custom-theme.scss */
 #items-panel > .container > .row > div .item-panel-image {
   background-size: cover;
   background-repeat: no-repeat;
@@ -143,7 +156,7 @@ h1, h2, h3, h4, h5, h6 {
   padding: 0px;
   position: relative;
 }
-/* line 166, ../../src/sass/custom-theme.scss */
+/* line 179, ../../src/sass/custom-theme.scss */
 #items-panel > .container > .row > div .item-panel-image:after {
   content: '';
   width: 0;
@@ -156,25 +169,25 @@ h1, h2, h3, h4, h5, h6 {
   margin-top: -10px;
   position: absolute;
 }
-/* line 178, ../../src/sass/custom-theme.scss */
+/* line 191, ../../src/sass/custom-theme.scss */
 #items-panel > .container > .row > div .item-panel-image img {
   visibility: hidden;
   width: 125px;
   display: block;
 }
-/* line 184, ../../src/sass/custom-theme.scss */
+/* line 197, ../../src/sass/custom-theme.scss */
 #items-panel > .container > .row > div .item-panel-box {
   background-color: white;
 }
-/* line 187, ../../src/sass/custom-theme.scss */
+/* line 200, ../../src/sass/custom-theme.scss */
 #items-panel > .container > .row > div .item-panel-content {
   padding: 10px 15px;
 }
-/* line 192, ../../src/sass/custom-theme.scss */
+/* line 205, ../../src/sass/custom-theme.scss */
 #items-panel > .container > .row > div table {
   width: 100%;
 }
-/* line 195, ../../src/sass/custom-theme.scss */
+/* line 208, ../../src/sass/custom-theme.scss */
 #items-panel > .container > .row > div table .header {
   font-size: 14px;
   margin-bottom: 7px;
@@ -183,7 +196,7 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: bold;
   border-bottom: 1px solid #ad1028;
 }
-/* line 203, ../../src/sass/custom-theme.scss */
+/* line 216, ../../src/sass/custom-theme.scss */
 #items-panel > .container > .row > div table .body {
   word-wrap: break-word;
   font-size: 12px;
@@ -192,8 +205,8 @@ h1, h2, h3, h4, h5, h6 {
   overflow: auto;
   display: block;
 }
-/* line 211, ../../src/sass/custom-theme.scss */
-#items-panel > .container > .row > div table button {
+/* line 224, ../../src/sass/custom-theme.scss */
+#items-panel > .container > .row > div table button, #items-panel > .container > .row > div table a.red-gradient-button {
   width: 48%;
   font-size: 12px;
   height: 26px;
@@ -202,16 +215,16 @@ h1, h2, h3, h4, h5, h6 {
   padding: 0px;
 }
 
-/* line 226, ../../src/sass/custom-theme.scss */
+/* line 239, ../../src/sass/custom-theme.scss */
 #sign-in-panel form.block-form {
   padding: 40px;
   background-color: white;
 }
-/* line 230, ../../src/sass/custom-theme.scss */
+/* line 243, ../../src/sass/custom-theme.scss */
 #sign-in-panel form.block-form .row {
   margin-bottom: 14px;
 }
-/* line 233, ../../src/sass/custom-theme.scss */
+/* line 246, ../../src/sass/custom-theme.scss */
 #sign-in-panel form.block-form h2 {
   width: 100%;
   text-align: center;
@@ -220,22 +233,22 @@ h1, h2, h3, h4, h5, h6 {
   padding: 0px;
   margin: 0px;
 }
-/* line 242, ../../src/sass/custom-theme.scss */
+/* line 255, ../../src/sass/custom-theme.scss */
 #sign-in-panel form.block-form p {
   margin: 0px;
   padding: 0px;
   font-size: 14px;
 }
-/* line 247, ../../src/sass/custom-theme.scss */
+/* line 260, ../../src/sass/custom-theme.scss */
 #sign-in-panel form.block-form p + p {
   color: #716963;
   font-size: 12px;
 }
-/* line 251, ../../src/sass/custom-theme.scss */
+/* line 264, ../../src/sass/custom-theme.scss */
 #sign-in-panel form.block-form input {
   width: 100%;
 }
-/* line 254, ../../src/sass/custom-theme.scss */
+/* line 267, ../../src/sass/custom-theme.scss */
 #sign-in-panel form.block-form button {
   width: 100%;
   height: 40px;
@@ -243,7 +256,7 @@ h1, h2, h3, h4, h5, h6 {
   text-shadow: 1px 1px black;
 }
 
-/* line 264, ../../src/sass/custom-theme.scss */
+/* line 277, ../../src/sass/custom-theme.scss */
 #order-items-panel {
   float: right;
   padding: 30px;
@@ -253,7 +266,7 @@ h1, h2, h3, h4, h5, h6 {
   color: #6f6962;
   overflow: hidden;
 }
-/* line 272, ../../src/sass/custom-theme.scss */
+/* line 285, ../../src/sass/custom-theme.scss */
 #order-items-panel h2 {
   margin: 0;
   font-size: 25px;
@@ -264,27 +277,27 @@ h1, h2, h3, h4, h5, h6 {
   padding-bottom: 10px;
   text-transform: uppercase;
 }
-/* line 282, ../../src/sass/custom-theme.scss */
+/* line 295, ../../src/sass/custom-theme.scss */
 #order-items-panel .panel-title {
   padding: 15px 0;
 }
-/* line 285, ../../src/sass/custom-theme.scss */
+/* line 298, ../../src/sass/custom-theme.scss */
 #order-items-panel .panel {
   background-color: transparent;
   box-shadow: none;
 }
-/* line 289, ../../src/sass/custom-theme.scss */
+/* line 302, ../../src/sass/custom-theme.scss */
 #order-items-panel .loading-order {
   padding: 20px;
   text-align: center;
 }
-/* line 293, ../../src/sass/custom-theme.scss */
+/* line 306, ../../src/sass/custom-theme.scss */
 #order-items-panel table.order-item-table {
   border-collapse: separate;
   border-spacing: 6px;
   font-family: "Proxima Nova", "proxima-nova", "Helvetica Neue", "Arial", sans-serif;
 }
-/* line 297, ../../src/sass/custom-theme.scss */
+/* line 310, ../../src/sass/custom-theme.scss */
 #order-items-panel table.order-item-table td {
   background-color: #A49685;
   padding: 8px 12px;
@@ -293,19 +306,19 @@ h1, h2, h3, h4, h5, h6 {
   position: relative;
   vertical-align: top;
 }
-/* line 304, ../../src/sass/custom-theme.scss */
+/* line 317, ../../src/sass/custom-theme.scss */
 #order-items-panel table.order-item-table td .itemDescription {
   font-weight: bold;
 }
-/* line 308, ../../src/sass/custom-theme.scss */
+/* line 321, ../../src/sass/custom-theme.scss */
 #order-items-panel table.order-item-table td:hover .itemQty {
   display: none;
 }
-/* line 311, ../../src/sass/custom-theme.scss */
+/* line 324, ../../src/sass/custom-theme.scss */
 #order-items-panel table.order-item-table td:hover .removeItem {
   display: block;
 }
-/* line 315, ../../src/sass/custom-theme.scss */
+/* line 328, ../../src/sass/custom-theme.scss */
 #order-items-panel table.order-item-table td .removeItem {
   display: none;
   cursor: pointer;
@@ -323,12 +336,12 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 17px;
   float: right;
 }
-/* line 331, ../../src/sass/custom-theme.scss */
+/* line 344, ../../src/sass/custom-theme.scss */
 #order-items-panel table.order-item-table td .removeItem:hover {
   background-color: red;
   opacity: 1;
 }
-/* line 336, ../../src/sass/custom-theme.scss */
+/* line 349, ../../src/sass/custom-theme.scss */
 #order-items-panel table.order-item-table td .itemSize {
   padding: 10px 10px 0 10px;
   font-weight: bold;
@@ -344,7 +357,7 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 13px;
   white-space: nowrap;
 }
-/* line 350, ../../src/sass/custom-theme.scss */
+/* line 363, ../../src/sass/custom-theme.scss */
 #order-items-panel table.order-item-table td .itemSize:after {
   content: attr(data-size);
   text-transform: none;
@@ -356,11 +369,11 @@ h1, h2, h3, h4, h5, h6 {
   padding: 10px 10px 0 10px;
   background-color: #706353;
 }
-/* line 361, ../../src/sass/custom-theme.scss */
+/* line 374, ../../src/sass/custom-theme.scss */
 #order-items-panel table.order-item-table td .itemSize:hover:after {
   display: block;
 }
-/* line 366, ../../src/sass/custom-theme.scss */
+/* line 379, ../../src/sass/custom-theme.scss */
 #order-items-panel table.order-item-table td:last-child {
   font-size: 12px;
   font-weight: bold;
@@ -369,19 +382,19 @@ h1, h2, h3, h4, h5, h6 {
   white-space: nowrap;
   line-height: 20px;
 }
-/* line 374, ../../src/sass/custom-theme.scss */
+/* line 387, ../../src/sass/custom-theme.scss */
 #order-items-panel table.order-item-table td:first-child {
   padding-left: 48px;
 }
-/* line 375, ../../src/sass/custom-theme.scss */
+/* line 388, ../../src/sass/custom-theme.scss */
 #order-items-panel table.order-item-table td:first-child.noSize {
   padding-left: 12px;
 }
-/* line 381, ../../src/sass/custom-theme.scss */
+/* line 394, ../../src/sass/custom-theme.scss */
 #order-items-panel .promo-code-input {
   float: right;
 }
-/* line 383, ../../src/sass/custom-theme.scss */
+/* line 396, ../../src/sass/custom-theme.scss */
 #order-items-panel .promo-code-input #promoCode-lg, #order-items-panel .promo-code-input button.btn {
   display: block;
   float: left;
@@ -395,12 +408,12 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 500;
   vertical-align: top;
 }
-/* line 395, ../../src/sass/custom-theme.scss */
+/* line 408, ../../src/sass/custom-theme.scss */
 #order-items-panel .promo-code-input #promoCode-lg:focus, #order-items-panel .promo-code-input button.btn:focus {
   outline: 0;
   border-color: #706353;
 }
-/* line 400, ../../src/sass/custom-theme.scss */
+/* line 413, ../../src/sass/custom-theme.scss */
 #order-items-panel .promo-code-input #promoCode-lg {
   border-right-width: 0px;
   border-top-right-radius: 0;
@@ -410,7 +423,7 @@ h1, h2, h3, h4, h5, h6 {
   width: 82px;
   font-weight: 400;
 }
-/* line 409, ../../src/sass/custom-theme.scss */
+/* line 422, ../../src/sass/custom-theme.scss */
 #order-items-panel .promo-code-input button.btn {
   border-left-width: 0px;
   border-top-left-radius: 0;
@@ -421,33 +434,33 @@ h1, h2, h3, h4, h5, h6 {
   color: #fff;
   width: 54px;
 }
-/* line 419, ../../src/sass/custom-theme.scss */
+/* line 432, ../../src/sass/custom-theme.scss */
 #order-items-panel .promo-code-input button.btn:focus {
   outline: 0;
   border-color: #A49685;
 }
-/* line 423, ../../src/sass/custom-theme.scss */
+/* line 436, ../../src/sass/custom-theme.scss */
 #order-items-panel .promo-code-input button.btn:hover {
   outline: 0;
   background-color: #352f28;
 }
-/* line 429, ../../src/sass/custom-theme.scss */
+/* line 442, ../../src/sass/custom-theme.scss */
 #order-items-panel #order-items-listing {
   overflow: auto;
   padding-bottom: 26px;
 }
-/* line 433, ../../src/sass/custom-theme.scss */
+/* line 446, ../../src/sass/custom-theme.scss */
 #order-items-panel #order-items-listing.fixed {
   position: fixed;
   right: 0;
   top: 0px;
   padding: 20px 30px;
 }
-/* line 439, ../../src/sass/custom-theme.scss */
+/* line 452, ../../src/sass/custom-theme.scss */
 #order-items-panel #order-items-listing.fixed #order-table-right {
   margin-bottom: 0 !important;
 }
-/* line 443, ../../src/sass/custom-theme.scss */
+/* line 456, ../../src/sass/custom-theme.scss */
 #order-items-panel .order-table-total-wrapper {
   background-color: #A49685;
   margin: 0 -30px;
@@ -455,45 +468,45 @@ h1, h2, h3, h4, h5, h6 {
   color: #fff;
   box-shadow: 0px -4px 35px rgba(0, 0, 0, 0.2);
 }
-/* line 449, ../../src/sass/custom-theme.scss */
+/* line 462, ../../src/sass/custom-theme.scss */
 #order-items-panel .order-table-total-wrapper.fixed {
   margin: 0;
   position: fixed;
   right: 0;
   bottom: 0;
 }
-/* line 455, ../../src/sass/custom-theme.scss */
+/* line 468, ../../src/sass/custom-theme.scss */
 #order-items-panel .order-table-total-wrapper h2 {
   font-size: 20px;
   border-color: #fff;
   margin-bottom: 10px;
   text-transform: none;
 }
-/* line 461, ../../src/sass/custom-theme.scss */
+/* line 474, ../../src/sass/custom-theme.scss */
 #order-items-panel .order-table-total-wrapper table {
   border-collapse: collapse;
 }
-/* line 463, ../../src/sass/custom-theme.scss */
+/* line 476, ../../src/sass/custom-theme.scss */
 #order-items-panel .order-table-total-wrapper table td {
   padding: 5px 0;
   font-weight: 500;
   font-size: 12px;
 }
-/* line 468, ../../src/sass/custom-theme.scss */
+/* line 481, ../../src/sass/custom-theme.scss */
 #order-items-panel .order-table-total-wrapper table td:last-child {
   padding-right: 10px;
   text-align: right;
 }
-/* line 472, ../../src/sass/custom-theme.scss */
+/* line 485, ../../src/sass/custom-theme.scss */
 #order-items-panel .order-table-total-wrapper table tr.total-line td {
   font-weight: bold;
   font-size: 16px;
 }
-/* line 476, ../../src/sass/custom-theme.scss */
+/* line 489, ../../src/sass/custom-theme.scss */
 #order-items-panel .order-table-total-wrapper table hr {
   margin: 5px 0 10px 0;
 }
-/* line 479, ../../src/sass/custom-theme.scss */
+/* line 492, ../../src/sass/custom-theme.scss */
 #order-items-panel .order-table-total-wrapper table input[type="text"] {
   border-width: 0;
   background-color: #fff;
@@ -507,123 +520,123 @@ h1, h2, h3, h4, h5, h6 {
   color: #6f6962;
   font-weight: 500;
 }
-/* line 491, ../../src/sass/custom-theme.scss */
+/* line 504, ../../src/sass/custom-theme.scss */
 #order-items-panel .order-table-total-wrapper table input[type="text"]:focus {
   outline: 0;
   border: 2px solid #706353;
 }
 
-/* line 501, ../../src/sass/custom-theme.scss */
+/* line 514, ../../src/sass/custom-theme.scss */
 #order-table {
   margin: 20px;
   border-spacing: 5px;
   border-collapse: separate;
 }
-/* line 505, ../../src/sass/custom-theme.scss */
+/* line 518, ../../src/sass/custom-theme.scss */
 #order-table th {
   border-bottom: 1px solid #716963;
   color: #716963;
   margin-bottom: 10px;
 }
 
-/* line 511, ../../src/sass/custom-theme.scss */
+/* line 524, ../../src/sass/custom-theme.scss */
 #itemSize {
   margin-right: 20px;
   background-color: #a69585;
 }
 
-/* line 516, ../../src/sass/custom-theme.scss */
+/* line 529, ../../src/sass/custom-theme.scss */
 #itemDescription {
   background-color: #bdafa0;
 }
 
-/* line 520, ../../src/sass/custom-theme.scss */
+/* line 533, ../../src/sass/custom-theme.scss */
 #footer {
   background-color: #716963;
 }
 
-/* line 524, ../../src/sass/custom-theme.scss */
+/* line 537, ../../src/sass/custom-theme.scss */
 #grid-table {
   height: 100%;
 }
-/* line 526, ../../src/sass/custom-theme.scss */
+/* line 539, ../../src/sass/custom-theme.scss */
 #grid-table tr {
   height: 100%;
 }
-/* line 528, ../../src/sass/custom-theme.scss */
+/* line 541, ../../src/sass/custom-theme.scss */
 #grid-table tr th {
   height: 100%;
 }
-/* line 531, ../../src/sass/custom-theme.scss */
+/* line 544, ../../src/sass/custom-theme.scss */
 #grid-table tr td {
   height: 100%;
 }
 
-/* line 538, ../../src/sass/custom-theme.scss */
+/* line 551, ../../src/sass/custom-theme.scss */
 #modal-location .modal-body {
   width: 80%;
   margin-left: 10%;
 }
-/* line 541, ../../src/sass/custom-theme.scss */
+/* line 554, ../../src/sass/custom-theme.scss */
 #modal-location .modal-body .row {
   margin-top: 10px;
   margin-bottom: 10px;
 }
-/* line 544, ../../src/sass/custom-theme.scss */
+/* line 557, ../../src/sass/custom-theme.scss */
 #modal-location .modal-body .row .modal-title {
   width: 100%;
   text-align: center;
   font-weight: bold;
   font-size: 26px;
 }
-/* line 550, ../../src/sass/custom-theme.scss */
+/* line 563, ../../src/sass/custom-theme.scss */
 #modal-location .modal-body .row div {
   overflow-y: hidden;
   background-color: #F0E8DE;
 }
-/* line 553, ../../src/sass/custom-theme.scss */
+/* line 566, ../../src/sass/custom-theme.scss */
 #modal-location .modal-body .row div img {
   width: 100%;
   height: auto;
 }
-/* line 557, ../../src/sass/custom-theme.scss */
+/* line 570, ../../src/sass/custom-theme.scss */
 #modal-location .modal-body .row div div {
   margin: 20px;
 }
-/* line 561, ../../src/sass/custom-theme.scss */
+/* line 574, ../../src/sass/custom-theme.scss */
 #modal-location .modal-body .row button {
   width: 100%;
   padding: 5px;
   font-size: 20px;
   text-shadow: 1px 1px black;
 }
-/* line 567, ../../src/sass/custom-theme.scss */
+/* line 580, ../../src/sass/custom-theme.scss */
 #modal-location .modal-body .row h5 {
   font-weight: bold;
   font-size: 20px;
 }
-/* line 571, ../../src/sass/custom-theme.scss */
+/* line 584, ../../src/sass/custom-theme.scss */
 #modal-location .modal-body .row h5 + h5 {
   border-bottom: 1px solid black;
 }
 
-/* line 580, ../../src/sass/custom-theme.scss */
+/* line 593, ../../src/sass/custom-theme.scss */
 #modal-invalid-login .modal-body {
   width: 80%;
   margin-left: 10%;
 }
-/* line 583, ../../src/sass/custom-theme.scss */
+/* line 596, ../../src/sass/custom-theme.scss */
 #modal-invalid-login .modal-body .row {
   margin-top: 10px;
   margin-bottom: 10px;
 }
-/* line 586, ../../src/sass/custom-theme.scss */
+/* line 599, ../../src/sass/custom-theme.scss */
 #modal-invalid-login .modal-body .row .modal-title {
   width: 100%;
   text-align: center;
   font-weight: bold;
 }
-/* line 592, ../../src/sass/custom-theme.scss */
+/* line 605, ../../src/sass/custom-theme.scss */
 #modal-invalid-login .modal-body .row button {
   width: 100%;
   padding: 5px;
@@ -631,7 +644,7 @@ h1, h2, h3, h4, h5, h6 {
   text-shadow: 1px 1px black;
 }
 
-/* line 605, ../../src/sass/custom-theme.scss */
+/* line 618, ../../src/sass/custom-theme.scss */
 #modal-please-wait .modal-dialog .modal-content img {
   width: 20%;
   margin-left: 40%;
@@ -640,11 +653,11 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 20px;
 }
 
-/* line 617, ../../src/sass/custom-theme.scss */
+/* line 630, ../../src/sass/custom-theme.scss */
 #modal-delivery img {
   width: 49%;
 }
-/* line 620, ../../src/sass/custom-theme.scss */
+/* line 633, ../../src/sass/custom-theme.scss */
 #modal-delivery h5 {
   font-weight: bold;
   font-size: 20px;
@@ -652,24 +665,24 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 25px;
 }
 
-/* line 629, ../../src/sass/custom-theme.scss */
+/* line 642, ../../src/sass/custom-theme.scss */
 #modal-stores .modal-body {
   width: 80%;
   margin-left: 10%;
 }
-/* line 632, ../../src/sass/custom-theme.scss */
+/* line 645, ../../src/sass/custom-theme.scss */
 #modal-stores .modal-body .row {
   margin-top: 10px;
   margin-bottom: 10px;
 }
-/* line 635, ../../src/sass/custom-theme.scss */
+/* line 648, ../../src/sass/custom-theme.scss */
 #modal-stores .modal-body .row .modal-title {
   width: 100%;
   text-align: center;
   font-weight: bold;
   font-size: 26px;
 }
-/* line 643, ../../src/sass/custom-theme.scss */
+/* line 656, ../../src/sass/custom-theme.scss */
 #modal-stores .modal-body div#stores div {
   margin-top: 5px;
   margin-bottom: 5px;
@@ -677,12 +690,12 @@ h1, h2, h3, h4, h5, h6 {
   background-color: #F0E8DE;
 }
 
-/* line 658, ../../src/sass/custom-theme.scss */
+/* line 671, ../../src/sass/custom-theme.scss */
 .modal-modify .modal-dialog .modal-content .modal-header {
   padding: 0px;
   border: none;
 }
-/* line 661, ../../src/sass/custom-theme.scss */
+/* line 674, ../../src/sass/custom-theme.scss */
 .modal-modify .modal-dialog .modal-content .modal-header > img {
   position: absolute;
   z-index: 5;
@@ -696,19 +709,19 @@ h1, h2, h3, h4, h5, h6 {
   /* Standard */
   margin-left: calc(100% - 25px);
 }
-/* line 674, ../../src/sass/custom-theme.scss */
+/* line 687, ../../src/sass/custom-theme.scss */
 .modal-modify .modal-dialog .modal-content .modal-header > ul {
   padding-bottom: 1px;
   background-color: #629168;
   border: none;
 }
-/* line 679, ../../src/sass/custom-theme.scss */
+/* line 692, ../../src/sass/custom-theme.scss */
 .modal-modify .modal-dialog .modal-content .modal-header > ul > li {
   width: 33%;
   height: 100%;
   border: none;
 }
-/* line 683, ../../src/sass/custom-theme.scss */
+/* line 696, ../../src/sass/custom-theme.scss */
 .modal-modify .modal-dialog .modal-content .modal-header > ul > li > a, .modal-modify .modal-dialog .modal-content .modal-header > ul > li a:hover, .modal-modify .modal-dialog .modal-content .modal-header > ul > li a:active {
   background-color: #629168;
   color: #37653f;
@@ -716,7 +729,7 @@ h1, h2, h3, h4, h5, h6 {
   border: none;
   border-radius: 0px;
 }
-/* line 692, ../../src/sass/custom-theme.scss */
+/* line 705, ../../src/sass/custom-theme.scss */
 .modal-modify .modal-dialog .modal-content .modal-header > ul li.active a {
   font-weight: bold;
   color: white;
@@ -734,80 +747,80 @@ h1, h2, h3, h4, h5, h6 {
   /* W3C Markup, IE10 Release Preview */
   background-image: linear-gradient(to bottom, #007043 0%, #00482c 100%);
 }
-/* line 718, ../../src/sass/custom-theme.scss */
+/* line 731, ../../src/sass/custom-theme.scss */
 .modal-modify .modal-dialog .modal-content .modal-body table {
   width: 100%;
 }
-/* line 721, ../../src/sass/custom-theme.scss */
+/* line 734, ../../src/sass/custom-theme.scss */
 .modal-modify .modal-dialog .modal-content .modal-body table tr td {
   width: 50%;
 }
-/* line 723, ../../src/sass/custom-theme.scss */
+/* line 736, ../../src/sass/custom-theme.scss */
 .modal-modify .modal-dialog .modal-content .modal-body table tr td li {
   margin: 1px;
   padding: 3px;
 }
-/* line 727, ../../src/sass/custom-theme.scss */
+/* line 740, ../../src/sass/custom-theme.scss */
 .modal-modify .modal-dialog .modal-content .modal-body table tr td li.header {
   font-weight: bold;
   margin-top: 5px;
 }
-/* line 731, ../../src/sass/custom-theme.scss */
+/* line 744, ../../src/sass/custom-theme.scss */
 .modal-modify .modal-dialog .modal-content .modal-body table tr td li.item {
   background-color: #f0e8de;
   box-shadow: 1px 1px 0px #ddd3c6;
   margin-bottom: 5px;
 }
-/* line 739, ../../src/sass/custom-theme.scss */
+/* line 752, ../../src/sass/custom-theme.scss */
 .modal-modify .modal-dialog .modal-content .modal-body button {
   width: 49%;
   margin-top: 20px;
 }
 
-/* line 749, ../../src/sass/custom-theme.scss */
+/* line 762, ../../src/sass/custom-theme.scss */
 #order-items-panel #order-table-sm, #order-items-panel #order-table-right, #order-items-panel-sm #order-table-sm, #order-items-panel-sm #order-table-right, #items-panel #order-table-sm, #items-panel #order-table-right {
   width: 100%;
 }
-/* line 751, ../../src/sass/custom-theme.scss */
+/* line 764, ../../src/sass/custom-theme.scss */
 #order-items-panel #order-table-sm *, #order-items-panel #order-table-right *, #order-items-panel-sm #order-table-sm *, #order-items-panel-sm #order-table-right *, #items-panel #order-table-sm *, #items-panel #order-table-right * {
   border: none;
   border-radius: 0px;
 }
-/* line 758, ../../src/sass/custom-theme.scss */
+/* line 771, ../../src/sass/custom-theme.scss */
 #order-items-panel #order-table-sm th, #order-items-panel #order-table-right th, #order-items-panel-sm #order-table-sm th, #order-items-panel-sm #order-table-right th, #items-panel #order-table-sm th, #items-panel #order-table-right th {
   font-size: 18px;
   color: #716963;
   text-decoration: underline;
 }
-/* line 764, ../../src/sass/custom-theme.scss */
+/* line 777, ../../src/sass/custom-theme.scss */
 #order-items-panel #order-table-sm td .panel-heading, #order-items-panel #order-table-right td .panel-heading, #order-items-panel-sm #order-table-sm td .panel-heading, #order-items-panel-sm #order-table-right td .panel-heading, #items-panel #order-table-sm td .panel-heading, #items-panel #order-table-right td .panel-heading {
   background-color: #A49685;
 }
-/* line 766, ../../src/sass/custom-theme.scss */
+/* line 779, ../../src/sass/custom-theme.scss */
 #order-items-panel #order-table-sm td .panel-heading a, #order-items-panel #order-table-sm td .panel-heading a:hover, #order-items-panel #order-table-right td .panel-heading a, #order-items-panel #order-table-right td .panel-heading a:hover, #order-items-panel-sm #order-table-sm td .panel-heading a, #order-items-panel-sm #order-table-sm td .panel-heading a:hover, #order-items-panel-sm #order-table-right td .panel-heading a, #order-items-panel-sm #order-table-right td .panel-heading a:hover, #items-panel #order-table-sm td .panel-heading a, #items-panel #order-table-sm td .panel-heading a:hover, #items-panel #order-table-right td .panel-heading a, #items-panel #order-table-right td .panel-heading a:hover {
   width: 100%;
   text-decoration: none;
 }
-/* line 769, ../../src/sass/custom-theme.scss */
+/* line 782, ../../src/sass/custom-theme.scss */
 #order-items-panel #order-table-sm td .panel-heading a > span, #order-items-panel #order-table-sm td .panel-heading a:hover > span, #order-items-panel #order-table-right td .panel-heading a > span, #order-items-panel #order-table-right td .panel-heading a:hover > span, #order-items-panel-sm #order-table-sm td .panel-heading a > span, #order-items-panel-sm #order-table-sm td .panel-heading a:hover > span, #order-items-panel-sm #order-table-right td .panel-heading a > span, #order-items-panel-sm #order-table-right td .panel-heading a:hover > span, #items-panel #order-table-sm td .panel-heading a > span, #items-panel #order-table-sm td .panel-heading a:hover > span, #items-panel #order-table-right td .panel-heading a > span, #items-panel #order-table-right td .panel-heading a:hover > span {
   color: white;
   font-weight: bold;
 }
-/* line 775, ../../src/sass/custom-theme.scss */
+/* line 788, ../../src/sass/custom-theme.scss */
 #order-items-panel #order-table-sm td .panel-body, #order-items-panel #order-table-right td .panel-body, #order-items-panel-sm #order-table-sm td .panel-body, #order-items-panel-sm #order-table-right td .panel-body, #items-panel #order-table-sm td .panel-body, #items-panel #order-table-right td .panel-body {
   background-color: #BDAFA0;
 }
-/* line 777, ../../src/sass/custom-theme.scss */
+/* line 790, ../../src/sass/custom-theme.scss */
 #order-items-panel #order-table-sm td .panel-body > p, #order-items-panel #order-table-right td .panel-body > p, #order-items-panel-sm #order-table-sm td .panel-body > p, #order-items-panel-sm #order-table-right td .panel-body > p, #items-panel #order-table-sm td .panel-body > p, #items-panel #order-table-right td .panel-body > p {
   color: white;
 }
 
-/* line 788, ../../src/sass/custom-theme.scss */
+/* line 801, ../../src/sass/custom-theme.scss */
 input[type="radio"], input[type="checkbox"] {
   display: none;
 }
 
-/* line 791, ../../src/sass/custom-theme.scss */
+/* line 804, ../../src/sass/custom-theme.scss */
 input[type="radio"] + label, input[type="checkbox"] + label {
   background: url(/img/checkbox_unchecked.jpg) no-repeat;
   padding-left: 30px;
@@ -815,7 +828,7 @@ input[type="radio"] + label, input[type="checkbox"] + label {
   font-weight: normal;
 }
 
-/* line 797, ../../src/sass/custom-theme.scss */
+/* line 810, ../../src/sass/custom-theme.scss */
 input[type="radio"]:checked + label, input[type="checkbox"]:checked + label {
   background: url(/img/checkbox_checked.jpeg) no-repeat;
 }
@@ -831,19 +844,19 @@ label.btn.active {
     background:url(/Content/img/checkbox_checked.jpeg) no-repeat;
 }
 */
-/* line 813, ../../src/sass/custom-theme.scss */
+/* line 826, ../../src/sass/custom-theme.scss */
 .tan-highlight {
   background-color: #F0E8DE;
   box-shadow: 1px 1px 0 #DDD3C6;
   margin-bottom: 5px;
 }
 
-/* line 819, ../../src/sass/custom-theme.scss */
+/* line 832, ../../src/sass/custom-theme.scss */
 .modal {
   background-color: rgba(255, 255, 255, 0.75);
   overflow-x: hidden;
 }
-/* line 823, ../../src/sass/custom-theme.scss */
+/* line 836, ../../src/sass/custom-theme.scss */
 .modal .modal-dialog .modal-content {
   width: 80%;
   margin-left: 10%;
@@ -851,7 +864,7 @@ label.btn.active {
   border-radius: 0px;
 }
 
-/* line 832, ../../src/sass/custom-theme.scss */
+/* line 845, ../../src/sass/custom-theme.scss */
 .shaded-input {
   height: 35px;
   border: none;
@@ -859,10 +872,14 @@ label.btn.active {
   padding: 10px;
 }
 
-/* line 838, ../../src/sass/custom-theme.scss */
+/* line 851, ../../src/sass/custom-theme.scss */
 .red-gradient-button {
   color: white;
   font-weight: bold;
+  display: block;
+  line-height: 40px;
+  text-align: center;
+  font-size: 16px;
   border: none;
   height: 40px;
   width: 100%;
@@ -879,14 +896,19 @@ label.btn.active {
   /* W3C Markup, IE10 Release Preview */
   background-image: linear-gradient(to bottom, #cc1231 0%, #8f0923 100%);
 }
-/* line 862, ../../src/sass/custom-theme.scss */
+/* line 879, ../../src/sass/custom-theme.scss */
 .red-gradient-button.r {
   border-radius: 3px;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
 }
+/* line 884, ../../src/sass/custom-theme.scss */
+.red-gradient-button:hover {
+  text-decoration: none;
+  color: #fff;
+}
 
-/* line 868, ../../src/sass/custom-theme.scss */
+/* line 889, ../../src/sass/custom-theme.scss */
 .outline-button {
   color: gray;
   font-weight: bold;
@@ -898,12 +920,12 @@ label.btn.active {
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
 }
-/* line 878, ../../src/sass/custom-theme.scss */
+/* line 899, ../../src/sass/custom-theme.scss */
 .outline-button:hover {
   border-color: gray;
 }
 
-/* line 884, ../../src/sass/custom-theme.scss */
+/* line 905, ../../src/sass/custom-theme.scss */
 .green-gradient-button {
   color: white;
   font-weight: bold;
@@ -925,7 +947,7 @@ label.btn.active {
 }
 
 @media (min-width: 768px) {
-  /* line 911, ../../src/sass/custom-theme.scss */
+  /* line 932, ../../src/sass/custom-theme.scss */
   .sub-navbar .navbar-nav > li > a {
     padding: 0 25px;
     line-height: 28px;
@@ -933,22 +955,22 @@ label.btn.active {
   }
 }
 @media (min-width: 992px) and (max-width: 1200px) {
-  /* line 918, ../../src/sass/custom-theme.scss */
+  /* line 939, ../../src/sass/custom-theme.scss */
   .container {
     width: 100%;
     max-width: 1170px;
   }
 
-  /* line 922, ../../src/sass/custom-theme.scss */
+  /* line 943, ../../src/sass/custom-theme.scss */
   #items-panel > .container > .row > div .item-panel-image {
     width: 18%;
   }
-  /* line 924, ../../src/sass/custom-theme.scss */
+  /* line 945, ../../src/sass/custom-theme.scss */
   #items-panel > .container > .row > div .item-panel-image img {
     transition: width 0.5s;
     width: 20px;
   }
-  /* line 928, ../../src/sass/custom-theme.scss */
+  /* line 949, ../../src/sass/custom-theme.scss */
   #items-panel > .container > .row > div .item-panel-image:hover img {
     width: 125px;
   }

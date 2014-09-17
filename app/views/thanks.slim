@@ -1,0 +1,48 @@
+.row
+  .col-md-12
+
+    - order = Order.find(session[:completeOrder])
+    #sign-in-panel
+      form.block-form method="post" action="/order/complete"
+        - if order[:PaymentTypeID] == 3
+          .text-center(style="font-size:20px")
+            div Your order has been processed successfully. Your order number is <b>#{order[:OrderID]}</b>.
+            div For reference the payment authorization code is <b>#{order[:PaymentAuthorization]}</b>. If you need to make any changes to your order, please call our store. Normal delivery times are 30 minutes and pick up orders are generally ready in 15 minutes.
+        - else
+          .text-center(style="font-size:28px") Your order is in the oven!
+        hr
+        .row
+          - if session[:deliveryMethod] == 1
+            .col-md-6
+              / a.pull-right href="/order/change-location" Change Location
+              h3(style="margin-top:0") Delivering to:
+              div #{current_user[:FirstName]} #{current_user[:LastName]}
+              div #{select_address[:AddressLine1]}
+              div #{select_address[:AddressLine2]}
+              div #{select_address[:City]}, #{select_address[:State]} #{select_address[:PostalCode]}
+              div #{select_address[:Phone]}
+              / div: a(href="/order/change-location") Deliver my pizza to a different location.
+              / div: a(href="/order/change-location") Add some special delivery instructions to this address.
+          .col-md-6
+            - if session[:deliveryMethod] == 1
+              / a.pull-right href="/order/switch-method?deliveryMethod=2" Switch to Pickup
+              h3(style="margin-top:0") Delivering from:
+            - else
+              / a.pull-right href="/order/switch-method?deliveryMethod=1" Switch to Delivery
+              h3(style="margin-top:0") Pickup location:
+            div: strong=select_store[:StoreName]
+            div=select_store[:Address1]
+            div #{{select_store[:Address2]}}
+            div #{select_store[:City]}, #{select_store[:State]} #{select_store[:PostalCode]}
+            div #{select_store[:Phone]} &mdash; #{select_store[:Hours]}
+            - if session[:deliveryMethod] == 2
+              div
+                a href="https://www.google.com/maps/preview?q=Vito's Pizza and Subs, #{select_store[:Address1]} #{select_store[:City]} #{select_store[:State]}" target="_blank" Get Directions
+          - if session[:deliveryMethod] == 2
+            .col-md-6
+              a href="https://www.google.com/maps/preview?q=Vito's Pizza and Subs, #{select_store[:Address1]} #{select_store[:City]} #{select_store[:State]}" target="_blank" style="background: #fff url(/img/store-#{select_store[:StoreID]}-map.png) no-repeat center center; background-size:cover; height:180px;display:block"
+          
+        - if !order[:OrderNotes].blank?
+          hr
+          h3 Your Order Notes
+          div(style="font-size:18px") #{{order[:OrderNotes]}}

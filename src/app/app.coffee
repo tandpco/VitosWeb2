@@ -15,7 +15,6 @@ $app.config ($stateProvider, $urlRouterProvider,RestangularProvider)->
       resolve:
         $specialty: (Restangular,$stateParams)->
           Restangular.one('item').get
-            "StoreID": "7" # @TODO: Make sure StoreID isn't hard coded [github.com/tandpco/VitosWeb2/issues/11]
             "UnitID":  $stateParams.unitId
             "SpecialtyID":  $stateParams.specialtyId
             "SizeID":  null
@@ -24,7 +23,7 @@ $app.config ($stateProvider, $urlRouterProvider,RestangularProvider)->
         $scope.onMeat = true
         $scope.__orderingItem = false
         $scope.tab = 'size'
-        $scope.$line = {SauceID:$specialty.specialty && $specialty.specialty.SauceID || null,SizeID:null,Sides:[],Toppings:[],StyleID:null,Toppers:[],notes:''}
+        $scope.$line = {SauceID:$specialty.specialty && $specialty.specialty.SauceID || null,SizeID:null,Sides:[],Toppings:[],StyleID:null,Toppers:[],Note:'',Quantity:1}
         $scope.$selectedSides = {}
         $scope.$selectedToppings = {}
         $scope.$selectedToppers = {}
@@ -33,8 +32,7 @@ $app.config ($stateProvider, $urlRouterProvider,RestangularProvider)->
           $scope.$line.SizeID = $specialty.sizes[0].SizeID
         if $specialty.styles.length > 0 and !$scope.$line.StyleID
           $scope.$line.StyleID = $specialty.styles[0].StyleID
-        # @NOTE: Ideally get these units flagged in the database for easier management later.
-        # @TODO: Get all of these ID sets centralized. [github.com/tandpco/VitosWeb2/issues/12]
+        # @NOTE: Ideally get these units flagged in the database for easier management later. is bread?
         $scope.isBread = ->
           if [1,2,32].indexOf($UnitID) isnt -1
             true
@@ -59,7 +57,7 @@ $app.config ($stateProvider, $urlRouterProvider,RestangularProvider)->
           if sel is false
             $scope.$line.SizeID = sizes[0].SizeID
 
-        # @TODO: @database flag toppings as cheese vs meat [github.com/tandpco/VitosWeb2/issues/13]
+        # @NOTE: @database flag toppings as cheese vs meat [github.com/tandpco/VitosWeb2/issues/13]
         $scope.filterCheese = (i)->
           return true if [10,12,13,49,52,53,59,60,84,104].indexOf(i.ItemID) isnt -1
           return false
@@ -85,7 +83,7 @@ $app.config ($stateProvider, $urlRouterProvider,RestangularProvider)->
             pHalf1SauceModifierID: $scope.$line.sauceModifierID
             pHalf2SauceModifierID: $scope.$line.sauceModifierID
             # allow for notes on order line
-            pOrderLineNotes: $scope.$line.notes
+            pOrderLineNotes: $scope.$line.Note
             # pInternetDescription: ((if not (orderItem["item"])? then "NULL" else orderItem["item"]["detail"]))
             pQuantity: $scope.$line.Quantity || 1
 
@@ -257,7 +255,10 @@ $app.run ($state,$rootScope,Restangular)->
       return 'MD'
     return out
       
-
+  $scope.showSubmit = ()->
+    if window.location.pathname == '/order' || window.location.pathname == '/locations'
+      return true
+    false
   $scope.halfPretty = (half)->
     half = parseInt half
     halfs = ['Whole','Left','Right','2x']
@@ -290,11 +291,13 @@ $app.run ($state,$rootScope,Restangular)->
   $scope.$orderTotal = 0
   updateTotal = (v)->
     if $scope.$orderSubtotal? and $scope.$orderSubtotal > 0
-      $scope.$orderTotal = $scope.$orderSubtotal + $scope.$order.Tax + $scope.$order.Tax2 + parseInt($scope.$order.Tip) + $scope.$order.DeliveryCharge
+      $scope.$orderTotal = $scope.$orderSubtotal + $scope.$order.Tax + $scope.$order.Tax2 + parseInt(if $scope.$order.Tip == '' then 0 else $scope.$order.Tip) + $scope.$order.DeliveryCharge
       
   $scope.$watch "$orderSubtotal", updateTotal
   $scope.$watch "$order.Tip", updateTotal
-  # $scope.$watch "$order.Tip", updateTotal # @TODO: Make sure the tip is updated to the order. [github.com/tandpco/VitosWeb2/issues/14]
+  $scope.$watch "$order.Tip", (v,o)->
+    if o?
+      $scope.$order.customPOST {tip:v},'update-tip'
   $scope.updateOrder()
 
   return

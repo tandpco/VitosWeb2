@@ -15,7 +15,6 @@
                     tr
                       td(ng-class="{noSize:$line.UnitID == 15 || $line.UnitID == 7}")
                         span(style="float:right" class="itemQty") <b>× {{$line.Quantity}}</b>
-                        //- @TODO: Allow editing of qty in order [github.com/tandpco/VitosWeb2/issues/24]
                         a(class="removeItem" ng-click="deleteLineItem($line)") ×
                         span(class="itemSize" data-size="{{$line.extra.size.SizeDescription}}",ng-hide="$line.UnitID == 15 || $line.UnitID == 7") {{sizePretty($line.extra.size.SizeShortDescription)}}
                         a(class="accordion-toggle" style="display:block;color:#fff;font-size:14px")
@@ -31,6 +30,9 @@
                     td(ng-show="$line.extra.sauce.SauceDescription")
                       .micro-badge Sauce
                       |  {{$line.extra.sauce.SauceDescription}} 
+                  tr(ng-show="$line.OrderLineNotes")
+                    td(colspan="2",style="padding-top:8px") <b class="micro-badge">Note</b> {{$line.OrderLineNotes}}
+
                 table.cols.mini
                   tr
                     td(ng-show="$line.extra.toppings")
@@ -48,8 +50,8 @@
                         ul
                           li(ng-repeat="$side in $line.extra.sides") {{$side.SideDescription}}
   .order-table-total-wrapper(style="margin-top:30px",ng-show="$orderSubtotal")
-    //- @TODO: (0) Get promo codes working [github.com/tandpco/VitosWeb2/issues/25]
-    .promo-code-input
+    //- @TODO: Get promo codes working [github.com/tandpco/VitosWeb2/issues/25]
+    //- .promo-code-input
       input(type="text" id="promoCode-lg" placeholder="Promo Code")
       button(class="btn" type="button") Apply
     h2 Order Total
@@ -74,8 +76,7 @@
       tr.total-line
         td TOTAL
         td#total {{$orderTotal | currency}}
-      tr: td(colspan="2")
+      tr(ng-show="showSubmit()"): td(colspan="2")
         hr
-        //- @TODO: Make submit order button actually work. [github.com/tandpco/VitosWeb2/issues/26]
-        button(type="button" class="red-gradient-button" onclick="alert('awaiting deployment')") SUBMIT ORDER
+        a.red-gradient-button(href="/checkout") SUBMIT ORDER
 

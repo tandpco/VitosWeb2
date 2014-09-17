@@ -21,22 +21,30 @@ html ng-app="app"
         img#logo src="/img/vitoslogo.png"
         div(style="margin-top:20px;position:absolute;right:0;")
           - if !current_user.blank?
-            span Hi 
+            - if session[:completeOrder].blank?
+              span Hi 
+            - else
+              span Thank you 
             span = current_user[:FirstName]+" "+current_user[:LastName]
-            - address = current_user.address
-            - store = address.store
+            - address = select_address
+            - store =select_store
             / a change delivery address
             / @TODO: Allow editing of delivery address (requires same address normalization via USPS as signup) [github.com/tandpco/VitosWeb2/issues/5]
-            / @TODO: When switching to delivery, make sure to revert the store to the deliverable store even if the user has modified prev. [github.com/tandpco/VitosWeb2/issues/6]
-            / @TODO: Apply promo code needs to be debugged. [github.com/tandpco/VitosWeb2/issues/7]
             / |  | 
-            - if session[:deliveryMethod].blank? or session[:deliveryMethod] === 1
-              strong  &mdash; we'll deliver your order to <u>#{address[:AddressLine1]} #{address[:AddressLine2]} &bull; #{address[:City]}</u> 
-              a(href="/order/switch-method?deliveryMethod=2") switch to pickup
-            - else
-              strong  &mdash; you're picking up from <u>#{store.Address1} &bull; #{{store.Address2}} &bull; #{store.City}</u> 
-              a(href="/order/switch-method?deliveryMethod=1") switch to delivery
+            - if (session[:orderId].blank? && session[:completeOrder].blank?) || !session[:orderId].blank?
+              - if session[:deliveryMethod].blank? or session[:deliveryMethod] === 1
+                strong  &mdash; we'll deliver your order to <u>#{address[:AddressLine1]} #{address[:AddressLine2]} &bull; #{address[:City]}</u> 
+                a(href="/order/switch-method?deliveryMethod=2") switch to pickup
+              - else
+                strong
+                  | &mdash; you're picking up from 
+                  a href="https://www.google.com/maps/preview?q=Vito's Pizza and Subs, #{select_store[:Address1]} #{select_store[:City]} #{select_store[:State]}" target="_blank" <u>#{store.Address1} &bull; #{{store.Address2}} &bull; #{store.City}</u>
+                |  &nbsp; 
+                a(href="/order/switch-method?deliveryMethod=1") switch to delivery
             |  | 
+            - unless (session[:orderId].blank? && session[:completeOrder].blank?) || !session[:orderId].blank?
+              a(href="/order/create-new") start a new order
+              |  |  
             a(href="/logout") logout
       #header
         #nav-container.nav-container
@@ -49,16 +57,16 @@ html ng-app="app"
                   span.icon-bar
                   span.icon-bar
               .collapse.navbar-collapse: ul.nav.navbar-nav.navbar-right
-                li: a.white-shadow.active href="/order?UnitID=1" MENU
+                li: a.white-shadow class=(!params[:UnitID].blank? ? 'active' : '') href="/order?UnitID=1" MENU
                 li: a.white-shadow href="/deals" DEALS
-                li: a.white-shadow href="/locations" LOCATIONS
-          nav.navbar-default.sub-navbar role="navigation"
+                li: a.white-shadow href="/locations" class=(request.path_info == '/locations' ? 'active' : '') LOCATIONS
+          nav.navbar-default.sub-navbar role="navigation" class=(params[:UnitID].blank? ? 'hidden' : '')
             .container: .collapse.navbar-collapse: ul.nav.navbar-nav.navbar-right
               li: a.white-no-shadow href="/order?UnitID=1" class=(params[:UnitID] == '1' ? 'active' : '') PIZZAS
               li: a.white-no-shadow href="/order?UnitID=32" class=(params[:UnitID] == '32' ? 'active' : '') SUBS
               li: a.white-no-shadow href="/order?UnitID=3" class=(params[:UnitID] == '3' ? 'active' : '') SALADS
               li: a.white-no-shadow href="/order?UnitID=14" class=(params[:UnitID] == '14' ? 'active' : '') PARTY SALADS
               li: a.white-no-shadow href="/order" class=(params[:UnitID].blank? ? 'active' : '') SIDES
-      #main.container == yield
+      .container: #main == yield
     #footer
     script(type="text/javascript" src="//use.typekit.net/fyw7slw.js")

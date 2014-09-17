@@ -16,7 +16,6 @@
       resolve: {
         $specialty: function(Restangular, $stateParams) {
           return Restangular.one('item').get({
-            "StoreID": "7",
             "UnitID": $stateParams.unitId,
             "SpecialtyID": $stateParams.specialtyId,
             "SizeID": null
@@ -36,7 +35,8 @@
           Toppings: [],
           StyleID: null,
           Toppers: [],
-          notes: ''
+          Note: '',
+          Quantity: 1
         };
         $scope.$selectedSides = {};
         $scope.$selectedToppings = {};
@@ -119,7 +119,7 @@
             pHalf2SauceID: $scope.$line.SauceID,
             pHalf1SauceModifierID: $scope.$line.sauceModifierID,
             pHalf2SauceModifierID: $scope.$line.sauceModifierID,
-            pOrderLineNotes: $scope.$line.notes,
+            pOrderLineNotes: $scope.$line.Note,
             pQuantity: $scope.$line.Quantity || 1
           };
           mode = 2;
@@ -341,6 +341,12 @@
       }
       return out;
     };
+    $scope.showSubmit = function() {
+      if (window.location.pathname === '/order' || window.location.pathname === '/locations') {
+        return true;
+      }
+      return false;
+    };
     $scope.halfPretty = function(half) {
       var halfs;
       half = parseInt(half);
@@ -382,11 +388,18 @@
     $scope.$orderTotal = 0;
     updateTotal = function(v) {
       if (($scope.$orderSubtotal != null) && $scope.$orderSubtotal > 0) {
-        return $scope.$orderTotal = $scope.$orderSubtotal + $scope.$order.Tax + $scope.$order.Tax2 + parseInt($scope.$order.Tip) + $scope.$order.DeliveryCharge;
+        return $scope.$orderTotal = $scope.$orderSubtotal + $scope.$order.Tax + $scope.$order.Tax2 + parseInt($scope.$order.Tip === '' ? 0 : $scope.$order.Tip) + $scope.$order.DeliveryCharge;
       }
     };
     $scope.$watch("$orderSubtotal", updateTotal);
     $scope.$watch("$order.Tip", updateTotal);
+    $scope.$watch("$order.Tip", function(v, o) {
+      if (o != null) {
+        return $scope.$order.customPOST({
+          tip: v
+        }, 'update-tip');
+      }
+    });
     $scope.updateOrder();
   });
 
