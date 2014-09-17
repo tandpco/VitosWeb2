@@ -1,41 +1,25 @@
 + -------------------------------------------------------- +
-| TodoReview @ Friday 09/12/14 at 07:29AM                  |
-| 1829 files scanned                                       |
+| TodoReview @ Wednesday 09/17/14 at 02:25AM               |
+| 1985 files scanned                                       |
 + -------------------------------------------------------- +
 
-## TODO (2)
-1. order.jade:51 (0) Get promo codes working [github.com/tandpco/VitosWeb2/issues/25]
-2. OrderViewController.rb:211 (1) Make sure the free vs. pay side data is passed here in a secure way. [github.com/tandpco/VitosWeb2/issues/27]
+## NOTE (13)
+1. base.rb:44 Possibly verify the user for an address on login if there's none linked.
+2. ordering.rb:61 Activate order printing after verifying it won't cause confusion
+3. login.slim:18 better validation around secondary address?
+4. Hacks.rb:73 get photos for the different subs and salads to put into play. [github.com/tandpco/VitosWeb2/issues/8]
+5. Hacks.rb:114 replace build salad, wings, dippers, bread with real or purchased photo, stolen from google images currently [github.com/tandpco/VitosWeb2/issues/9]
+6. Inventory.rb:24 Currently returns Ideal cost data over the API, make sure this isn't secure information. [github.com/tandpco/VitosWeb2/issues/10]
+7. app.coffee:26'',Quantity:1}
+8. app.coffee:35 Ideally get these units flagged in the database for easier management later. is bread?
+9. app.coffee:60 @database flag toppings as cheese vs meat [github.com/tandpco/VitosWeb2/issues/13]
+10. detail.jade:48 Consider a more obviously highlight when size is selected. [github.com/tandpco/VitosWeb2/issues/15]
+11. detail.jade:83 Should default mozzerella be locked? Probably.
+12. detail.jade:121 Should extra toppings show a price beside them? Hm.
+13. detail.jade:122 Design more obvious #free badge.
 
-## NOTE (2)
-1. app.coffee:36 Ideally get these units flagged in the database for easier management later.
-2. detail.jade:80 Should default mozzerella be locked? Probably.
-
-## TODO (27)
-1. base.rb:44 Make sure that we ask the user for an address on login if there's none linked.
-2. ordering.rb:14 make sure database is updated to ignore subx and mac'n'cheese @database [github.com/tandpco/VitosWeb2/issues/28]
-3. test.rb:7 Get test card data from @thomas so we can run the payment process [github.com/tandpco/VitosWeb2/issues/1]
-4. test.rb:10 Verify payment token information being returned and apply to order [github.com/tandpco/VitosWeb2/issues/2]
-5. test.rb:11 Verify all other payment methods and gift cards work [github.com/tandpco/VitosWeb2/issues/3]
-6. login.slim:15 The registration process needs USPS address normalization. Recommending SmartyStreets. [github.com/tandpco/VitosWeb2/issues/4]
-7. layout.slim:29 Allow editing of delivery address (requires same address normalization via USPS as signup) [github.com/tandpco/VitosWeb2/issues/5]
-8. layout.slim:30 When switching to delivery, make sure to revert the store to the deliverable store even if the user has modified prev. [github.com/tandpco/VitosWeb2/issues/6]
-9. layout.slim:31 Apply promo code needs to be debugged. [github.com/tandpco/VitosWeb2/issues/7]
-10. Hacks.rb:4 get photos for the different subs and salads to put into play. [github.com/tandpco/VitosWeb2/issues/8]
-11. Hacks.rb:45 replace build salad, wings, dippers, bread with real or purchased photo, stolen from google images currently [github.com/tandpco/VitosWeb2/issues/9]
-12. Inventory.rb:24 Currently returns Ideal cost data over the API, make sure this isn't secure information. [github.com/tandpco/VitosWeb2/issues/10]
-13. app.coffee:18 Make sure StoreID isn't hard coded [github.com/tandpco/VitosWeb2/issues/11]
-14. app.coffee:37 Get all of these ID sets centralized. [github.com/tandpco/VitosWeb2/issues/12]
-15. app.coffee:62 @database flag toppings as cheese vs meat [github.com/tandpco/VitosWeb2/issues/13]
-16. app.coffee:297 Make sure the tip is updated to the order. [github.com/tandpco/VitosWeb2/issues/14]
-17. detail.jade:48 Consider a more obviously highlight when size is selected. [github.com/tandpco/VitosWeb2/issues/15]
-18. detail.jade:56 Re-enable selection of qty in ordering dialog. [github.com/tandpco/VitosWeb2/issues/16]
-19. detail.jade:57 Enable notes on each order item. [github.com/tandpco/VitosWeb2/issues/17]
-20. detail.jade:72 recommend not to alter sauce on items that have a default sauce [github.com/tandpco/VitosWeb2/issues/18]
-21. detail.jade:93 Make sure the half-side selection is disabled on salads [github.com/tandpco/VitosWeb2/issues/19]
-22. detail.jade:114 Should extra toppings show a price beside them? Hm. [github.com/tandpco/VitosWeb2/issues/20]
-23. detail.jade:115 Design more obvious #free badge. [github.com/tandpco/VitosWeb2/issues/21]
-24. detail.jade:147 Make sure there's a max side qty here to avoid spawning a massive number of DB records [github.com/tandpco/VitosWeb2/issues/22]
-25. detail.jade:148 Debug side groups (limit number of items in side group beautifully) [github.com/tandpco/VitosWeb2/issues/23]
-26. order.jade:18 Allow editing of qty in order [github.com/tandpco/VitosWeb2/issues/24]
-27. order.jade:79 Make submit order button actually work. [github.com/tandpco/VitosWeb2/issues/26]
+## TODO (4)
+1. layout.slim:32 Allow editing of delivery address (requires same address normalization via USPS as signup)
+2. OrderViewController.rb:210 Make sure the free vs. pay side data is passed here in a secure way. 
+3. detail.jade:159 Debug side groups (limit number of items in side group beautifully) 
+4. order.jade:53 Get promo codes working 

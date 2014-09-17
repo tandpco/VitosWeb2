@@ -6,7 +6,6 @@ class Hacks
     puts(subs)
     subtotal = subs['Cost'] - subs['Discount']
     total = subtotal + order[:Tax] + order[:Tax2] + order[:Tip] + order[:DeliveryCharge]
-    # @TODO: Make sure Sides affect order subtotal
     return total
   end
   def self.getStoreByAddress(pieces)
