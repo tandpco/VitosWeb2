@@ -274,6 +274,7 @@
     $scope = $rootScope;
     $scope.$order = {};
     $scope.$lines = [];
+    $scope.$promoCode = "";
     $scope.__loadingOrder = true;
     window.__itemDetail = function(unitId, specialtyId) {
       return $state.go('detail', {
@@ -285,10 +286,11 @@
       return $scope.updateOrder();
     };
     $scope.$applyPromo = function() {
+      console.log($scope.$promoCode);
       if ($scope.$promoCode.length > 1) {
         return $scope.$order.customPOST({
           CouponCode: $scope.$promoCode
-        });
+        }, 'add-promo');
       }
     };
     $scope.deleteLineItem = function($line) {

@@ -211,6 +211,7 @@ $app.run ($state,$rootScope,Restangular)->
   $scope = $rootScope
   $scope.$order = {}
   $scope.$lines = []
+  $scope.$promoCode = ""
   # $scope.$appliedCoupons = Restangular.all('applied-coupons').getList().$object
   $scope.__loadingOrder = true
   window.__itemDetail = (unitId,specialtyId)->
@@ -219,8 +220,9 @@ $app.run ($state,$rootScope,Restangular)->
     $scope.updateOrder()
 
   $scope.$applyPromo = ()->
+    console.log $scope.$promoCode
     if $scope.$promoCode.length > 1
-      $scope.$order.customPOST({CouponCode:$scope.$promoCode})
+      $scope.$order.customPOST({CouponCode:$scope.$promoCode},'add-promo')
   $scope.deleteLineItem = ($line)->
     for $cl,$i in $scope.$lines
       if $cl.OrderLineID is $line.OrderLineID
