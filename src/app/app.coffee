@@ -211,7 +211,7 @@ $app.run ($state,$rootScope,Restangular)->
   $scope = $rootScope
   $scope.$order = {}
   $scope.$lines = []
-  $scope.$appliedCoupons = Restangular.all('applied-coupons').getList().$object
+  # $scope.$appliedCoupons = Restangular.all('applied-coupons').getList().$object
   $scope.__loadingOrder = true
   window.__itemDetail = (unitId,specialtyId)->
     $state.go('detail',{unitId:unitId,specialtyId:specialtyId})
@@ -266,6 +266,7 @@ $app.run ($state,$rootScope,Restangular)->
     return halfs[half]
   $scope.updateOrder = ()->
     $scope.__loadingOrder = true
+    $scope.$appliedCoupons = Restangular.all('applied-coupons').getList().$object
     Restangular.one("order").get().then ($order)->
       # console.log 'order',v
       $scope.$order = $order
