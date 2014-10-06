@@ -217,6 +217,10 @@ $app.run ($state,$rootScope,Restangular)->
     $state.go('detail',{unitId:unitId,specialtyId:specialtyId})
   window.updateOrder = ()->
     $scope.updateOrder()
+
+  $scope.$applyPromo = ()->
+    if $scope.$promoCode.length > 1
+      $scope.$order.customPOST({CouponCode:$scope.$promoCode})
   $scope.deleteLineItem = ($line)->
     for $cl,$i in $scope.$lines
       if $cl.OrderLineID is $line.OrderLineID

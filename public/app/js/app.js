@@ -284,6 +284,13 @@
     window.updateOrder = function() {
       return $scope.updateOrder();
     };
+    $scope.$applyPromo = function() {
+      if ($scope.$promoCode.length > 1) {
+        return $scope.$order.customPOST({
+          CouponCode: $scope.$promoCode
+        });
+      }
+    };
     $scope.deleteLineItem = function($line) {
       var $cl, $i, _i, _len, _ref;
       _ref = $scope.$lines;
