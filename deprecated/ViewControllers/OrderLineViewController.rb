@@ -49,8 +49,8 @@ class OrderLineViewController
     def self.getSauce(id)
         return !id ? nil : ActiveRecord::Base.connection.select_one("select * from tblSauce where SauceID = " +id.to_s)
     end
-    def self.getSauceModifer(id)
-        return !id ? nil : ActiveRecord::Base.connection.select_one("select * from tblSauceModifier where SauceModiferID = " +id.to_s)
+    def self.getSauceModifier(id)
+        return !id ? nil : ActiveRecord::Base.connection.select_one("select * from tblSauceModifier where SauceModifierID = " +id.to_s)
     end
     def self.getOrderLineData(lineId)
         ret = {}
@@ -60,7 +60,7 @@ class OrderLineViewController
         ret[:size]          = getSize(line['SizeID'])
         ret[:style]         = getStyle(line['StyleID'])
         ret[:sauce]         = getSauce(line['Half1SauceID'])
-        ret[:sauceModifier] = getSauceModifer(line['Half1SauceModifierID'])
+        ret[:sauceModifier] = getSauceModifier(line['Half1SauceModifierID'])
         ret[:toppers]       = getLineToppers(lineId)
         ret[:toppings]      = getLineItems(lineId)
         ret[:sides]         = getLineSides(lineId)

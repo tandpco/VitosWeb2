@@ -7,13 +7,22 @@ module Vitos
           session[:storeID] = select_address.store[:StoreID]
         end
         if(!session[:orderId].blank?)
-          select_order[:StoreID] = session[:storeID]
-          select_order[:OrderTypeID] = session[:deliveryMethod]
-          select_order.save()
+          # select_order[:StoreID] = session[:storeID]
+          # select_order[:OrderTypeID] = session[:deliveryMethod]
+          # select_order.save()
           # puts('switchimgmethod '+params[:deliveryMethod])
-          # OrderViewController.updateDeliveryMethod(params[:deliveryMethod],session)
+          OrderViewController.updateDeliveryMethod(params[:deliveryMethod],session)
         end
         redirect request.referrer
+      end
+      get '/order/apply-coupon' do
+        if session[:Coupons].blank?
+          session[:Coupons] = [params[:CouponID].to_i]
+        else
+          session[:Coupons].push(params[:CouponID].to_i)
+        end
+        OrderViewController.updatePrice(session);
+        redirect "/order?UnitID=1"
       end
       post '/order/pay-return' do
         json params.to_hash

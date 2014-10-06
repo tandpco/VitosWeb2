@@ -19,7 +19,7 @@
                         span(class="itemSize" data-size="{{$line.extra.size.SizeDescription}}",ng-hide="$line.UnitID == 15 || $line.UnitID == 7") {{sizePretty($line.extra.size.SizeShortDescription)}}
                         a(class="accordion-toggle" style="display:block;color:#fff;font-size:14px")
                           span.itemDescription {{adjustUnitName($line.extra)}}
-                      td {{$line.Cost | currency}}
+                      td {{$line.Cost - $line.Discount | currency}}
             .panel-collapse(style="margin-top: 6px; height: auto;",ng-show="$line.active")
               .panel-body
                 table.grid.mini(ng-show="$line.extra.style.StyleDescription || $line.extra.sauce.SauceDescription")
@@ -49,6 +49,13 @@
                         div: strong Sides
                         ul
                           li(ng-repeat="$side in $line.extra.sides") {{$side.SideDescription}}
+  div(ng-show="$appliedCoupons.length",style="margin-top:15px")
+    h2 Selected Deal
+      span(ng-show="$appliedCoupons.length > 1") s
+    ul
+      li(ng-repeat="$coupon in $appliedCoupons" ng-class="{strikethrough:!$coupon.Used}") {{$coupon.Description}}
+        span(ng-show="$coupon.Used")  (applied)
+        span(ng-hide="$coupon.Used")  (not used)
   .order-table-total-wrapper(style="margin-top:30px",ng-show="$orderSubtotal")
     //- @TODO: Get promo codes working [github.com/tandpco/VitosWeb2/issues/25]
     //- .promo-code-input

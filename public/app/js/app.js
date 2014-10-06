@@ -274,6 +274,7 @@
     $scope = $rootScope;
     $scope.$order = {};
     $scope.$lines = [];
+    $scope.$appliedCoupons = Restangular.all('applied-coupons').getList().$object;
     $scope.__loadingOrder = true;
     window.__itemDetail = function(unitId, specialtyId) {
       return $state.go('detail', {

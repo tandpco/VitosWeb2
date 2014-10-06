@@ -902,6 +902,11 @@ label.btn.active {
     // @include background-image(linear-gradient(white, #eeeeee))
 }
 
+.strikethrough {
+    text-decoration: line-through;
+    opacity: 0.5;
+}
+
 .green-gradient-button {
     color:white;
     font-weight:bold;

@@ -44,8 +44,8 @@ class OrderViewController
         updatePrice = {
             :pOrderID => orderId,
             :pStoreID => storeId,
-            :pCouponIDs => "",
-            :pPromoCodes => ""
+            :pCouponIDs => session[:Coupons].blank? ? "" : session[:Coupons].join(','),
+            :pPromoCodes => session[:Promos].blank? ? "" : session[:Promos].join(',')
         }
 
         ActiveRecord::Base.connection.execute_procedure("WebRecalculateOrderPrice", updatePrice)
@@ -218,8 +218,8 @@ class OrderViewController
         updatePrice = {
             :pOrderID => orderId,
             :pStoreID => storeId,
-            :pCouponIDs => "",
-            :pPromoCodes => ""
+            :pCouponIDs => session[:Coupons].blank? ? "" : session[:Coupons].join(','),
+            :pPromoCodes => session[:Promos].blank? ? "" : session[:Promos].join(',')
         }
 
         updatePriceResult = ActiveRecord::Base.connection.execute_procedure("WebRecalculateOrderPrice", updatePrice)
@@ -232,6 +232,17 @@ class OrderViewController
         return result.to_json
     end
 
+    def self.updatePrice(session)
+        updatePrice = {
+            :pOrderID => session[:orderId],
+            :pStoreID => session[:storeID],
+            :pCouponIDs => session[:Coupons].blank? ? "" : session[:Coupons].join(','),
+            :pPromoCodes => session[:Promos].blank? ? "" : session[:Promos].join(',')
+        }
+
+        ActiveRecord::Base.connection.execute_procedure("WebRecalculateOrderPrice", updatePrice)
+
+    end
     def self.convertToInt(value)
         if(value == 'NULL' || value.to_i == 0)
             value = nil

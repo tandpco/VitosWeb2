@@ -15,6 +15,30 @@ module Vitos
       get '/api/item' do
           json Inventory.item(session[:storeID], params[:UnitID], params[:SizeID], params[:SpecialtyID])
       end
+      get '/api/applied-coupons' do
+          if session[:Coupons].blank?
+            json []
+          else
+            out = []
+            used = []
+            lines = ActiveRecord::Base.connection.select_all('SELECT [tblorderLines].* FROM [tblorderLines] WHERE OrderID = ' + session[:orderId].to_s + ' AND 1 = 1 ORDER BY OrderLineID ASC')
+            lines.each do |line|
+              if !line['CouponID'].blank?
+                used.push(line['CouponID'])
+              end
+            end
+            session[:Coupons].each do |x|
+              item = ActiveRecord::Base.connection.select_all('SELECT * FROM tblCoupons WHERE CouponID = '+x.to_s).first.to_hash
+              if used.include? x
+                item[:Used] = true
+              else
+                item[:Used] = false
+              end
+              out.push(item)
+            end
+            json out
+          end
+      end
       get '/api/item-sizes' do
         puts(session[:storeID])
           json Inventory.listSizesForStyle(session[:storeID],params[:UnitID],params[:StyleID])

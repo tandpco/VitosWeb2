@@ -1,0 +1,13 @@
+#items-panel.col-md-8
+  #items-grid-panel.container
+    .row
+      - @deals.each do |x|
+        .col-md-6: .item-panel-box: table#grid-table: tbody: tr
+          / td.item-panel-image style="background-image:url(/img/store-#{x[:StoreID]}-map.png);background-size:200%" 
+          /   img src="/img/store-#{x[:StoreID]}-map.png" width="100" height="100"
+          td.item-panel-content valign="top" 
+            p.header=x['Description']
+            / p.body=x[:FriendlyLocation]
+            a.red-gradient-button href="/order/apply-coupon?CouponID=#{x['CouponID']}" style="width:100%" Select Deal
+.col-md-4#order-items-panel(ng-include src="'app/partials/order.html'")
+ui-view

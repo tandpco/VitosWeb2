@@ -926,6 +926,12 @@ label.btn.active {
 }
 
 /* line 905, ../../src/sass/custom-theme.scss */
+.strikethrough {
+  text-decoration: line-through;
+  opacity: 0.5;
+}
+
+/* line 910, ../../src/sass/custom-theme.scss */
 .green-gradient-button {
   color: white;
   font-weight: bold;
@@ -947,7 +953,7 @@ label.btn.active {
 }
 
 @media (min-width: 768px) {
-  /* line 932, ../../src/sass/custom-theme.scss */
+  /* line 937, ../../src/sass/custom-theme.scss */
   .sub-navbar .navbar-nav > li > a {
     padding: 0 25px;
     line-height: 28px;
@@ -955,22 +961,22 @@ label.btn.active {
   }
 }
 @media (min-width: 992px) and (max-width: 1200px) {
-  /* line 939, ../../src/sass/custom-theme.scss */
+  /* line 944, ../../src/sass/custom-theme.scss */
   .container {
     width: 100%;
     max-width: 1170px;
   }
 
-  /* line 943, ../../src/sass/custom-theme.scss */
+  /* line 948, ../../src/sass/custom-theme.scss */
   #items-panel > .container > .row > div .item-panel-image {
     width: 18%;
   }
-  /* line 945, ../../src/sass/custom-theme.scss */
+  /* line 950, ../../src/sass/custom-theme.scss */
   #items-panel > .container > .row > div .item-panel-image img {
     transition: width 0.5s;
     width: 20px;
   }
-  /* line 949, ../../src/sass/custom-theme.scss */
+  /* line 954, ../../src/sass/custom-theme.scss */
   #items-panel > .container > .row > div .item-panel-image:hover img {
     width: 125px;
   }
