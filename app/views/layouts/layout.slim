@@ -60,7 +60,7 @@ html ng-app="app"
                   span.icon-bar
               .collapse.navbar-collapse: ul.nav.navbar-nav.navbar-right
                 li: a.white-shadow class=(!params[:UnitID].blank? ? 'active' : '') href="/order?UnitID=1" MENU
-                li: a.white-shadow href="/deals" DEALS
+                li: a.white-shadow href="/deals" class=(request.path_info == '/deals' ? 'active' : '') DEALS
                 li: a.white-shadow href="/locations" class=(request.path_info == '/locations' ? 'active' : '') LOCATIONS
           nav.navbar-default.sub-navbar role="navigation" class=(params[:UnitID].blank? ? 'hidden' : '')
             .container: .collapse.navbar-collapse: ul.nav.navbar-nav.navbar-right
