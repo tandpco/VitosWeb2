@@ -286,11 +286,12 @@
       return $scope.updateOrder();
     };
     $scope.$applyPromo = function() {
-      console.log($scope.$promoCode);
       if ($scope.$promoCode.length > 1) {
         return $scope.$order.customPOST({
           CouponCode: $scope.$promoCode
-        }, 'add-promo');
+        }, 'add-promo').then(function() {
+          return $scope.updateOrder();
+        });
       }
     };
     $scope.deleteLineItem = function($line) {

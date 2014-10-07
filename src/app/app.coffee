@@ -220,9 +220,10 @@ $app.run ($state,$rootScope,Restangular)->
     $scope.updateOrder()
 
   $scope.$applyPromo = ()->
-    console.log $scope.$promoCode
+    # console.log $scope.$promoCode
     if $scope.$promoCode.length > 1
-      $scope.$order.customPOST({CouponCode:$scope.$promoCode},'add-promo')
+      $scope.$order.customPOST({CouponCode:$scope.$promoCode},'add-promo').then ()->
+        $scope.updateOrder()
   $scope.deleteLineItem = ($line)->
     for $cl,$i in $scope.$lines
       if $cl.OrderLineID is $line.OrderLineID
