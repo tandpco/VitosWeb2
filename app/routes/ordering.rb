@@ -13,7 +13,11 @@ module Vitos
           # puts('switchimgmethod '+params[:deliveryMethod])
           OrderViewController.updateDeliveryMethod(params[:deliveryMethod],session)
         end
-        redirect request.referrer
+        if session[:deliveryMethod] == 1
+          redirect request.referrer
+        else
+          redirect "/locations"
+        end
       end
       get '/order/apply-coupon' do
         if session[:Coupons].blank?
@@ -42,7 +46,7 @@ module Vitos
       end
       get '/order/change-store' do
         session[:storeID] = params[:StoreID].to_i
-        if session[:deliveryMethod] == 1 && session[:storeID] != select_address.store[:StoreID]
+        if session[:deliveryMethod] != 2 && session[:storeID] != select_address.store[:StoreID]
           session[:deliveryMethod] = 2
         end
         if(!session[:orderId].blank?)
@@ -67,7 +71,7 @@ module Vitos
           select_order[:PaymentTypeID] = 1
           select_order[:OrderNotes] = params[:notes]
           select_order.save()
-          ActiveRecord::Base.connection.execute_procedure("WebPrintOrder" {:pStoreID => select_store[:StoreID], :pOrderID => select_order[:OrderID]})
+          ActiveRecord::Base.connection.execute_procedure("WebPrintOrder", {:pStoreID => select_store[:StoreID], :pOrderID => select_order[:OrderID]})
           session[:completeOrder] = select_order[:OrderID]
           session[:orderId] = nil
           redirect '/order/thanks'

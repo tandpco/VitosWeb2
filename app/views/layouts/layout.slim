@@ -36,7 +36,7 @@ html ng-app="app"
                 strong  &mdash; we'll deliver your order to <u>#{address[:AddressLine1]} #{address[:AddressLine2]} &bull; #{address[:City]}</u> 
                 |  from 
                 a href="https://www.google.com/maps/preview?q=Vito's Pizza and Subs, #{select_store[:Address1]} #{select_store[:City]} #{select_store[:State]}" target="_blank" <u>#{store.Address1} &bull; #{store.City}</u> 
-                a(href="/locations") switch to pickup
+                a(href="/order/switch-method?deliveryMethod=2") switch to pickup
               - else
                 strong
                   | &mdash; you're picking up from 
