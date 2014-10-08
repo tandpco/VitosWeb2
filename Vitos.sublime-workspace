@@ -4,6 +4,26 @@
 		"selected_items":
 		[
 			[
+				"Size",
+				"SizeDescription"
+			],
+			[
+				"Coupon",
+				"CouponID"
+			],
+			[
+				"text-",
+				"text-decoration"
+			],
+			[
+				"applie",
+				"appliedCoupons"
+			],
+			[
+				"store",
+				"storeID"
+			],
+			[
 				"Suace",
 				"SauceID"
 			],
@@ -447,7 +467,55 @@
 			"file": "app/views/layouts/layout.slim",
 			"settings":
 			{
-				"buffer_size": 4550,
+				"buffer_size": 4577,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/views/deals.slim",
+			"settings":
+			{
+				"buffer_size": 885,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/routes/nav.rb",
+			"settings":
+			{
+				"buffer_size": 2363,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/routes/ordering.rb",
+			"settings":
+			{
+				"buffer_size": 4820,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/routes/api.rb",
+			"settings":
+			{
+				"buffer_size": 4178,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/partials/order.jade",
+			"settings":
+			{
+				"buffer_size": 4598,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/sass/custom-theme.scss",
+			"settings":
+			{
+				"buffer_size": 25452,
 				"line_ending": "Unix"
 			}
 		},
@@ -455,7 +523,31 @@
 			"file": "src/app/app.coffee",
 			"settings":
 			{
-				"buffer_size": 11673,
+				"buffer_size": 12077,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "deprecated/ViewControllers/OrderLineViewController.rb",
+			"settings":
+			{
+				"buffer_size": 4828,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "deprecated/ViewControllers/OrderViewController.rb",
+			"settings":
+			{
+				"buffer_size": 10593,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "deprecated/ViewControllers/Inventory.rb",
+			"settings":
+			{
+				"buffer_size": 8106,
 				"line_ending": "Unix"
 			}
 		}
@@ -665,33 +757,42 @@
 	"expanded_folders":
 	[
 		"/Code/TAndPCo/Vitos/Web",
-		"/Code/TAndPCo/Vitos/Web/app/views/layouts",
-		"/Code/TAndPCo/Vitos/Web/app/views/pieces",
+		"/Code/TAndPCo/Vitos/Web/app",
+		"/Code/TAndPCo/Vitos/Web/app/views",
 		"/Code/TAndPCo/Vitos/Web/src",
 		"/Code/TAndPCo/Vitos/Web/src/app",
 		"/Code/TAndPCo/Vitos/Web/src/sass"
 	],
 	"file_history":
 	[
+		"/Code/TAndPCo/Vitos/Web/node_modules/grunt-contrib-jade/LICENSE-MIT",
+		"/Code/TAndPCo/Vitos/Web/src/sass/.sass-cache/d60917854ecca57bb608548f5d78568f6c980caf/_horizontal-list.scssc",
+		"/Code/TAndPCo/Vitos/Web/src/sass/.sass-cache/5dec4596868bd0dd106b5453c14d6b3fd042c5b1/_alternating-rows-and-columns.scssc",
+		"/Code/TAndPCo/Vitos/Web/node_modules/grunt/node_modules/js-yaml/node_modules/argparse/lib/argument/group.js",
+		"/Code/TAndPCo/Vitos/Web/node_modules/grunt-contrib-jade/node_modules/jade/node_modules/monocle/node_modules/readdirp/examples/node_modules/event-stream/node_modules/from/LICENSE.APACHE2",
+		"/Code/TAndPCo/Vitos/Web/app/views/login.slim",
+		"/Code/TAndPCo/Vitos/Web/public/order-confirmation.html",
+		"/Code/TAndPCo/Vitos/Web/src/partials/order.jade",
+		"/Code/TAndPCo/Vitos/Web/app/views/index.slim",
+		"/Code/TAndPCo/Vitos/Web/node_modules/grunt-contrib-stylus/node_modules/stylus/node_modules/sax/test/stray-ending.js",
+		"/Code/TAndPCo/Vitos/Web/app/models/store.rb",
+		"/Code/TAndPCo/Vitos/Web/deprecated/ViewControllers/OrderLineViewController.rb",
+		"/Code/TAndPCo/Vitos/Web/app/routes/ordering.rb",
+		"/Code/TAndPCo/Vitos/Web/deprecated/ViewControllers/OrderViewController.rb",
 		"/Code/TAndPCo/Vitos/Web/app/routes/base.rb",
 		"/Code/TAndPCo/Vitos/Web/src/sass/custom-theme.scss",
-		"/Code/TAndPCo/Vitos/Web/deprecated/ViewControllers/OrderViewController.rb",
-		"/Code/TAndPCo/Vitos/Web/app/routes/ordering.rb",
 		"/Code/TAndPCo/Vitos/Web/deprecated/ViewControllers/Hacks.rb",
 		"/Code/TAndPCo/Vitos/Web/app/routes/api.rb",
 		"/Code/TAndPCo/Vitos/Web/src/app/app.coffee",
-		"/Code/TAndPCo/Vitos/Web/src/partials/order.jade",
 		"/Code/TAndPCo/Vitos/Web/public/todo.txt",
 		"/Code/TAndPCo/Vitos/Web/app/views/layouts/layout.slim",
 		"/Code/TAndPCo/Vitos/Web/app/routes/nav.rb",
 		"/Code/TAndPCo/Vitos/Web/src/partials/detail.jade",
-		"/Code/TAndPCo/Vitos/Web/deprecated/ViewControllers/OrderLineViewController.rb",
 		"/Code/TAndPCo/Vitos/Web/app.rb",
 		"/Code/TAndPCo/Vitos/Web/node_modules/grunt/node_modules/js-yaml/node_modules/argparse/lib/argument_parser.js",
 		"/Code/TAndPCo/Vitos/Web/app/views/account.slim",
 		"/Code/TAndPCo/Vitos/Web/README.md",
 		"/Code/TAndPCo/Vitos/Web/deprecated/ViewControllers/Inventory.rb",
-		"/Code/TAndPCo/Vitos/Web/app/views/login.slim",
 		"/Code/TAndPCo/Vitos/Web/app/routes/account.rb",
 		"/Code/TAndPCo/Vitos/Web/app/views/checkout.slim",
 		"/Code/TAndPCo/Vitos/Web/app/models/order.rb",
@@ -699,7 +800,6 @@
 		"/Code/TAndPCo/Vitos/Web/app/views/thanks.slim",
 		"/Code/TAndPCo/Vitos/Web/app/routes/test.rb",
 		"/Code/TAndPCo/Vitos/Web/node_modules/grunt-contrib-coffee/node_modules/chalk/node_modules/strip-ansi/node_modules/ansi-regex/package.json",
-		"/Code/TAndPCo/Vitos/Web/app/models/store.rb",
 		"/Code/TAndPCo/Vitos/Web/node_modules/grunt/node_modules/findup-sync/test/findup-sync_test.js",
 		"/Code/TAndPCo/Vitos/Web/public/css/custom-theme.css",
 		"/Code/TAndPCo/Vitos/Web/app/assets/stylesheets/layout.styl",
@@ -792,19 +892,11 @@
 		"/Code/Rainmaker/Clients/oceanic/theme/patterns/expedition-type.yaml",
 		"/Code/Rainmaker/Clients/oceanic/node_modules/grunt-contrib-nodeunit/node_modules/.bin/nodeunit",
 		"/Code/Rainmaker/Clients/oceanic/node_modules/grunt-contrib-nodeunit/docs/nodeunit-options.md",
-		"/Code/Rainmaker/Clients/oceanic/lib/bootstrap-stylus/stylus/navbar.styl",
-		"/Code/Rainmaker/Clients/oceanic/Gruntfile.js",
-		"/Code/Rainmaker/Clients/oceanic/lib/style/pieces/header.styl",
-		"/Code/Rainmaker/Clients/oceanic/lib/style/pieces/buttons.styl",
-		"/Code/Rainmaker/Clients/oceanic/lib/style/pieces/components/navs.styl",
-		"/Code/Rainmaker/Clients/oceanic/lib/style/pieces/feature-slider.styl",
-		"/Code/Rainmaker/Clients/oceanic/theme/emails/default.jade",
-		"/Code/Rainmaker/Clients/oceanic/theme/pages/about.jade",
-		"/Code/Rainmaker/Clients/oceanic/theme/patterns/home-slide.yaml"
+		"/Code/Rainmaker/Clients/oceanic/lib/bootstrap-stylus/stylus/navbar.styl"
 	],
 	"find":
 	{
-		"height": 40.0
+		"height": 41.0
 	},
 	"find_in_files":
 	{
@@ -824,6 +916,11 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"lines",
+			"Cost",
+			"pCouponIDs",
+			"modifer",
+			"SauceModiferID",
 			"orderlinenotes",
 			"select_order",
 			"'",
@@ -946,12 +1043,7 @@
 			"markerclusterGroup",
 			"groups",
 			"markerClusterGroup",
-			"cluster",
-			"mapbox",
-			"cluster",
-			"label",
-			"rootScope.locations",
-			".taxonomy"
+			"cluster"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1005,7 +1097,7 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 3,
 			"sheets":
 			[
 				{
@@ -1014,15 +1106,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4550,
+						"buffer_size": 4577,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1889,
-								1889
+								3566,
+								3566
 							]
 						],
 						"settings":
@@ -1034,42 +1126,311 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 246.0,
+						"translation.y": 671.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "src/app/app.coffee",
-					"semi_transient": true,
+					"file": "app/views/deals.slim",
+					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 11673,
+						"buffer_size": 885,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								10833,
-								10833
+								171,
+								171
 							]
 						],
 						"settings":
 						{
-							"bs_sintax": "coffeescript",
-							"buffer_scroll_name": "52adb139",
+							"open_with_edit": true,
+							"syntax": "Packages/Ruby Slim/Syntaxes/Ruby Slim.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "app/routes/nav.rb",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2363,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1462,
+								1462
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Ruby/Ruby.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "app/routes/ordering.rb",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4820,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3203,
+								3206
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Ruby/Ruby.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1408.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "app/routes/api.rb",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4178,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1981,
+								1990
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Ruby/Ruby.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 730.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "src/partials/order.jade",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4598,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3330,
+								3330
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Jade/Syntaxes/Jade.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 834.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "src/sass/custom-theme.scss",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 25452,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								24163,
+								24163
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/SCSS/SCSS.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 18222.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 10,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "src/app/app.coffee",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 12077,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								9160,
+								9160
+							]
+						],
+						"settings":
+						{
 							"syntax": "Packages/Better CoffeeScript/CoffeeScript.tmLanguage",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 5377.0,
+						"translation.y": 4250.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "deprecated/ViewControllers/OrderLineViewController.rb",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4828,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								359,
+								203
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Ruby/Ruby.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "deprecated/ViewControllers/OrderViewController.rb",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 10593,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								9789,
+								9818
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Ruby/Ruby.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 3998.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "deprecated/ViewControllers/Inventory.rb",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 8106,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Ruby/Ruby.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1260.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 9,
 					"type": "text"
 				}
 			]
@@ -1113,7 +1474,7 @@
 	"project": "Vitos.sublime-project",
 	"replace":
 	{
-		"height": 76.0
+		"height": 78.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -1122,8 +1483,36 @@
 		"selected_items":
 		[
 			[
+				"layout",
+				"app/views/layouts/layout.slim"
+			],
+			[
+				"invenor",
+				"deprecated/ViewControllers/Inventory.rb"
+			],
+			[
+				"appcfe",
+				"src/app/app.coffee"
+			],
+			[
 				"orderjade",
 				"src/partials/order.jade"
+			],
+			[
+				"orderlin",
+				"deprecated/ViewControllers/OrderLineViewController.rb"
+			],
+			[
+				"invento",
+				"deprecated/ViewControllers/Inventory.rb"
+			],
+			[
+				"ordervi",
+				"deprecated/ViewControllers/OrderViewController.rb"
+			],
+			[
+				"orderviewc",
+				"deprecated/ViewControllers/OrderViewController.rb"
 			],
 			[
 				"orderv",
@@ -1604,34 +1993,6 @@
 			[
 				"apirequest",
 				"bundles/api/library/request.php"
-			],
-			[
-				"taxonom",
-				"bundles/taxonomy/extend/sql/library/extensions/taxonomy.php"
-			],
-			[
-				"momentumgroup",
-				"bundles/momentum/library/models/group.php"
-			],
-			[
-				"resourcesfil",
-				"bundles/resource/library/models/file.php"
-			],
-			[
-				"docstyl",
-				"deploy/static/docs/style.styl"
-			],
-			[
-				"docstyle",
-				"deploy/static/docs/style.styl"
-			],
-			[
-				"docsbund",
-				"bundles/docs/_bundle.php"
-			],
-			[
-				"filtersub",
-				"bundles/filters/_bundle.php"
 			]
 		],
 		"width": 0.0

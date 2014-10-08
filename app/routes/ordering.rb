@@ -67,8 +67,7 @@ module Vitos
           select_order[:PaymentTypeID] = 1
           select_order[:OrderNotes] = params[:notes]
           select_order.save()
-          # @NOTE: Activate order printing after verifying it won't cause confusion
-          # ActiveRecord::Base.connection.execute_procedure("WebPrintOrder" {:pStoreID => select_store[:StoreID], :pOrderID => select_order[:OrderID]})
+          ActiveRecord::Base.connection.execute_procedure("WebPrintOrder" {:pStoreID => select_store[:StoreID], :pOrderID => select_order[:OrderID]})
           session[:completeOrder] = select_order[:OrderID]
           session[:orderId] = nil
           redirect '/order/thanks'
