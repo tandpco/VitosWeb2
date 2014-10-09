@@ -24,7 +24,7 @@
               .panel-body
                 table.grid.mini(ng-show="$line.extra.style.StyleDescription || $line.extra.sauce.SauceDescription")
                   tr
-                    td(ng-show="$line.extra.sauce.StyleDescription")
+                    td(ng-show="$line.extra.style.StyleDescription")
                       .micro-badge Style
                       |  {{$line.extra.style.StyleDescription}} 
                     td(ng-show="$line.extra.sauce.SauceDescription")
