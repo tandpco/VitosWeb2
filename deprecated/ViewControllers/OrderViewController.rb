@@ -155,6 +155,7 @@ class OrderViewController
 
         if(toppings != nil && toppings.count > 0)
             toppings.each do |topping|
+                doubleRecord = false
                 orderLineItem = Hash.new
                 orderLineItem['pOrderLineID'] = convertToInt(orderItemResult[0]['newid'])
                 orderLineItem['pItemID'] = topping['id']
@@ -166,12 +167,16 @@ class OrderViewController
                 when 'right'
                     orderLineItem['pHalfID'] = '2'
                 when '2x'
-                    orderLineItem['pHalfID'] = '3'
+                    orderLineItem['pHalfID'] = '0'
+                    doubleRecord = true
                 else
                     orderLineItem['pHalfID'] = '0'
                 end
     
                 orderLineItemResult = ActiveRecord::Base.connection.execute_procedure("AddOrderLineItem", orderLineItem);
+                if doubleRecord != false
+                    orderLineItemResult = ActiveRecord::Base.connection.execute_procedure("AddOrderLineItem", orderLineItem);
+                end
                 result['orderLineItemResults'].push(orderLineItemResult)
             end
         end

@@ -467,7 +467,7 @@
 			"file": "app/views/layouts/layout.slim",
 			"settings":
 			{
-				"buffer_size": 4577,
+				"buffer_size": 4604,
 				"line_ending": "Unix"
 			}
 		},
@@ -480,10 +480,18 @@
 			}
 		},
 		{
+			"file": "app/views/test.slim",
+			"settings":
+			{
+				"buffer_size": 60,
+				"line_ending": "Unix"
+			}
+		},
+		{
 			"file": "app/routes/nav.rb",
 			"settings":
 			{
-				"buffer_size": 2363,
+				"buffer_size": 2436,
 				"line_ending": "Unix"
 			}
 		},
@@ -491,7 +499,15 @@
 			"file": "app/routes/ordering.rb",
 			"settings":
 			{
-				"buffer_size": 4820,
+				"buffer_size": 4835,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/views/checkout.slim",
+			"settings":
+			{
+				"buffer_size": 4709,
 				"line_ending": "Unix"
 			}
 		},
@@ -541,6 +557,16 @@
 			{
 				"buffer_size": 10593,
 				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "// Wednesday 10/08/14 at 08:48AM - 2090 files in 1.69 secs\n\n## NOTE (9)\n1. routes/base.rb:44                             Possibly verify the user for an address on login if there's none linked.\n2. routes/ordering.rb:70                         Activate order printing after verifying it won't cause confusion\n3. views/login.slim:18                           better validation around secondary address?\n4. ViewControllers/Hacks.rb:73                   get photos for the different subs and salads to put into play. [github.com/tandpco/VitosWeb2/issues/8]\n5. ViewControllers/Hacks.rb:114                  replace build salad, wings, dippers, bread with real or purchased photo, stolen from google images currently [github.com/tandpco/VitosWeb2/issues/9]\n6. ViewControllers/Inventory.rb:24               Currently returns Ideal cost data over the API, make sure this isn't secure information. [github.com/tandpco/VitosWeb2/issues/10]\n7. app/app.coffee:26                            '',Quantity:1}\n8. app/app.coffee:35                             Ideally get these units flagged in the database for easier management later. is bread?\n9. app/app.coffee:60                             @database flag toppings as cheese vs meat [github.com/tandpco/VitosWeb2/issues/13]\n\n## TODO (3)\n1. layouts/layout.slim:32                        Allow editing of delivery address (requires same address normalization via USPS as signup) [github.com/tandpco/VitosWeb2/issues/5]\n2. ViewControllers/OrderViewController.rb:210    Make sure the free vs. pay side data is passed here in a secure way. [github.com/tandpco/VitosWeb2/issues/27]\n3. partials/order.jade:60                        Get promo codes working [github.com/tandpco/VitosWeb2/issues/25]\n",
+			"settings":
+			{
+				"buffer_size": 1727,
+				"line_ending": "Unix",
+				"name": "TodoReview",
+				"scratch": true
 			}
 		},
 		{
@@ -758,6 +784,7 @@
 	[
 		"/Code/TAndPCo/Vitos/Web",
 		"/Code/TAndPCo/Vitos/Web/app",
+		"/Code/TAndPCo/Vitos/Web/app/routes",
 		"/Code/TAndPCo/Vitos/Web/app/views",
 		"/Code/TAndPCo/Vitos/Web/src",
 		"/Code/TAndPCo/Vitos/Web/src/app",
@@ -1097,7 +1124,7 @@
 	"groups":
 	[
 		{
-			"selected": 3,
+			"selected": 2,
 			"sheets":
 			[
 				{
@@ -1106,15 +1133,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4577,
+						"buffer_size": 4604,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3566,
-								3566
+								2174,
+								2174
 							]
 						],
 						"settings":
@@ -1126,10 +1153,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 671.0,
+						"translation.y": 309.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 5,
 					"type": "text"
 				},
 				{
@@ -1165,19 +1192,48 @@
 				},
 				{
 					"buffer": 2,
-					"file": "app/routes/nav.rb",
+					"file": "app/views/test.slim",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2363,
+						"buffer_size": 60,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1462,
-								1462
+								7,
+								7
+							]
+						],
+						"settings":
+						{
+							"open_with_edit": true,
+							"syntax": "Packages/Ruby Slim/Syntaxes/Ruby Slim.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "app/routes/nav.rb",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2436,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								304,
+								304
 							]
 						],
 						"settings":
@@ -1190,24 +1246,24 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
-					"buffer": 3,
+					"buffer": 4,
 					"file": "app/routes/ordering.rb",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4820,
+						"buffer_size": 4835,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3203,
-								3206
+								1353,
+								1353
 							]
 						],
 						"settings":
@@ -1217,14 +1273,44 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1408.0,
+						"translation.y": 625.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
-					"buffer": 4,
+					"buffer": 5,
+					"file": "app/views/checkout.slim",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4709,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								844,
+								895
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Ruby Slim/Syntaxes/Ruby Slim.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 31.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
 					"file": "app/routes/api.rb",
 					"semi_transient": false,
 					"settings":
@@ -1250,11 +1336,11 @@
 						"translation.y": 730.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 10,
 					"type": "text"
 				},
 				{
-					"buffer": 5,
+					"buffer": 7,
 					"file": "src/partials/order.jade",
 					"semi_transient": false,
 					"settings":
@@ -1280,11 +1366,11 @@
 						"translation.y": 834.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 11,
 					"type": "text"
 				},
 				{
-					"buffer": 6,
+					"buffer": 8,
 					"file": "src/sass/custom-theme.scss",
 					"semi_transient": false,
 					"settings":
@@ -1310,11 +1396,11 @@
 						"translation.y": 18222.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 10,
+					"stack_index": 13,
 					"type": "text"
 				},
 				{
-					"buffer": 7,
+					"buffer": 9,
 					"file": "src/app/app.coffee",
 					"semi_transient": false,
 					"settings":
@@ -1337,14 +1423,14 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 4250.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 7,
 					"type": "text"
 				},
 				{
-					"buffer": 8,
+					"buffer": 10,
 					"file": "deprecated/ViewControllers/OrderLineViewController.rb",
 					"semi_transient": false,
 					"settings":
@@ -1374,7 +1460,7 @@
 					"type": "text"
 				},
 				{
-					"buffer": 9,
+					"buffer": 11,
 					"file": "deprecated/ViewControllers/OrderViewController.rb",
 					"semi_transient": false,
 					"settings":
@@ -1386,8 +1472,8 @@
 						"selection":
 						[
 							[
-								9789,
-								9818
+								9804,
+								9807
 							]
 						],
 						"settings":
@@ -1397,14 +1483,163 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 3998.0,
+						"translation.y": 4177.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 8,
 					"type": "text"
 				},
 				{
-					"buffer": 10,
+					"buffer": 12,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1727,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1727,
+								1727
+							]
+						],
+						"settings":
+						{
+							"line_padding_bottom": 2,
+							"line_padding_top": 2,
+							"review_args":
+							{
+								"settings":
+								{
+									"exclude_folders":
+									[
+										"*node_modules*",
+										"*public*"
+									],
+									"patterns":
+									{
+										"CHANGED": "CHANGED[\\s]*?:+(?P<changed>.*)$",
+										"FIXME": "FIX ?ME[\\s]*?:+(?P<fixme>.*)$",
+										"NOTE": "NOTE[\\s]*?:+(?P<note>.*)$",
+										"TODO": "TODO[\\s]*?:+(?P<todo>.*)$"
+									}
+								}
+							},
+							"review_results":
+							{
+								"1129,1261":
+								{
+									"file": "/Code/TAndPCo/Vitos/Web/src/app/app.coffee",
+									"line": 60,
+									"note": " @database flag toppings as cheese vs meat [github.com/tandpco/VitosWeb2/issues/13]",
+									"patt": "note",
+									"priority": 100
+								},
+								"1274,1454":
+								{
+									"file": "/Code/TAndPCo/Vitos/Web/app/views/layouts/layout.slim",
+									"line": 32,
+									"note": " Allow editing of delivery address (requires same address normalization via USPS as signup) [github.com/tandpco/VitosWeb2/issues/5]",
+									"patt": "todo",
+									"priority": 100
+								},
+								"1454,1613":
+								{
+									"file": "/Code/TAndPCo/Vitos/Web/deprecated/ViewControllers/OrderViewController.rb",
+									"line": 210,
+									"note": " Make sure the free vs. pay side data is passed here in a secure way. [github.com/tandpco/VitosWeb2/issues/27]",
+									"patt": "todo",
+									"priority": 100
+								},
+								"1613,1727":
+								{
+									"file": "/Code/TAndPCo/Vitos/Web/src/partials/order.jade",
+									"line": 60,
+									"note": " Get promo codes working [github.com/tandpco/VitosWeb2/issues/25]",
+									"patt": "todo",
+									"priority": 100
+								},
+								"194,308":
+								{
+									"file": "/Code/TAndPCo/Vitos/Web/app/routes/ordering.rb",
+									"line": 70,
+									"note": " Activate order printing after verifying it won't cause confusion",
+									"patt": "note",
+									"priority": 100
+								},
+								"308,401":
+								{
+									"file": "/Code/TAndPCo/Vitos/Web/app/views/login.slim",
+									"line": 18,
+									"note": " better validation around secondary address?",
+									"patt": "note",
+									"priority": 100
+								},
+								"401,553":
+								{
+									"file": "/Code/TAndPCo/Vitos/Web/deprecated/ViewControllers/Hacks.rb",
+									"line": 73,
+									"note": " get photos for the different subs and salads to put into play. [github.com/tandpco/VitosWeb2/issues/8]",
+									"patt": "note",
+									"priority": 100
+								},
+								"553,751":
+								{
+									"file": "/Code/TAndPCo/Vitos/Web/deprecated/ViewControllers/Hacks.rb",
+									"line": 114,
+									"note": " replace build salad, wings, dippers, bread with real or purchased photo, stolen from google images currently [github.com/tandpco/VitosWeb2/issues/9]",
+									"patt": "note",
+									"priority": 100
+								},
+								"72,194":
+								{
+									"file": "/Code/TAndPCo/Vitos/Web/app/routes/base.rb",
+									"line": 44,
+									"note": " Possibly verify the user for an address on login if there's none linked.",
+									"patt": "note",
+									"priority": 100
+								},
+								"751,930":
+								{
+									"file": "/Code/TAndPCo/Vitos/Web/deprecated/ViewControllers/Inventory.rb",
+									"line": 24,
+									"note": " Currently returns Ideal cost data over the API, make sure this isn't secure information. [github.com/tandpco/VitosWeb2/issues/10]",
+									"patt": "note",
+									"priority": 100
+								},
+								"930,993":
+								{
+									"file": "/Code/TAndPCo/Vitos/Web/src/app/app.coffee",
+									"line": 26,
+									"note": "'',Quantity:1}",
+									"patt": "note",
+									"priority": 100
+								},
+								"993,1129":
+								{
+									"file": "/Code/TAndPCo/Vitos/Web/src/app/app.coffee",
+									"line": 35,
+									"note": " Ideally get these units flagged in the database for easier management later. is bread?",
+									"patt": "note",
+									"priority": 100
+								}
+							},
+							"selected_result": 1,
+							"syntax": "Packages/TodoReview/TodoReview.hidden-tmLanguage",
+							"todo_results": true,
+							"word_wrap": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 9,
+					"type": "text"
+				},
+				{
+					"buffer": 13,
 					"file": "deprecated/ViewControllers/Inventory.rb",
 					"semi_transient": false,
 					"settings":
@@ -1430,7 +1665,7 @@
 						"translation.y": 1260.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 9,
+					"stack_index": 12,
 					"type": "text"
 				}
 			]

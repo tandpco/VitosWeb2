@@ -11,6 +11,10 @@ module Vitos
       get '/login' do
         redirect "/"
       end
+      get '/test' do
+        @req = request
+        slim :test
+      end
       get '/locations' do
         @locations = Store.where(isActive: true)
         slim :locations
