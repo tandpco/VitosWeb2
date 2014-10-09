@@ -13,6 +13,7 @@
                 table(width="100%" cellspacing="10" class="order-item-table")
                   tbody
                     tr
+                      //- @TODO: Show sauce option (light/heavy)
                       td(ng-class="{noSize:$line.UnitID == 15 || $line.UnitID == 7}")
                         span(style="float:right" class="itemQty") <b>× {{$line.Quantity}}</b>
                         a(class="removeItem" ng-click="deleteLineItem($line)") ×
@@ -39,7 +40,7 @@
                       div: strong Toppings
                       ul
                         li(ng-repeat="$topping in $line.extra.toppings") {{$topping.ItemDescription}} 
-                        span(ng-show="$topping.HalfID").micro-badge {{halfPretty($topping.HalfID)}}
+                          span(ng-show="$topping.HalfID").micro-badge {{halfPretty($topping.HalfID)}}
                     td(ng-show="$line.extra.toppers ||  $line.extra.sides")
                       div(ng-show="$line.extra.toppers")
                         div: strong Crust Flavor
