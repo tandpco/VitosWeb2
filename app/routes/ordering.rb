@@ -89,6 +89,7 @@ module Vitos
         slim :thanks
       end
       get '/checkout' do
+        @req = request
         slim :checkout
       end
       get '/order' do

@@ -52,7 +52,7 @@ class OrderViewController
     end
     def self.createOrder(data,session,current_user)
         result = Hash.new()
-
+        # @TODO: Make sure the quantity actually shows
         # Order
         order = data['order']
         orderItem = data['orderItem']

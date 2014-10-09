@@ -8,7 +8,7 @@
         input.form-control type='hidden' name="UserName" placeholder="UserName" value='vitos1'
         input.form-control type='hidden' name="Amount" placeholder="Amount" value=Hacks.totalOrder(select_order)
         input.form-control type='hidden' name="TransNum" placeholder="TransNum" value=select_order[:OrderID]
-        input.form-control type='hidden' name="ReturnURL" placeholder="ReturnURL" value='#{request.protocol}#{request.host}/order/pay-return'
+        input.form-control type='hidden' name="ReturnURL" placeholder="ReturnURL" value='#{@req.scheme}://#{@req.host_with_port}/order/pay-return'
         input.form-control type='hidden' name="HasHeader" placeholder="HasHeader" value='false'
         input.form-control type='hidden' name="NameOnCard" placeholder="NameOnCard" value="#{current_user[:FirstName]} #{current_user[:LastName]}"
         input.form-control type='hidden' name="Address" placeholder="Address" value=select_address[:AddressLine1]
