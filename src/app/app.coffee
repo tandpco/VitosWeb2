@@ -37,6 +37,66 @@ $app.config ($stateProvider, $urlRouterProvider,RestangularProvider)->
           if [1,2,32].indexOf($UnitID) isnt -1
             true
           else false
+        freeColors = ["#800080","#008000","#804000","#0080ff","#d75c00"]
+        $scope.isFreeSide = ($side)->
+          for sg in $scope.$sp.defaultSideGroups
+            for s in sg.sides
+              return true if s.SideID is $side.SideID
+          return false
+        $scope.freeSideStyle = ($side)->
+          for sg,i in $scope.$sp.defaultSideGroups
+            color = freeColors[i]
+            for s in sg.sides
+              return {'background-color':color} if s.SideID is $side.SideID
+          return {}
+        $scope.freeSideCount = ($side)->
+          for sg in $scope.$sp.defaultSideGroups
+            for s in sg.sides
+              return sg.sides.length is 1 && 1 || 'any '+sg.Quantity if s.SideID is $side.SideID
+          return 0
+        theSideGroup = (sid)->
+          for sg,i in $scope.$sp.defaultSideGroups
+            for s in sg.sides
+              return i if s.SideID is sid
+          return false
+        # $scope.sides = angular.copy($scope.$sp.extraSides)
+        $scope.$sp.extraSides.sort (a,b)->
+          return -1 if a.SidePrice < b.SidePrice
+          return 1 if a.SidePrice > b.SidePrice
+          0
+        $scope.$sp.extraSides.reverse()
+        $scope.sideTotal = ()->
+          sides = $scope.$sp.extraSides
+          possibles = []
+          for x,i in $scope.$sp.defaultSideGroups
+            possibles[i] = {qty:0,max:x.Quantity}
+          purchases = []
+          free = []
+          for s in sides
+            s.buy = 0
+            if typeof $scope.$selectedSides[s.SideID] is 'string' && $scope.$selectedSides[s.SideID] > 0
+              sg = theSideGroup(s.SideID)
+              sq = parseInt($scope.$selectedSides[s.SideID])
+              if sg isnt false
+                if(possibles[sg].max is possibles[sg].qty)
+                  purchases.push({SideID:s.SideID,qty:sq,price:s.SidePrice})
+                  s.buy = sq
+                else if(possibles[sg].max < sq+possibles[sg].qty)
+                  ex = (sq+possibles[sg].qty)-possibles[sg].max
+                  s.buy = ex
+                  free.push({SideID:s.SideID,qty:sq-ex})
+                  possibles[sg].qty = possibles[sg].max
+                  purchases.push({SideID:s.SideID,qty:ex,price:s.SidePrice})
+                else
+                  free.push({SideID:s.SideID,qty:sq})
+                  possibles[sg].qty += sq
+          total = 0
+          # console.log purchases,possibles
+          $scope.$line.sideBuy = {free:free,purchased:purchases}
+          for x in purchases
+            total += x.qty * x.price
+          return total
+
         $scope.calcPrice = (x)->
           if $specialty.specialty
             return x.SpecialtyBasePrice + (x.StyleSurcharge || 0)
@@ -114,6 +174,7 @@ $app.config ($stateProvider, $urlRouterProvider,RestangularProvider)->
             orderItemToppings: toppingsJson
             orderItemToppers: $scope.$line.Toppers
             orderItemSides: $scope.$line.Sides
+            orderItemSidesClean: $scope.$line.sideBuy
 
           URL = "/api/order"
           $.ajax
@@ -146,7 +207,7 @@ $app.config ($stateProvider, $urlRouterProvider,RestangularProvider)->
               else
                 val.Quantity = parseInt value
               $v.already = true
-          console.log side,value
+          # console.log side,value
           if $v.remove isnt false
             $scope.$line.Sides.splice($v.remove,1)
             console.log 'removed'
@@ -197,7 +258,6 @@ $app.config ($stateProvider, $urlRouterProvider,RestangularProvider)->
           if v
             $scope.checkingSizes = true
             Restangular.all("item-sizes").getList(
-              "StoreID": "7"
               "UnitID":  $stateParams.unitId
               "SpecialtyID":  $stateParams.specialtyId
               "StyleID":  v
@@ -205,6 +265,13 @@ $app.config ($stateProvider, $urlRouterProvider,RestangularProvider)->
               $scope.checkingSizes = false
               verifySelectedSize(v)
               $scope.$sp.sizes = v
+        $scope.$watch "$line.SizeID",(v)->
+          if v
+            Restangular.all("item-sides").getList(
+              "UnitID":  $stateParams.unitId
+              "SizeID":  v
+            ).then (v)->
+              $scope.$sp.defaultSideGroups = v
     })
 
 $app.run ($state,$rootScope,Restangular)->
@@ -295,7 +362,7 @@ $app.run ($state,$rootScope,Restangular)->
     if $items.length > 0
       total = 0
       for item in $items
-        total += item.Cost - item.Discount
+        total += item.Quantity * (item.Cost - item.Discount)
       $scope.$orderSubtotal = total
   $scope.$orderTotal = 0
   updateTotal = (v)->

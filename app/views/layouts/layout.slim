@@ -59,10 +59,10 @@ html ng-app="app"
                   span.icon-bar
                   span.icon-bar
               .collapse.navbar-collapse: ul.nav.navbar-nav.navbar-right
-                li: a.white-shadow class=(!params[:UnitID].blank? ? 'active' : '') href="/order?UnitID=1" MENU
+                li: a.white-shadow class=(!params[:UnitID].blank? || request.path_info == '/order' ? 'active' : '') href="/order?UnitID=1" MENU
                 li: a.white-shadow href="/deals" class=(request.path_info == '/deals' ? 'active' : '') DEALS
                 li: a.white-shadow href="/locations" class=(request.path_info == '/locations' ? 'active' : '') LOCATIONS
-          nav.navbar-default.sub-navbar role="navigation" class=(params[:UnitID].blank? ? 'hidden' : '')
+          nav.navbar-default.sub-navbar role="navigation" class=(params[:UnitID].blank? && request.path_info != '/order' ? 'hidden' : '')
             .container: .collapse.navbar-collapse: ul.nav.navbar-nav.navbar-right
               li: a.white-no-shadow href="/order?UnitID=1" class=(params[:UnitID] == '1' ? 'active' : '') PIZZAS
               li: a.white-no-shadow href="/order?UnitID=32" class=(params[:UnitID] == '32' ? 'active' : '') SUBS

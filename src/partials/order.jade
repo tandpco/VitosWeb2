@@ -36,20 +36,20 @@
 
                 table.cols.mini
                   tr
-                    td(ng-show="$line.extra.toppings")
+                    td(ng-show="$line.extra.toppings.length")
                       div: strong Toppings
                       ul
                         li(ng-repeat="$topping in $line.extra.toppings") {{$topping.ItemDescription}} 
                           span(ng-show="$topping.HalfID").micro-badge {{halfPretty($topping.HalfID)}}
-                    td(ng-show="$line.extra.toppers ||  $line.extra.sides")
-                      div(ng-show="$line.extra.toppers")
+                    td(ng-show="$line.extra.toppers.length || $line.extra.sides.length")
+                      div(ng-show="$line.extra.toppers.length")
                         div: strong Crust Flavor
                         ul
                           li(ng-repeat="$topper in $line.extra.toppers") {{$topper.TopperDescription}}
-                      div(ng-show="$line.extra.sides")
+                      div(ng-show="$line.extra.sides.length")
                         div: strong Sides
                         ul
-                          li(ng-repeat="$side in $line.extra.sides") {{$side.SideDescription}}
+                          li(ng-repeat="$side in $line.extra.sides") {{$side.SideDescription}} &times; 1
   div(ng-show="$appliedCoupons.length",style="margin-top:15px")
     h2 Selected Deal
       span(ng-show="$appliedCoupons.length > 1") s
@@ -58,7 +58,6 @@
         span(ng-show="$coupon.Used")  (applied)
         span(ng-hide="$coupon.Used")  (not used)
   .order-table-total-wrapper(style="margin-top:30px",ng-show="$orderSubtotal")
-    //- @TODO: Get promo codes working [github.com/tandpco/VitosWeb2/issues/25]
     .promo-code-input
       input(type="text" id="promoCode-lg",ng-model="$parent.$promoCode" placeholder="Promo Code")
       button(class="btn" type="button",ng-click="$applyPromo()") Apply
@@ -73,9 +72,6 @@
       tr
         td DELIVERY CHARGE
         td {{$order.DeliveryCharge | currency}}
-      //- tr
-        td DRIVER MONEY
-        td {{$order.DriverMoney | currency}}
       tr
         td TIP
         td

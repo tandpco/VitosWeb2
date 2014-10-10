@@ -6,7 +6,6 @@ class Inventory
         result[:defaultSideGroups]  = []
         result[:sideGroups]         = sideGroups(storeID,unitID,sizeID,specialtyID)
         result[:specialty]          = specialty(specialtyID)
-        result[:defaultSideGroups]  = defaultSideGroups(storeID,unitID,sizeID)
         result[:extraSides]         = extraSides(storeID,unitID)
         result[:toppers]            = toppers(storeID,unitID)
         result[:specialtyDefaults]  = specialtyDefaults(storeID,unitID,specialtyID)
@@ -15,13 +14,13 @@ class Inventory
         result[:styles]             = styles(storeID,unitID)
         result[:sauceModifiers]     = sauceModifiers()
         result[:toppings]           = toppings(storeID,unitID)
+        result[:defaultSideGroups]  = defaultSideGroups(storeID,unitID,sizeID || result[:sizes][0]['SizeID'])
         return result
     end
 
     def self.listSizesForStyle(storeID,unitID,styleID)
         return ActiveRecord::Base.connection.select_all("SELECT [tblsizes].*,trelStoreSizeStyle.StyleSurcharge,trelStoreUnitSize.* FROM [tblsizes] inner join trelSizeStyle on trelSizeStyle.SizeID = tblSizes.SizeID inner join trelStoreSizeStyle on trelStoreSizeStyle.SizeID = tblSizes.SizeID and trelStoreSizeStyle.StoreID = #{storeID} and trelStoreSizeStyle.StyleID =#{styleID} inner join trelStoreUnitSize on trelStoreUnitSize.SizeID = tblSizes.SizeID and trelStoreUnitSize.StoreID = #{storeID} and trelStoreUnitSize.UnitID = #{unitID} and tblSizes.IsActive <> 0 and trelSizeStyle.StyleID = #{styleID} order by trelStoreUnitSize.SpecialtyBasePrice ASC")
     end
-    # @NOTE: Currently returns Ideal cost data over the API, make sure this isn't secure information. [github.com/tandpco/VitosWeb2/issues/10]
     def self.toppings(storeID,unitID)
         return ActiveRecord::Base.connection.select_all("select tblItems.ItemID, ItemDescription, ItemCount, FreeItemFlag, AllowHalfItems,isCheese,IsBaseCheese from trelStoreItem inner join tblItems on trelStoreItem.ItemID = tblItems.ItemID inner join trelUnitItems on tblItems.ItemID = trelUnitItems.ItemID inner join tblUnit on trelUnitItems.UnitID = tblUnit.UnitID where StoreID = #{storeID} and trelUnitItems.UnitID = #{unitID} and tblItems.IsActive <> 0 and tblItems.IsInternet <> 0 order by ItemDescription")
     end
@@ -51,6 +50,7 @@ class Inventory
     end
     def self.defaultSideGroups(storeID,unitID,sizeID=nil)
         if(sizeID.blank?) then return [] end
+        rows = ActiveRecord::Base.connection.select_all("select distinct tblSideGroup.SideGroupID, SideGroupDescription, tblSides.SideID, SideDescription, IsDefault from tblSideGroup inner join trelSideGroupSides on tblSideGroup.SideGroupID = trelSideGroupSides.SideGroupID inner join tblSides on trelSideGroupSides.SidesID = tblSides.SideID and tblSideGroup.IsActive <> 0 and tblSides.IsActive <> 0 order by tblSideGroup.SideGroupID, tblSides.SideID")
         rows = ActiveRecord::Base.connection.select_all("select SideGroupID, Quantity from trelStoreUnitSize inner join trelUnitSizeSideGroup on trelStoreUnitSize.SizeID = trelUnitSizeSideGroup.SizeID and trelStoreUnitSize.UnitID = trelUnitSizeSideGroup.UnitID where StoreID = #{storeID} and trelStoreUnitSize.UnitID = #{unitID} and trelStoreUnitSize.SizeID = #{sizeID} order by trelUnitSizeSideGroup.SideGroupID")
 
         rows.each do |row|
@@ -76,7 +76,7 @@ class Inventory
         return rows
     end
     def self.__getSideGroupSides(sideGroup)
-        return ActiveRecord::Base.connection.select_all("select distinct tblSideGroup.SideGroupID, SideGroupDescription, tblSides.SideID, SideDescription, IsDefault from tblSideGroup inner join trelSideGroupSides on tblSideGroup.SideGroupID = trelSideGroupSides.SideGroupID inner join tblSides on trelSideGroupSides.SidesID = tblSides.SideID and tblSideGroup.IsActive <> 0 and tblSides.IsActive <> 0  WHERE tblSideGroup.SideGroupID = #{sideGroup} order by tblSideGroup.SideGroupID, tblSides.SideID")
+        return ActiveRecord::Base.connection.select_all("select distinct tblSideGroup.SideGroupID, SideGroupDescription, tblSides.SideID, SideDescription, IsDefault from tblSideGroup inner join trelSideGroupSides on tblSideGroup.SideGroupID = trelSideGroupSides.SideGroupID inner join tblSides on trelSideGroupSides.SidesID = tblSides.SideID and tblSideGroup.IsActive <> 0 and tblSides.IsActive <> 0  WHERE tblSideGroup.SideGroupID = #{sideGroup} and tblSides.SideID != 46 order by tblSideGroup.SideGroupID, tblSides.SideID")
     end
 end
 

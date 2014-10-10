@@ -23,7 +23,7 @@
         }
       },
       controller: function($scope, $specialty, $stateParams, $state, Restangular) {
-        var $UnitID, verifySelectedSize, x, _i, _j, _len, _len1, _ref, _ref1;
+        var $UnitID, freeColors, theSideGroup, verifySelectedSize, x, _i, _j, _len, _len1, _ref, _ref1;
         $scope.$sp = $specialty;
         $scope.onMeat = true;
         $scope.__orderingItem = false;
@@ -54,6 +54,142 @@
           } else {
             return false;
           }
+        };
+        freeColors = ["#800080", "#008000", "#804000", "#0080ff", "#d75c00"];
+        $scope.isFreeSide = function($side) {
+          var s, sg, _i, _j, _len, _len1, _ref, _ref1;
+          _ref = $scope.$sp.defaultSideGroups;
+          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+            sg = _ref[_i];
+            _ref1 = sg.sides;
+            for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
+              s = _ref1[_j];
+              if (s.SideID === $side.SideID) {
+                return true;
+              }
+            }
+          }
+          return false;
+        };
+        $scope.freeSideStyle = function($side) {
+          var color, i, s, sg, _i, _j, _len, _len1, _ref, _ref1;
+          _ref = $scope.$sp.defaultSideGroups;
+          for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
+            sg = _ref[i];
+            color = freeColors[i];
+            _ref1 = sg.sides;
+            for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
+              s = _ref1[_j];
+              if (s.SideID === $side.SideID) {
+                return {
+                  'background-color': color
+                };
+              }
+            }
+          }
+          return {};
+        };
+        $scope.freeSideCount = function($side) {
+          var s, sg, _i, _j, _len, _len1, _ref, _ref1;
+          _ref = $scope.$sp.defaultSideGroups;
+          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+            sg = _ref[_i];
+            _ref1 = sg.sides;
+            for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
+              s = _ref1[_j];
+              if (s.SideID === $side.SideID) {
+                return sg.sides.length === 1 && 1 || 'any ' + sg.Quantity;
+              }
+            }
+          }
+          return 0;
+        };
+        theSideGroup = function(sid) {
+          var i, s, sg, _i, _j, _len, _len1, _ref, _ref1;
+          _ref = $scope.$sp.defaultSideGroups;
+          for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
+            sg = _ref[i];
+            _ref1 = sg.sides;
+            for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
+              s = _ref1[_j];
+              if (s.SideID === sid) {
+                return i;
+              }
+            }
+          }
+          return false;
+        };
+        $scope.$sp.extraSides.sort(function(a, b) {
+          if (a.SidePrice < b.SidePrice) {
+            return -1;
+          }
+          if (a.SidePrice > b.SidePrice) {
+            return 1;
+          }
+          return 0;
+        });
+        $scope.$sp.extraSides.reverse();
+        $scope.sideTotal = function() {
+          var ex, free, i, possibles, purchases, s, sg, sides, sq, total, x, _i, _j, _k, _len, _len1, _len2, _ref;
+          sides = $scope.$sp.extraSides;
+          possibles = [];
+          _ref = $scope.$sp.defaultSideGroups;
+          for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
+            x = _ref[i];
+            possibles[i] = {
+              qty: 0,
+              max: x.Quantity
+            };
+          }
+          purchases = [];
+          free = [];
+          for (_j = 0, _len1 = sides.length; _j < _len1; _j++) {
+            s = sides[_j];
+            s.buy = 0;
+            if (typeof $scope.$selectedSides[s.SideID] === 'string' && $scope.$selectedSides[s.SideID] > 0) {
+              sg = theSideGroup(s.SideID);
+              sq = parseInt($scope.$selectedSides[s.SideID]);
+              if (sg !== false) {
+                if (possibles[sg].max === possibles[sg].qty) {
+                  purchases.push({
+                    SideID: s.SideID,
+                    qty: sq,
+                    price: s.SidePrice
+                  });
+                  s.buy = sq;
+                } else if (possibles[sg].max < sq + possibles[sg].qty) {
+                  ex = (sq + possibles[sg].qty) - possibles[sg].max;
+                  s.buy = ex;
+                  free.push({
+                    SideID: s.SideID,
+                    qty: sq - ex
+                  });
+                  possibles[sg].qty = possibles[sg].max;
+                  purchases.push({
+                    SideID: s.SideID,
+                    qty: ex,
+                    price: s.SidePrice
+                  });
+                } else {
+                  free.push({
+                    SideID: s.SideID,
+                    qty: sq
+                  });
+                  possibles[sg].qty += sq;
+                }
+              }
+            }
+          }
+          total = 0;
+          $scope.$line.sideBuy = {
+            free: free,
+            purchased: purchases
+          };
+          for (_k = 0, _len2 = purchases.length; _k < _len2; _k++) {
+            x = purchases[_k];
+            total += x.qty * x.price;
+          }
+          return total;
         };
         $scope.calcPrice = function(x) {
           if ($specialty.specialty) {
@@ -146,7 +282,8 @@
             orderItem: orderItemJson,
             orderItemToppings: toppingsJson,
             orderItemToppers: $scope.$line.Toppers,
-            orderItemSides: $scope.$line.Sides
+            orderItemSides: $scope.$line.Sides,
+            orderItemSidesClean: $scope.$line.sideBuy
           };
           URL = "/api/order";
           return $.ajax({
@@ -179,7 +316,6 @@
               return $v.already = true;
             }
           });
-          console.log(side, value);
           if ($v.remove !== false) {
             $scope.$line.Sides.splice($v.remove, 1);
             console.log('removed');
@@ -250,11 +386,10 @@
             }
           }
         }
-        return $scope.$watch("$line.StyleID", function(v) {
+        $scope.$watch("$line.StyleID", function(v) {
           if (v) {
             $scope.checkingSizes = true;
             return Restangular.all("item-sizes").getList({
-              "StoreID": "7",
               "UnitID": $stateParams.unitId,
               "SpecialtyID": $stateParams.specialtyId,
               "StyleID": v
@@ -262,6 +397,16 @@
               $scope.checkingSizes = false;
               verifySelectedSize(v);
               return $scope.$sp.sizes = v;
+            });
+          }
+        });
+        return $scope.$watch("$line.SizeID", function(v) {
+          if (v) {
+            return Restangular.all("item-sides").getList({
+              "UnitID": $stateParams.unitId,
+              "SizeID": v
+            }).then(function(v) {
+              return $scope.$sp.defaultSideGroups = v;
             });
           }
         });
@@ -391,7 +536,7 @@
         total = 0;
         for (_i = 0, _len = $items.length; _i < _len; _i++) {
           item = $items[_i];
-          total += item.Cost - item.Discount;
+          total += item.Quantity * (item.Cost - item.Discount);
         }
         return $scope.$orderSubtotal = total;
       }

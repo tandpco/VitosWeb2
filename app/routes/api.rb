@@ -15,6 +15,10 @@ module Vitos
       get '/api/item' do
           json Inventory.item(session[:storeID], params[:UnitID], params[:SizeID], params[:SpecialtyID])
       end
+      get '/api/item-sides' do
+        json Inventory.defaultSideGroups(session[:storeID],params[:UnitID],params[:SizeID])
+          # json Inventory.item(, , params[:SizeID], params[:SpecialtyID])
+      end
       get '/api/applied-coupons' do
           if session[:Coupons].blank? and session[:Promos].blank?
             json []

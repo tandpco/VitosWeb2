@@ -204,15 +204,27 @@ class OrderViewController
             end
         end
 
-        if(data['orderItemSides'] != nil && data['orderItemSides'].count > 0)
-            data['orderItemSides'].each do |side|
+        if(!data['orderItemSidesClean'].blank?)
+            data['orderItemSidesClean']['purchased'].each do |side|
                 i = 0
                 # puts(side)
-                while i < side['Quantity'] and i < 20 do
+                while i < side['qty'] and i < 20 do
                     ActiveRecord::Base.connection.execute_procedure("AddOrderLineSide", {
                         :pOrderLineID => convertToInt(orderItemResult[0]['newid']),
                         :pSideID => side['SideID'],
                         :pIsFreeSide => 0 # @TODO: Make sure the free vs. pay side data is passed here in a secure way. [github.com/tandpco/VitosWeb2/issues/27]
+                    });
+                    i += 1
+                end
+            end
+            data['orderItemSidesClean']['free'].each do |side|
+                i = 0
+                # puts(side)
+                while i < side['qty'] and i < 20 do
+                    ActiveRecord::Base.connection.execute_procedure("AddOrderLineSide", {
+                        :pOrderLineID => convertToInt(orderItemResult[0]['newid']),
+                        :pSideID => side['SideID'],
+                        :pIsFreeSide => 1 # @TODO: Make sure the free vs. pay side data is passed here in a secure way. [github.com/tandpco/VitosWeb2/issues/27]
                     });
                     i += 1
                 end
