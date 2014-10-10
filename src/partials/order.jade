@@ -13,7 +13,6 @@
                 table(width="100%" cellspacing="10" class="order-item-table")
                   tbody
                     tr
-                      //- @TODO: Show sauce option (light/heavy)
                       td(ng-class="{noSize:$line.UnitID == 15 || $line.UnitID == 7}")
                         span(style="float:right" class="itemQty") <b>× {{$line.Quantity}}</b>
                         a(class="removeItem" ng-click="deleteLineItem($line)") ×
@@ -31,6 +30,7 @@
                     td(ng-show="$line.extra.sauce.SauceDescription")
                       .micro-badge Sauce
                       |  {{$line.extra.sauce.SauceDescription}} 
+                      div(ng-show="$line.extra.sauceModifier") {{$line.extra.sauceModifier.SauceModifierDescription}}
                   tr(ng-show="$line.OrderLineNotes")
                     td(colspan="2",style="padding-top:8px") <b class="micro-badge">Note</b> {{$line.OrderLineNotes}}
 

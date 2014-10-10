@@ -253,8 +253,8 @@
             pStyleID: $scope.$line.StyleID,
             pHalf1SauceID: $scope.$line.SauceID,
             pHalf2SauceID: $scope.$line.SauceID,
-            pHalf1SauceModifierID: $scope.$line.sauceModifierID,
-            pHalf2SauceModifierID: $scope.$line.sauceModifierID,
+            pHalf1SauceModifierID: $scope.$line.SauceModifierID,
+            pHalf2SauceModifierID: $scope.$line.SauceModifierID,
             pOrderLineNotes: $scope.$line.Note,
             pQuantity: $scope.$line.Quantity || 1
           };

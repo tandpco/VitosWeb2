@@ -140,8 +140,8 @@ $app.config ($stateProvider, $urlRouterProvider,RestangularProvider)->
             pStyleID: $scope.$line.StyleID
             pHalf1SauceID:$scope.$line.SauceID
             pHalf2SauceID: $scope.$line.SauceID
-            pHalf1SauceModifierID: $scope.$line.sauceModifierID
-            pHalf2SauceModifierID: $scope.$line.sauceModifierID
+            pHalf1SauceModifierID: $scope.$line.SauceModifierID
+            pHalf2SauceModifierID: $scope.$line.SauceModifierID
             # allow for notes on order line
             pOrderLineNotes: $scope.$line.Note
             # pInternetDescription: ((if not (orderItem["item"])? then "NULL" else orderItem["item"]["detail"]))

@@ -52,7 +52,6 @@ class OrderViewController
     end
     def self.createOrder(data,session,current_user)
         result = Hash.new()
-        # @TODO: Make sure the quantity actually shows
         # Order
         order = data['order']
         orderItem = data['orderItem']
@@ -212,7 +211,7 @@ class OrderViewController
                     ActiveRecord::Base.connection.execute_procedure("AddOrderLineSide", {
                         :pOrderLineID => convertToInt(orderItemResult[0]['newid']),
                         :pSideID => side['SideID'],
-                        :pIsFreeSide => 0 # @TODO: Make sure the free vs. pay side data is passed here in a secure way. [github.com/tandpco/VitosWeb2/issues/27]
+                        :pIsFreeSide => 0 
                     });
                     i += 1
                 end
@@ -224,7 +223,7 @@ class OrderViewController
                     ActiveRecord::Base.connection.execute_procedure("AddOrderLineSide", {
                         :pOrderLineID => convertToInt(orderItemResult[0]['newid']),
                         :pSideID => side['SideID'],
-                        :pIsFreeSide => 1 # @TODO: Make sure the free vs. pay side data is passed here in a secure way. [github.com/tandpco/VitosWeb2/issues/27]
+                        :pIsFreeSide => 1
                     });
                     i += 1
                 end
