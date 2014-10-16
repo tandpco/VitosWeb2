@@ -163,7 +163,7 @@
             td(style="text-align:right;font-size:11px;") Cost per addtl.
             td(style="text-align:right;font-size:11px;padding-right:10px") QTY
           tr(ng-repeat="$side in $sp.extraSides")
-            td: label.sel(ng-click="$selectedSides[$side.SideID] > 0 ? setSide($side,0) : setSide($side,1)") {{$side.SideDescription}} <span class="micro-badge" style="line-height: 12px;" ng-show="isFreeSide($side) && $side.SidePrice > 0", ng-style="freeSideStyle($side)">{{freeSideCount($side)}} free</span>
+            td: label.sel(ng-click="$selectedSides[$side.SideID] > 0 ? setSide($side,'0') : setSide($side,'1')") {{$side.SideDescription}} <span class="micro-badge" style="line-height: 12px;" ng-show="isFreeSide($side) && $side.SidePrice > 0", ng-style="freeSideStyle($side)">{{freeSideCount($side)}} free</span>
               span(style="font-size:12px",ng-show="$side.SidePrice > 0").pull-right
                 span(ng-show="$side.buy") {{$side.buy}} &times; 
                 | {{$side.SidePrice | currency}}
