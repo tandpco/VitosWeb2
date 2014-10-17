@@ -40,8 +40,10 @@ module Vitos
         select_order.save()
         ActiveRecord::Base.connection.execute("UPDATE tblOrders SET PaidDate = GetDate() WHERE OrderID = #{select_order[:OrderID]}")
 
+        ActiveRecord::Base.connection.execute_procedure("WebPrintOrder", {:pStoreID => select_store[:StoreID], :pOrderID => select_order[:OrderID]})
         session[:completeOrder] = select_order[:OrderID]
         session[:orderId] = nil
+
         redirect '/order/thanks'
       end
       get '/order/change-store' do
