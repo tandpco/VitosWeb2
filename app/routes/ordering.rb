@@ -29,21 +29,18 @@ module Vitos
         redirect "/order?UnitID=1"
       end
       post '/order/pay-return' do
-        json params.to_hash
 
         select_order[:PaymentTypeID] = 3
         select_order[:PaymentAuthorization] = params[:ReferenceNumber]
         select_order[:PaymentEmpID] = 1
         select_order[:IsPaid] = 1
-        # select_order[:PaidDate] = new CDbExpression('GetDate()')
-        # select_order[:OrderNotes] = params[:notes]
         select_order.save()
         ActiveRecord::Base.connection.execute("UPDATE tblOrders SET PaidDate = GetDate() WHERE OrderID = #{select_order[:OrderID]}")
 
         ActiveRecord::Base.connection.execute_procedure("WebPrintOrder", {:pStoreID => select_store[:StoreID], :pOrderID => select_order[:OrderID]})
         session[:completeOrder] = select_order[:OrderID]
         session[:orderId] = nil
-
+        # json params.to_hash
         redirect '/order/thanks'
       end
       get '/order/change-store' do
@@ -54,11 +51,12 @@ module Vitos
         if(!session[:orderId].blank?)
           if session[:storeID] != select_address.store[:StoreID]
             OrderViewController.updateDeliveryMethod(2,session)
+          else
+            select_order[:StoreID] = session[:storeID]
+            select_order.save()
+            # puts('switchimgmethod '+params[:deliveryMethod])
+            OrderViewController.updateDeliveryMethod(params[:deliveryMethod],session)
           end
-          select_order[:StoreID] = session[:storeID]
-          select_order.save()
-          # puts('switchimgmethod '+params[:deliveryMethod])
-          OrderViewController.updateDeliveryMethod(params[:deliveryMethod],session)
         end
         redirect request.referrer
       end
