@@ -548,11 +548,11 @@
           $scope.$lines = $items;
           updateSubtotal($scope.$lines);
           return $scope.__loadingOrder = false;
-        })["catch"](function() {
+        }, function() {
           $scope.__loadingError = true;
           return $scope.__loadingOrder = false;
         });
-      })["catch"](function() {
+      }, function() {
         $scope.__loadingError = true;
         return $scope.__loadingOrder = false;
       });

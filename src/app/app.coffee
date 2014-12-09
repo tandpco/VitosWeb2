@@ -380,22 +380,24 @@ $app.run ($state,$rootScope,Restangular)->
   $scope.updateOrder = ()->
     $scope.__loadingOrder = true
     $scope.$appliedCoupons = Restangular.all('applied-coupons').getList().$object
-    Restangular.one("order").get().then ($order)->
+    Restangular.one("order").get().then(($order)->
       # console.log 'order',v
       $scope.$order = $order
       if not angular.isFunction $order.getList
         $scope.__loadingOrder = false
         return
-      $order.getList('lines').then ($items)->
+      $order.getList('lines').then(($items)->
         $scope.$lines = $items
         updateSubtotal($scope.$lines)
         $scope.__loadingOrder = false
-      .catch ()->
+      , ()->
         $scope.__loadingError = true
         $scope.__loadingOrder = false
-    .catch ()->
+      )
+    ,()->
       $scope.__loadingError = true
       $scope.__loadingOrder = false
+    )
   # $scope.$watchCollection "$lines", updateSubtotal
   updateSubtotal = ($items)->
     if $items.length > 0
