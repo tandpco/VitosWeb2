@@ -20,6 +20,13 @@ $app = angular.module('app', ['ngRoute','ui.router','restangular'])
 
 $app.config ($stateProvider, $urlRouterProvider,RestangularProvider)->
   RestangularProvider.setBaseUrl('/api')
+  RestangularProvider.setFullRequestInterceptor (element, operation, what, url, headers, params) ->
+    headers: headers
+    params: _.extend(params,
+      cacheKilla: new Date().getTime()
+    )
+    element: element
+
   $urlRouterProvider.otherwise("/")
   $stateProvider
     .state('home', {
@@ -381,12 +388,14 @@ $app.run ($state,$rootScope,Restangular)->
     $scope.__loadingOrder = true
     $scope.$appliedCoupons = Restangular.all('applied-coupons').getList().$object
     Restangular.one("order").get().then(($order)->
+      # alert $order.OrderID
       # console.log 'order',v
       $scope.$order = $order
       if not angular.isFunction $order.getList
         $scope.__loadingOrder = false
         return
       $order.getList('lines').then(($items)->
+        # alert $items.length + ' Items'
         $scope.$lines = $items
         updateSubtotal($scope.$lines)
         $scope.__loadingOrder = false
@@ -409,6 +418,7 @@ $app.run ($state,$rootScope,Restangular)->
   updateTotal = (v)->
     if $scope.$orderSubtotal? and $scope.$orderSubtotal > 0
       $scope.$orderTotal = $scope.$orderSubtotal + $scope.$order.Tax + $scope.$order.Tax2 + parseInt(if $scope.$order.Tip == '' then 0 else $scope.$order.Tip) + $scope.$order.DeliveryCharge
+      # alert $scope.$orderTotal
       
   $scope.$watch "$orderSubtotal", updateTotal
   $scope.$watch "$order.Tip", updateTotal

@@ -22,6 +22,15 @@
 
   $app.config(function($stateProvider, $urlRouterProvider, RestangularProvider) {
     RestangularProvider.setBaseUrl('/api');
+    RestangularProvider.setFullRequestInterceptor(function(element, operation, what, url, headers, params) {
+      return {
+        headers: headers,
+        params: _.extend(params, {
+          cacheKilla: new Date().getTime()
+        }),
+        element: element
+      };
+    });
     $urlRouterProvider.otherwise("/");
     return $stateProvider.state('home', {
       url: '/',

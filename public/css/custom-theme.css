@@ -515,128 +515,129 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 15px;
   margin-right: -12px;
   padding-right: 10px;
+  padding-left: 0px;
   border: 2px solid #A49685;
   font-size: 14px;
   color: #6f6962;
   font-weight: 500;
 }
-/* line 504, ../../src/sass/custom-theme.scss */
+/* line 505, ../../src/sass/custom-theme.scss */
 #order-items-panel .order-table-total-wrapper table input[type="text"]:focus {
   outline: 0;
   border: 2px solid #706353;
 }
 
-/* line 514, ../../src/sass/custom-theme.scss */
+/* line 515, ../../src/sass/custom-theme.scss */
 #order-table {
   margin: 20px;
   border-spacing: 5px;
   border-collapse: separate;
 }
-/* line 518, ../../src/sass/custom-theme.scss */
+/* line 519, ../../src/sass/custom-theme.scss */
 #order-table th {
   border-bottom: 1px solid #716963;
   color: #716963;
   margin-bottom: 10px;
 }
 
-/* line 524, ../../src/sass/custom-theme.scss */
+/* line 525, ../../src/sass/custom-theme.scss */
 #itemSize {
   margin-right: 20px;
   background-color: #a69585;
 }
 
-/* line 529, ../../src/sass/custom-theme.scss */
+/* line 530, ../../src/sass/custom-theme.scss */
 #itemDescription {
   background-color: #bdafa0;
 }
 
-/* line 533, ../../src/sass/custom-theme.scss */
+/* line 534, ../../src/sass/custom-theme.scss */
 #footer {
   background-color: #716963;
 }
 
-/* line 537, ../../src/sass/custom-theme.scss */
+/* line 538, ../../src/sass/custom-theme.scss */
 #grid-table {
   height: 100%;
 }
-/* line 539, ../../src/sass/custom-theme.scss */
+/* line 540, ../../src/sass/custom-theme.scss */
 #grid-table tr {
   height: 100%;
 }
-/* line 541, ../../src/sass/custom-theme.scss */
+/* line 542, ../../src/sass/custom-theme.scss */
 #grid-table tr th {
   height: 100%;
 }
-/* line 544, ../../src/sass/custom-theme.scss */
+/* line 545, ../../src/sass/custom-theme.scss */
 #grid-table tr td {
   height: 100%;
 }
 
-/* line 551, ../../src/sass/custom-theme.scss */
+/* line 552, ../../src/sass/custom-theme.scss */
 #modal-location .modal-body {
   width: 80%;
   margin-left: 10%;
 }
-/* line 554, ../../src/sass/custom-theme.scss */
+/* line 555, ../../src/sass/custom-theme.scss */
 #modal-location .modal-body .row {
   margin-top: 10px;
   margin-bottom: 10px;
 }
-/* line 557, ../../src/sass/custom-theme.scss */
+/* line 558, ../../src/sass/custom-theme.scss */
 #modal-location .modal-body .row .modal-title {
   width: 100%;
   text-align: center;
   font-weight: bold;
   font-size: 26px;
 }
-/* line 563, ../../src/sass/custom-theme.scss */
+/* line 564, ../../src/sass/custom-theme.scss */
 #modal-location .modal-body .row div {
   overflow-y: hidden;
   background-color: #F0E8DE;
 }
-/* line 566, ../../src/sass/custom-theme.scss */
+/* line 567, ../../src/sass/custom-theme.scss */
 #modal-location .modal-body .row div img {
   width: 100%;
   height: auto;
 }
-/* line 570, ../../src/sass/custom-theme.scss */
+/* line 571, ../../src/sass/custom-theme.scss */
 #modal-location .modal-body .row div div {
   margin: 20px;
 }
-/* line 574, ../../src/sass/custom-theme.scss */
+/* line 575, ../../src/sass/custom-theme.scss */
 #modal-location .modal-body .row button {
   width: 100%;
   padding: 5px;
   font-size: 20px;
   text-shadow: 1px 1px black;
 }
-/* line 580, ../../src/sass/custom-theme.scss */
+/* line 581, ../../src/sass/custom-theme.scss */
 #modal-location .modal-body .row h5 {
   font-weight: bold;
   font-size: 20px;
 }
-/* line 584, ../../src/sass/custom-theme.scss */
+/* line 585, ../../src/sass/custom-theme.scss */
 #modal-location .modal-body .row h5 + h5 {
   border-bottom: 1px solid black;
 }
 
-/* line 593, ../../src/sass/custom-theme.scss */
+/* line 594, ../../src/sass/custom-theme.scss */
 #modal-invalid-login .modal-body {
   width: 80%;
   margin-left: 10%;
 }
-/* line 596, ../../src/sass/custom-theme.scss */
+/* line 597, ../../src/sass/custom-theme.scss */
 #modal-invalid-login .modal-body .row {
   margin-top: 10px;
   margin-bottom: 10px;
 }
-/* line 599, ../../src/sass/custom-theme.scss */
+/* line 600, ../../src/sass/custom-theme.scss */
 #modal-invalid-login .modal-body .row .modal-title {
   width: 100%;
   text-align: center;
   font-weight: bold;
 }
-/* line 605, ../../src/sass/custom-theme.scss */
+/* line 606, ../../src/sass/custom-theme.scss */
 #modal-invalid-login .modal-body .row button {
   width: 100%;
   padding: 5px;
@@ -644,7 +645,7 @@ h1, h2, h3, h4, h5, h6 {
   text-shadow: 1px 1px black;
 }
 
-/* line 618, ../../src/sass/custom-theme.scss */
+/* line 619, ../../src/sass/custom-theme.scss */
 #modal-please-wait .modal-dialog .modal-content img {
   width: 20%;
   margin-left: 40%;
@@ -653,11 +654,11 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 20px;
 }
 
-/* line 630, ../../src/sass/custom-theme.scss */
+/* line 631, ../../src/sass/custom-theme.scss */
 #modal-delivery img {
   width: 49%;
 }
-/* line 633, ../../src/sass/custom-theme.scss */
+/* line 634, ../../src/sass/custom-theme.scss */
 #modal-delivery h5 {
   font-weight: bold;
   font-size: 20px;
@@ -665,24 +666,24 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 25px;
 }
 
-/* line 642, ../../src/sass/custom-theme.scss */
+/* line 643, ../../src/sass/custom-theme.scss */
 #modal-stores .modal-body {
   width: 80%;
   margin-left: 10%;
 }
-/* line 645, ../../src/sass/custom-theme.scss */
+/* line 646, ../../src/sass/custom-theme.scss */
 #modal-stores .modal-body .row {
   margin-top: 10px;
   margin-bottom: 10px;
 }
-/* line 648, ../../src/sass/custom-theme.scss */
+/* line 649, ../../src/sass/custom-theme.scss */
 #modal-stores .modal-body .row .modal-title {
   width: 100%;
   text-align: center;
   font-weight: bold;
   font-size: 26px;
 }
-/* line 656, ../../src/sass/custom-theme.scss */
+/* line 657, ../../src/sass/custom-theme.scss */
 #modal-stores .modal-body div#stores div {
   margin-top: 5px;
   margin-bottom: 5px;
@@ -690,12 +691,12 @@ h1, h2, h3, h4, h5, h6 {
   background-color: #F0E8DE;
 }
 
-/* line 671, ../../src/sass/custom-theme.scss */
+/* line 672, ../../src/sass/custom-theme.scss */
 .modal-modify .modal-dialog .modal-content .modal-header {
   padding: 0px;
   border: none;
 }
-/* line 674, ../../src/sass/custom-theme.scss */
+/* line 675, ../../src/sass/custom-theme.scss */
 .modal-modify .modal-dialog .modal-content .modal-header > img {
   position: absolute;
   z-index: 5;
@@ -709,19 +710,19 @@ h1, h2, h3, h4, h5, h6 {
   /* Standard */
   margin-left: calc(100% - 25px);
 }
-/* line 687, ../../src/sass/custom-theme.scss */
+/* line 688, ../../src/sass/custom-theme.scss */
 .modal-modify .modal-dialog .modal-content .modal-header > ul {
   padding-bottom: 1px;
   background-color: #629168;
   border: none;
 }
-/* line 692, ../../src/sass/custom-theme.scss */
+/* line 693, ../../src/sass/custom-theme.scss */
 .modal-modify .modal-dialog .modal-content .modal-header > ul > li {
   width: 33%;
   height: 100%;
   border: none;
 }
-/* line 696, ../../src/sass/custom-theme.scss */
+/* line 697, ../../src/sass/custom-theme.scss */
 .modal-modify .modal-dialog .modal-content .modal-header > ul > li > a, .modal-modify .modal-dialog .modal-content .modal-header > ul > li a:hover, .modal-modify .modal-dialog .modal-content .modal-header > ul > li a:active {
   background-color: #629168;
   color: #37653f;
@@ -729,7 +730,7 @@ h1, h2, h3, h4, h5, h6 {
   border: none;
   border-radius: 0px;
 }
-/* line 705, ../../src/sass/custom-theme.scss */
+/* line 706, ../../src/sass/custom-theme.scss */
 .modal-modify .modal-dialog .modal-content .modal-header > ul li.active a {
   font-weight: bold;
   color: white;
@@ -747,80 +748,80 @@ h1, h2, h3, h4, h5, h6 {
   /* W3C Markup, IE10 Release Preview */
   background-image: linear-gradient(to bottom, #007043 0%, #00482c 100%);
 }
-/* line 731, ../../src/sass/custom-theme.scss */
+/* line 732, ../../src/sass/custom-theme.scss */
 .modal-modify .modal-dialog .modal-content .modal-body table {
   width: 100%;
 }
-/* line 734, ../../src/sass/custom-theme.scss */
+/* line 735, ../../src/sass/custom-theme.scss */
 .modal-modify .modal-dialog .modal-content .modal-body table tr td {
   width: 50%;
 }
-/* line 736, ../../src/sass/custom-theme.scss */
+/* line 737, ../../src/sass/custom-theme.scss */
 .modal-modify .modal-dialog .modal-content .modal-body table tr td li {
   margin: 1px;
   padding: 3px;
 }
-/* line 740, ../../src/sass/custom-theme.scss */
+/* line 741, ../../src/sass/custom-theme.scss */
 .modal-modify .modal-dialog .modal-content .modal-body table tr td li.header {
   font-weight: bold;
   margin-top: 5px;
 }
-/* line 744, ../../src/sass/custom-theme.scss */
+/* line 745, ../../src/sass/custom-theme.scss */
 .modal-modify .modal-dialog .modal-content .modal-body table tr td li.item {
   background-color: #f0e8de;
   box-shadow: 1px 1px 0px #ddd3c6;
   margin-bottom: 5px;
 }
-/* line 752, ../../src/sass/custom-theme.scss */
+/* line 753, ../../src/sass/custom-theme.scss */
 .modal-modify .modal-dialog .modal-content .modal-body button {
   width: 49%;
   margin-top: 20px;
 }
 
-/* line 762, ../../src/sass/custom-theme.scss */
+/* line 763, ../../src/sass/custom-theme.scss */
 #order-items-panel #order-table-sm, #order-items-panel #order-table-right, #order-items-panel-sm #order-table-sm, #order-items-panel-sm #order-table-right, #items-panel #order-table-sm, #items-panel #order-table-right {
   width: 100%;
 }
-/* line 764, ../../src/sass/custom-theme.scss */
+/* line 765, ../../src/sass/custom-theme.scss */
 #order-items-panel #order-table-sm *, #order-items-panel #order-table-right *, #order-items-panel-sm #order-table-sm *, #order-items-panel-sm #order-table-right *, #items-panel #order-table-sm *, #items-panel #order-table-right * {
   border: none;
   border-radius: 0px;
 }
-/* line 771, ../../src/sass/custom-theme.scss */
+/* line 772, ../../src/sass/custom-theme.scss */
 #order-items-panel #order-table-sm th, #order-items-panel #order-table-right th, #order-items-panel-sm #order-table-sm th, #order-items-panel-sm #order-table-right th, #items-panel #order-table-sm th, #items-panel #order-table-right th {
   font-size: 18px;
   color: #716963;
   text-decoration: underline;
 }
-/* line 777, ../../src/sass/custom-theme.scss */
+/* line 778, ../../src/sass/custom-theme.scss */
 #order-items-panel #order-table-sm td .panel-heading, #order-items-panel #order-table-right td .panel-heading, #order-items-panel-sm #order-table-sm td .panel-heading, #order-items-panel-sm #order-table-right td .panel-heading, #items-panel #order-table-sm td .panel-heading, #items-panel #order-table-right td .panel-heading {
   background-color: #A49685;
 }
-/* line 779, ../../src/sass/custom-theme.scss */
+/* line 780, ../../src/sass/custom-theme.scss */
 #order-items-panel #order-table-sm td .panel-heading a, #order-items-panel #order-table-sm td .panel-heading a:hover, #order-items-panel #order-table-right td .panel-heading a, #order-items-panel #order-table-right td .panel-heading a:hover, #order-items-panel-sm #order-table-sm td .panel-heading a, #order-items-panel-sm #order-table-sm td .panel-heading a:hover, #order-items-panel-sm #order-table-right td .panel-heading a, #order-items-panel-sm #order-table-right td .panel-heading a:hover, #items-panel #order-table-sm td .panel-heading a, #items-panel #order-table-sm td .panel-heading a:hover, #items-panel #order-table-right td .panel-heading a, #items-panel #order-table-right td .panel-heading a:hover {
   width: 100%;
   text-decoration: none;
 }
-/* line 782, ../../src/sass/custom-theme.scss */
+/* line 783, ../../src/sass/custom-theme.scss */
 #order-items-panel #order-table-sm td .panel-heading a > span, #order-items-panel #order-table-sm td .panel-heading a:hover > span, #order-items-panel #order-table-right td .panel-heading a > span, #order-items-panel #order-table-right td .panel-heading a:hover > span, #order-items-panel-sm #order-table-sm td .panel-heading a > span, #order-items-panel-sm #order-table-sm td .panel-heading a:hover > span, #order-items-panel-sm #order-table-right td .panel-heading a > span, #order-items-panel-sm #order-table-right td .panel-heading a:hover > span, #items-panel #order-table-sm td .panel-heading a > span, #items-panel #order-table-sm td .panel-heading a:hover > span, #items-panel #order-table-right td .panel-heading a > span, #items-panel #order-table-right td .panel-heading a:hover > span {
   color: white;
   font-weight: bold;
 }
-/* line 788, ../../src/sass/custom-theme.scss */
+/* line 789, ../../src/sass/custom-theme.scss */
 #order-items-panel #order-table-sm td .panel-body, #order-items-panel #order-table-right td .panel-body, #order-items-panel-sm #order-table-sm td .panel-body, #order-items-panel-sm #order-table-right td .panel-body, #items-panel #order-table-sm td .panel-body, #items-panel #order-table-right td .panel-body {
   background-color: #BDAFA0;
 }
-/* line 790, ../../src/sass/custom-theme.scss */
+/* line 791, ../../src/sass/custom-theme.scss */
 #order-items-panel #order-table-sm td .panel-body > p, #order-items-panel #order-table-right td .panel-body > p, #order-items-panel-sm #order-table-sm td .panel-body > p, #order-items-panel-sm #order-table-right td .panel-body > p, #items-panel #order-table-sm td .panel-body > p, #items-panel #order-table-right td .panel-body > p {
   color: white;
 }
 
-/* line 801, ../../src/sass/custom-theme.scss */
+/* line 802, ../../src/sass/custom-theme.scss */
 input[type="radio"], input[type="checkbox"] {
   display: none;
 }
 
-/* line 804, ../../src/sass/custom-theme.scss */
+/* line 805, ../../src/sass/custom-theme.scss */
 input[type="radio"] + label, input[type="checkbox"] + label {
   background: url(/img/checkbox_unchecked.jpg) no-repeat;
   padding-left: 30px;
@@ -828,7 +829,7 @@ input[type="radio"] + label, input[type="checkbox"] + label {
   font-weight: normal;
 }
 
-/* line 810, ../../src/sass/custom-theme.scss */
+/* line 811, ../../src/sass/custom-theme.scss */
 input[type="radio"]:checked + label, input[type="checkbox"]:checked + label {
   background: url(/img/checkbox_checked.jpeg) no-repeat;
 }
@@ -844,19 +845,19 @@ label.btn.active {
     background:url(/Content/img/checkbox_checked.jpeg) no-repeat;
 }
 */
-/* line 826, ../../src/sass/custom-theme.scss */
+/* line 827, ../../src/sass/custom-theme.scss */
 .tan-highlight {
   background-color: #F0E8DE;
   box-shadow: 1px 1px 0 #DDD3C6;
   margin-bottom: 5px;
 }
 
-/* line 832, ../../src/sass/custom-theme.scss */
+/* line 833, ../../src/sass/custom-theme.scss */
 .modal {
   background-color: rgba(255, 255, 255, 0.75);
   overflow-x: hidden;
 }
-/* line 836, ../../src/sass/custom-theme.scss */
+/* line 837, ../../src/sass/custom-theme.scss */
 .modal .modal-dialog .modal-content {
   width: 80%;
   margin-left: 10%;
@@ -864,7 +865,7 @@ label.btn.active {
   border-radius: 0px;
 }
 
-/* line 845, ../../src/sass/custom-theme.scss */
+/* line 846, ../../src/sass/custom-theme.scss */
 .shaded-input {
   height: 35px;
   border: none;
@@ -872,7 +873,7 @@ label.btn.active {
   padding: 10px;
 }
 
-/* line 851, ../../src/sass/custom-theme.scss */
+/* line 852, ../../src/sass/custom-theme.scss */
 .red-gradient-button {
   color: white;
   font-weight: bold;
@@ -896,19 +897,19 @@ label.btn.active {
   /* W3C Markup, IE10 Release Preview */
   background-image: linear-gradient(to bottom, #cc1231 0%, #8f0923 100%);
 }
-/* line 879, ../../src/sass/custom-theme.scss */
+/* line 880, ../../src/sass/custom-theme.scss */
 .red-gradient-button.r {
   border-radius: 3px;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
 }
-/* line 884, ../../src/sass/custom-theme.scss */
+/* line 885, ../../src/sass/custom-theme.scss */
 .red-gradient-button:hover {
   text-decoration: none;
   color: #fff;
 }
 
-/* line 889, ../../src/sass/custom-theme.scss */
+/* line 890, ../../src/sass/custom-theme.scss */
 .outline-button {
   color: gray;
   font-weight: bold;
@@ -920,18 +921,18 @@ label.btn.active {
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
 }
-/* line 899, ../../src/sass/custom-theme.scss */
+/* line 900, ../../src/sass/custom-theme.scss */
 .outline-button:hover {
   border-color: gray;
 }
 
-/* line 905, ../../src/sass/custom-theme.scss */
+/* line 906, ../../src/sass/custom-theme.scss */
 .strikethrough {
   text-decoration: line-through;
   opacity: 0.5;
 }
 
-/* line 910, ../../src/sass/custom-theme.scss */
+/* line 911, ../../src/sass/custom-theme.scss */
 .green-gradient-button {
   color: white;
   font-weight: bold;
@@ -953,7 +954,7 @@ label.btn.active {
 }
 
 @media (min-width: 768px) {
-  /* line 937, ../../src/sass/custom-theme.scss */
+  /* line 938, ../../src/sass/custom-theme.scss */
   .sub-navbar .navbar-nav > li > a {
     padding: 0 25px;
     line-height: 28px;
@@ -961,22 +962,22 @@ label.btn.active {
   }
 }
 @media (min-width: 992px) and (max-width: 1200px) {
-  /* line 944, ../../src/sass/custom-theme.scss */
+  /* line 945, ../../src/sass/custom-theme.scss */
   .container {
     width: 100%;
     max-width: 1170px;
   }
 
-  /* line 948, ../../src/sass/custom-theme.scss */
+  /* line 949, ../../src/sass/custom-theme.scss */
   #items-panel > .container > .row > div .item-panel-image {
     width: 18%;
   }
-  /* line 950, ../../src/sass/custom-theme.scss */
+  /* line 951, ../../src/sass/custom-theme.scss */
   #items-panel > .container > .row > div .item-panel-image img {
     transition: width 0.5s;
     width: 20px;
   }
-  /* line 954, ../../src/sass/custom-theme.scss */
+  /* line 955, ../../src/sass/custom-theme.scss */
   #items-panel > .container > .row > div .item-panel-image:hover img {
     width: 125px;
   }
