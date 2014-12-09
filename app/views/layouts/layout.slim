@@ -33,9 +33,11 @@ html ng-app="app"
             / |  | 
             - if (session[:orderId].blank? && session[:completeOrder].blank?) || !session[:orderId].blank?
               - if session[:deliveryMethod].blank? or session[:deliveryMethod] === 1
-                strong  &mdash; we'll deliver your order to <u>#{address[:AddressLine1]} #{address[:AddressLine2]} &bull; #{address[:City]}</u> 
+                strong  &mdash; we'll deliver your order to 
+                a href="/account" <u>#{address[:AddressLine1]} #{address[:AddressLine2]} &bull; #{address[:City]}</u> 
                 |  from 
-                a href="https://www.google.com/maps/preview?q=Vito's Pizza and Subs, #{select_store[:Address1]} #{select_store[:City]} #{select_store[:State]}" target="_blank" <u>#{store.Address1} &bull; #{store.City}</u> 
+                a href="https://www.google.com/maps/preview?q=Vito's Pizza and Subs, #{select_store[:Address1]} #{select_store[:City]} #{select_store[:State]}" target="_blank" <u>#{store.Address1} &bull; #{store.City}</u>
+                | &nbsp; 
                 a(href="/order/switch-method?deliveryMethod=2") switch to pickup
               - else
                 strong
@@ -47,7 +49,7 @@ html ng-app="app"
             - unless (session[:orderId].blank? && session[:completeOrder].blank?) || !session[:orderId].blank?
               a(href="/order/create-new") start a new order
               |  |  
-            a(href="/logout") logout
+            a(href="/logout") logout &rarr;
       #header
         #nav-container.nav-container
           nav.navbar-default.main-navbar role="navigation"

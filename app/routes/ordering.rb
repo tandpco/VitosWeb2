@@ -89,6 +89,9 @@ module Vitos
         slim :thanks
       end
       get '/checkout' do
+        if !select_order
+          redirect '/order?UnitID=1'
+        end
         @req = request
         slim :checkout
       end

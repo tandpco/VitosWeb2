@@ -3,6 +3,23 @@
 
   $app = angular.module('app', ['ngRoute', 'ui.router', 'restangular']);
 
+  (function(con) {
+    "use strict";
+    var dummy, empty, method, methods, prop, properties;
+    prop = void 0;
+    method = void 0;
+    empty = {};
+    dummy = function() {};
+    properties = "memory".split(",");
+    methods = ("assert,clear,count,debug,dir,dirxml,error,exception,group," + "groupCollapsed,groupEnd,info,log,markTimeline,profile,profiles,profileEnd," + "show,table,time,timeEnd,timeline,timelineEnd,timeStamp,trace,warn").split(",");
+    while (prop = properties.pop()) {
+      con[prop] = con[prop] || empty;
+    }
+    while (method = methods.pop()) {
+      con[method] = con[method] || dummy;
+    }
+  })(this.console = this.console || {});
+
   $app.config(function($stateProvider, $urlRouterProvider, RestangularProvider) {
     RestangularProvider.setBaseUrl('/api');
     $urlRouterProvider.otherwise("/");
@@ -90,15 +107,20 @@
           return {};
         };
         $scope.freeSideCount = function($side) {
-          var s, sg, _i, _j, _len, _len1, _ref, _ref1;
+          var s, sQuantity, sg, _i, _j, _len, _len1, _ref, _ref1;
           _ref = $scope.$sp.defaultSideGroups;
           for (_i = 0, _len = _ref.length; _i < _len; _i++) {
             sg = _ref[_i];
+            if (parseInt($scope.$line.Quantity) > 1) {
+              sQuantity = sg.Quantity * $scope.$line.Quantity;
+            } else {
+              sQuantity = sg.Quantity;
+            }
             _ref1 = sg.sides;
             for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
               s = _ref1[_j];
               if (s.SideID === $side.SideID) {
-                return sg.sides.length === 1 && 1 || 'any ' + sg.Quantity;
+                return sg.sides.length === 1 && 1 || 'any ' + sQuantity;
               }
             }
           }
@@ -130,15 +152,20 @@
         });
         $scope.$sp.extraSides.reverse();
         $scope.sideTotal = function() {
-          var ex, free, i, possibles, purchases, s, sg, sides, sq, total, x, _i, _j, _k, _len, _len1, _len2, _ref;
+          var ex, free, i, possibles, purchases, s, sQuantity, sg, sides, sq, total, x, _i, _j, _k, _len, _len1, _len2, _ref;
           sides = $scope.$sp.extraSides;
           possibles = [];
           _ref = $scope.$sp.defaultSideGroups;
           for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
             x = _ref[i];
+            if (parseInt($scope.$line.Quantity) > 1) {
+              sQuantity = x.Quantity * $scope.$line.Quantity;
+            } else {
+              sQuantity = x.Quantity;
+            }
             possibles[i] = {
               qty: 0,
-              max: x.Quantity
+              max: sQuantity
             };
           }
           purchases = [];

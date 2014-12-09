@@ -3,8 +3,12 @@ javascript:
   $(function(){
     liveaddress = $.LiveAddress({
       key: '916686627451130706',
-      debug: false,
-      autoVerify:true,
+      // debug: false,
+      autoVerify:false,
+      submitVerify:true,
+      ui:false,
+      //cityFilter: "#{@csv_city}",
+      //stateFilter: "OH,MI,IN",
       addresses: [{
         // id: 'address', 
         street: '#street',
@@ -15,20 +19,22 @@ javascript:
       }]
     });
     liveaddress.on('AddressAccepted',function(event,data,previousHandler){
+      // @NOTE: better validation around secondary address?
       console.log(data.response.isMissingSecondary(),data.response.raw)
       $("#components").val(JSON.stringify(data.response.raw[0].components))
       previousHandler(event,data)
+      // alert('test')
     })
   });
 .col-md-8
 
-  - address = current_user.address
+  - address = select_address
   #sign-in-panel
     form.block-form method="post" action="/update-account"
       h2 Complete Your Account
       .row: .col-md-12
         p Email Address
-        input.shaded-input type="text" name="email" value=current_user[:EMail] required="required"
+        input.shaded-input type="text" name="email" value=current_user[:EMail] required="required" disabled="disabled"
       .row
         .col-md-5
           p First Name
@@ -78,6 +84,7 @@ javascript:
         .col-md-2
           p &nbsp;
           input.shaded-input(type="text" name="birth_month" placeholder="YYYY")
-      .row: .col-md-12: input.red-gradient-button type="submit" value="UPDATE ACCOUNT DETAILS"
+      .row
+        .col-md-6: input.red-gradient-button type="submit" value="UPDATE ACCOUNT DETAILS"
 .col-md-4#order-items-panel(ng-include src="'app/partials/order.html'")
 ui-view

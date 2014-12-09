@@ -3,6 +3,20 @@ module Vitos
   module Routes
     class Nav < Base
       get '/' do
+        _states = ActiveRecord::Base.connection.select_all("select MAX(State) as State FROM tblCASSAddresses GROUP BY State ORDER BY State DESC")
+        _cities = ActiveRecord::Base.connection.select_all("select MAX(City) as City,MAX(State) as State FROM tblCASSAddresses GROUP BY City,State ORDER BY State DESC, City ASC")
+        @cities = []
+        @states = _states
+        @csv_city = []
+        _cities.each do |x|
+          if !x["City"].blank?
+            x["City"] = x["City"].strip
+            @cities.push(x)
+            @csv_city.push(x['City'])
+          end
+        end
+        @csv_city = @csv_city.join(',')
+        puts('==>',@cities)
         if warden_handler.authenticated?
           redirect "/order?UnitID=1"
         end

@@ -82,7 +82,6 @@ module Vitos
       end
       post '/api/order/update-tip' do
           data = JSON.parse request.body.read
-          # if(session[:orderId].blank?) then return nil end
           if(session[:orderId].blank?)
             json nil
           else
@@ -103,7 +102,6 @@ module Vitos
         # redirect "/order?UnitID=1"
       end
       get '/api/order/lines' do
-          # if(session[:orderId].blank?) then return nil end
           if(session[:orderId].blank?)
             json nil
           else

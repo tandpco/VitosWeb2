@@ -1,10 +1,20 @@
 script src="//d79i1fxsrar4t.cloudfront.net/jquery.liveaddress/2.4/jquery.liveaddress.min.js"
 javascript:
   $(function(){
+    $("#stater,#cityr").on('change',function() {
+      liveaddress.setStateFilter($("#stater").val())
+      liveaddress.setCityFilter($("#cityr").val())
+      $("#state").val($("#stater").val())
+      $("#city").val($("#cityr").val())
+    })
     liveaddress = $.LiveAddress({
       key: '916686627451130706',
-      debug: false,
-      autoVerify:true,
+      // debug: false,
+      autoVerify:false,
+      submitVerify:true,
+      ui:false,
+      //cityFilter: "#{@csv_city}",
+      //stateFilter: "OH,MI,IN",
       addresses: [{
         // id: 'address', 
         street: '#street',
@@ -14,6 +24,8 @@ javascript:
         state: '#state'
       }]
     });
+    liveaddress.setStateFilter($("#stater").val())
+    liveaddress.setCityFilter($("#cityr").val())
     liveaddress.on('AddressAccepted',function(event,data,previousHandler){
       // @NOTE: better validation around secondary address?
       console.log(data.response.isMissingSecondary(),data.response.raw)
@@ -57,12 +69,23 @@ javascript:
         .row
           .col-md-5
             p City
-            input#city.shaded-input(type="text" name="city")
+            / input#city.shaded-input(type="text" name="city")
+            input#city(type="hidden" name="city")
+            select.shaded-input#cityr
+              - @states.each do |state|
+                optgroup(label=state['State'])
+                  - @cities.each do |x|
+                    - if x["State"] == state['State']
+                      option(value=x["City"]) = x["City"]
           .col-md-3
             p State
-            input#state.shaded-input(type="text" name="state")
+            input#state(type="hidden" name="state")
+            select.shaded-input#stater
+              option(value="OH") OHIO
+              option(value="MI") MICHIGAN
+              option(value="IN") INDIANA
           .col-md-4
             p Zip Code
             input#zip.shaded-input(type="text" name="zip")
-            input#components(type="text" name="components")
+            input#components(type="hidden" name="components")
         .row: .col-md-12: input.red-gradient-button type="submit" value="SIGN IN"

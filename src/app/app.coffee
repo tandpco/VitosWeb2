@@ -1,5 +1,23 @@
 $app = angular.module('app', ['ngRoute','ui.router','restangular'])
 
+# Console-polyfill. MIT license.
+# https://github.com/paulmillr/console-polyfill
+# Make it safe to do console.log() always.
+((con) ->
+  "use strict"
+  prop = undefined
+  method = undefined
+  empty = {}
+  dummy = ->
+
+  properties = "memory".split(",")
+  methods = ("assert,clear,count,debug,dir,dirxml,error,exception,group," + "groupCollapsed,groupEnd,info,log,markTimeline,profile,profiles,profileEnd," + "show,table,time,timeEnd,timeline,timelineEnd,timeStamp,trace,warn").split(",")
+  con[prop] = con[prop] or empty  while prop = properties.pop()
+  con[method] = con[method] or dummy  while method = methods.pop()
+  return
+) @console = @console or {} # Using `this` for web workers.
+
+
 $app.config ($stateProvider, $urlRouterProvider,RestangularProvider)->
   RestangularProvider.setBaseUrl('/api')
   $urlRouterProvider.otherwise("/")
@@ -51,8 +69,12 @@ $app.config ($stateProvider, $urlRouterProvider,RestangularProvider)->
           return {}
         $scope.freeSideCount = ($side)->
           for sg in $scope.$sp.defaultSideGroups
+            if parseInt($scope.$line.Quantity) > 1
+              sQuantity = sg.Quantity * $scope.$line.Quantity
+            else
+              sQuantity = sg.Quantity
             for s in sg.sides
-              return sg.sides.length is 1 && 1 || 'any '+sg.Quantity if s.SideID is $side.SideID
+              return sg.sides.length is 1 && 1 || 'any '+sQuantity if s.SideID is $side.SideID
           return 0
         theSideGroup = (sid)->
           for sg,i in $scope.$sp.defaultSideGroups
@@ -69,7 +91,11 @@ $app.config ($stateProvider, $urlRouterProvider,RestangularProvider)->
           sides = $scope.$sp.extraSides
           possibles = []
           for x,i in $scope.$sp.defaultSideGroups
-            possibles[i] = {qty:0,max:x.Quantity}
+            if parseInt($scope.$line.Quantity) > 1
+              sQuantity = x.Quantity * $scope.$line.Quantity
+            else
+              sQuantity = x.Quantity
+            possibles[i] = {qty:0,max:sQuantity}
           purchases = []
           free = []
           for s in sides
@@ -126,7 +152,6 @@ $app.config ($stateProvider, $urlRouterProvider,RestangularProvider)->
           return true if $scope.onMeat and [11,14,19,21,27,28,33,35,43,44,45,46,50,51,55,56,97,105].indexOf(i.ItemID) isnt -1
           return true if not $scope.onMeat and [11,14,19,21,27,28,33,35,43,44,45,46,50,51,55,56,97,105].indexOf(i.ItemID) is -1
           return false
-
 
         $scope.orderItem = ()->
           # orderId = Session.get("orderId")
@@ -314,6 +339,20 @@ $app.run ($state,$rootScope,Restangular)->
     if d.unit.UnitID is 1
       return "Build your Own Pizza"
     return d.unit.UnitDescription
+
+  # $scope.groupSides = ($sg)->
+  #   # console.log '==>',$sg
+  #   $out = {}
+  #   for $side in $sg
+  #     if not $out[$side.SideDescription]    
+  #       $out[$side.SideDescription] = 1
+  #     else
+  #       $out[$side.SideDescription] += 1
+  #   $ret = []
+  #   angular.forEach $out, (value, key) ->
+  #     $ret.push({SideDescription:key,Quantity:value})
+  #   # console.log $ret
+  #   return $ret
   $scope.sizePretty = (size)->
     if !size?
       return '•'

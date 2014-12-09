@@ -25,14 +25,14 @@
       .row
         - if session[:deliveryMethod] == 1
           .col-md-6
-            a.pull-right href="/order/change-location" Change Location
+            / a.pull-right href="/order/change-location" Change Location
             h3(style="margin-top:0") Your Location:
             div #{current_user[:FirstName]} #{current_user[:LastName]}
             div #{select_address[:AddressLine1]}
             div #{select_address[:AddressLine2]}
             div #{select_address[:City]}, #{select_address[:State]} #{select_address[:PostalCode]}
             div #{select_address[:Phone]}
-            div: a(href="/order/change-location") Deliver my pizza to a different location.
+            div: a(href="/account") Deliver my pizza to a different location.
         .col-md-6
           - if session[:deliveryMethod] == 1
             a.pull-right href="/order/switch-method?deliveryMethod=2" Switch to Pickup
@@ -47,7 +47,7 @@
           div #{select_store[:Phone]} &mdash; #{select_store[:Hours]}
           - if session[:deliveryMethod] == 2
             div
-              a(href="/locations") Pickup for a different store.
+              a(href="/locations") Pickup from a different store.
               |  |  
               a href="https://www.google.com/maps/preview?q=Vito's Pizza and Subs, #{select_store[:Address1]} #{select_store[:City]} #{select_store[:State]}" target="_blank" Get Directions
           / div.small=select_store[:MetaDescription]
