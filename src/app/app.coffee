@@ -103,6 +103,7 @@ $app.config ($stateProvider, $urlRouterProvider,RestangularProvider)->
             else
               sQuantity = x.Quantity
             possibles[i] = {qty:0,max:sQuantity}
+          # console.log possibles
           purchases = []
           free = []
           for s in sides
@@ -123,8 +124,11 @@ $app.config ($stateProvider, $urlRouterProvider,RestangularProvider)->
                 else
                   free.push({SideID:s.SideID,qty:sq})
                   possibles[sg].qty += sq
+              else
+                purchases.push({SideID:s.SideID,qty:sq,price:s.SidePrice})
+
           total = 0
-          # console.log purchases,possibles
+          # console.log purchases,possibles,$scope.$selectedSides
           $scope.$line.sideBuy = {free:free,purchased:purchases}
           for x in purchases
             total += x.qty * x.price
@@ -161,6 +165,8 @@ $app.config ($stateProvider, $urlRouterProvider,RestangularProvider)->
           return false
 
         $scope.orderItem = ()->
+          if $scope.__orderingItem is true
+            return
           # orderId = Session.get("orderId")
           $scope.__orderingItem = true
           orderItemJson =
@@ -276,11 +282,11 @@ $app.config ($stateProvider, $urlRouterProvider,RestangularProvider)->
 
         if _.isArray $scope.$sp.specialtyDefaults
           for x in $scope.$sp.specialtyDefaults
-            $scope.setTopping x,true,'whole'
+            $scope.setTopping x,true,x.SpecialtyItemQuantity is 2 && '2x' || 'whole'
         if not $specialty.NoBaseCheese
           for x in $specialty.toppings
             if x.IsBaseCheese
-              $scope.setTopping x,true,'whole'
+              $scope.setTopping x,true,x.SpecialtyItemQuantity is 2 && '2x' || 'whole'
 
         # $scope.$watchCollection "$line.Sides",(v)->
         #   console.log 'chosen sides',v
@@ -377,7 +383,7 @@ $app.run ($state,$rootScope,Restangular)->
     return out
       
   $scope.showSubmit = ()->
-    if window.location.pathname == '/order' || window.location.pathname == '/locations'
+    if window.location.pathname == '/order' || window.location.pathname == '/locations' || window.location.pathname == '/deals'
       return true
     false
   $scope.halfPretty = (half)->

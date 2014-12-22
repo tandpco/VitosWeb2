@@ -64,6 +64,9 @@ module Vitos
         session[:deliveryMethod] = 1
         session[:completeOrder] = nil
         session[:orderId] = nil
+        if !select_address.blank?
+          session[:storeID] = select_address.store[:StoreID]
+        end
         redirect '/order?UnitID=1'
       end
       post '/order/complete' do

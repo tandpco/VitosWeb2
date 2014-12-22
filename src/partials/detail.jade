@@ -1,5 +1,5 @@
 .overlay: .dialog
-  ul.tabs(ng-show="$sp.extraSides.length || $sp.toppings.length || $sp.sauces.length")
+  ul.tabs
     li(ng-class="{active:tab == 'size'}",ng-click="tab = 'size'"): a Size
       span(ng-show="isBread()")  &amp; Crust
       span(ng-show="!isBread() && $sp.styles.length")  &amp; Style
@@ -92,7 +92,7 @@
             td: label.sel(ng-click="$selectedToppings[$topping.ItemID] != 'whole' ? setTopping($topping,true,'whole') : setTopping($topping,false,'whole')") {{$topping.ItemDescription}} 
               span(ng-show="$topping.FreeItemFlag" style="line-height: 12px;").micro-badge free
             td(colspan="{{$topping.IsBaseCheese && 4 || 0}}")
-              div(ng-show="$topping.IsBaseCheese", style="font-size:12px") base cheese
+              div(ng-show="$topping.IsBaseCheese", style="font-size:12px") included cheese
               div(ng-hide="$topping.IsBaseCheese")
                 img(src="/img/checkbox_checked.jpeg",ng-show="$selectedToppings[$topping.ItemID] == 'whole'",ng-click="setTopping($topping,false,'whole')")
                 img(src="/img/checkbox_unchecked.jpg",ng-hide="$selectedToppings[$topping.ItemID] == 'whole'",ng-click="setTopping($topping,true,'whole')")

@@ -50,7 +50,7 @@ class Inventory
     end
     def self.defaultSideGroups(storeID,unitID,sizeID=nil)
         if(sizeID.blank?) then return [] end
-        rows = ActiveRecord::Base.connection.select_all("select distinct tblSideGroup.SideGroupID, SideGroupDescription, tblSides.SideID, SideDescription, IsDefault from tblSideGroup inner join trelSideGroupSides on tblSideGroup.SideGroupID = trelSideGroupSides.SideGroupID inner join tblSides on trelSideGroupSides.SidesID = tblSides.SideID and tblSideGroup.IsActive <> 0 and tblSides.IsActive <> 0 order by tblSideGroup.SideGroupID, tblSides.SideID")
+        # rows = ActiveRecord::Base.connection.select_all("select distinct tblSideGroup.SideGroupID, SideGroupDescription, tblSides.SideID, SideDescription, IsDefault from tblSideGroup inner join trelSideGroupSides on tblSideGroup.SideGroupID = trelSideGroupSides.SideGroupID inner join tblSides on trelSideGroupSides.SidesID = tblSides.SideID and tblSideGroup.IsActive <> 0 and tblSides.IsActive <> 0 order by tblSideGroup.SideGroupID, tblSides.SideID")
         rows = ActiveRecord::Base.connection.select_all("select SideGroupID, Quantity from trelStoreUnitSize inner join trelUnitSizeSideGroup on trelStoreUnitSize.SizeID = trelUnitSizeSideGroup.SizeID and trelStoreUnitSize.UnitID = trelUnitSizeSideGroup.UnitID where StoreID = #{storeID} and trelStoreUnitSize.UnitID = #{unitID} and trelStoreUnitSize.SizeID = #{sizeID} order by trelUnitSizeSideGroup.SideGroupID")
 
         rows.each do |row|

@@ -25,6 +25,9 @@ module Vitos
       get '/login' do
         redirect "/"
       end
+      post '/unauthenticated' do
+        redirect "/"
+      end
       get '/test' do
         @req = request
         slim :test

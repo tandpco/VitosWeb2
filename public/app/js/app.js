@@ -213,6 +213,12 @@
                   });
                   possibles[sg].qty += sq;
                 }
+              } else {
+                purchases.push({
+                  SideID: s.SideID,
+                  qty: sq,
+                  price: s.SidePrice
+                });
               }
             }
           }
@@ -281,6 +287,9 @@
         };
         $scope.orderItem = function() {
           var URL, deliveryMode, json, mode, orderItemJson, orderJson, toppingsJson, x, _i, _len, _ref;
+          if ($scope.__orderingItem === true) {
+            return;
+          }
           $scope.__orderingItem = true;
           orderItemJson = {
             pUnitID: $stateParams.unitId,
@@ -410,7 +419,7 @@
           _ref = $scope.$sp.specialtyDefaults;
           for (_i = 0, _len = _ref.length; _i < _len; _i++) {
             x = _ref[_i];
-            $scope.setTopping(x, true, 'whole');
+            $scope.setTopping(x, true, x.SpecialtyItemQuantity === 2 && '2x' || 'whole');
           }
         }
         if (!$specialty.NoBaseCheese) {
@@ -418,7 +427,7 @@
           for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
             x = _ref1[_j];
             if (x.IsBaseCheese) {
-              $scope.setTopping(x, true, 'whole');
+              $scope.setTopping(x, true, x.SpecialtyItemQuantity === 2 && '2x' || 'whole');
             }
           }
         }
@@ -533,7 +542,7 @@
       return out;
     };
     $scope.showSubmit = function() {
-      if (window.location.pathname === '/order' || window.location.pathname === '/locations') {
+      if (window.location.pathname === '/order' || window.location.pathname === '/locations' || window.location.pathname === '/deals') {
         return true;
       }
       return false;

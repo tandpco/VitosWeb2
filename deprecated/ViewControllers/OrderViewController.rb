@@ -69,8 +69,8 @@ class OrderViewController
             newOrder = Hash.new()
 
             newOrder['pSessionID']       = 0
-            newOrder['pIPAddress']       = 0
-            newOrder['pEmpID']           = 0
+            newOrder['pIPAddress']       = "127.0.0.1" #@TODO: connect this to request.ip
+            newOrder['pEmpID']           = 1
             newOrder['pRefID']           = nil
             newOrder['pTransactionDate'] = Time.now.utc.iso8601
             newOrder['pStoreID']         = storeId
@@ -118,18 +118,18 @@ class OrderViewController
             # Hard coded sides as 8000 and above
             # Values originate in JSON, not the database
             # Added 8000 to original unit id (i.e. Vito's bread originally was UnitID 2, changed to 8002)
-            if(itemUnitId == 8000 || itemSpecialtyId == 8001)
-                itemUnitId       = itemSpecialtyId - 8000
-                itemSpecialtyId  = nil
+            # if(itemUnitId == 8000 || itemSpecialtyId == 8001)
+            #     itemUnitId       = itemSpecialtyId - 8000
+            #     itemSpecialtyId  = nil
 
-                # UnitID 2 is Vito's bread...make sure all others don't have sauce (the SPROC will not like it)
-                if(itemUnitId != 2)
-                    half1SauceID         = nil
-                    half2SauceID         = nil
-                    half1SauceModifierID = nil
-                    half2SauceModifierID = nil
-                end
-            end
+            #     # UnitID 2 is Vito's bread...make sure all others don't have sauce (the SPROC will not like it)
+            #     if(itemUnitId != 2)
+            #         half1SauceID         = nil
+            #         half2SauceID         = nil
+            #         half1SauceModifierID = nil
+            #         half2SauceModifierID = nil
+            #     end
+            # end
 
             orderItem['pUnitID']               = itemUnitId
             orderItem['pSpecialtyID']          = itemSpecialtyId
