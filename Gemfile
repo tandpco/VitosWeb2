@@ -25,7 +25,7 @@ gem 'stylus'
 gem 'stylus-source', '0.31.0'
 gem 'dalli'
 gem 'memcachier'
-
+gem 'hps', '~> 1.0.1'
 
 gem 'data_mapper'
 gem 'ruby-geometry'

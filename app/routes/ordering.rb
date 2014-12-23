@@ -43,6 +43,38 @@ module Vitos
         # json params.to_hash
         redirect '/order/thanks'
       end
+      post '/order/securesubmit-complete' do
+        # token_value
+        Hps.configure do |config|
+          config.secret_api_key = select_store['SSAPISK']
+        end  
+        charge_service = Hps::HpsChargeService.new
+        auth_response = charge_service.authorize(50.00, "usd", params[:token_value])
+        puts auth_response
+        if auth_response.response_text != 'APPROVAL'
+          return "Card was not approved."
+        end
+
+        # puts 'happy'
+        # puts params
+        # json auth_response
+        # return
+        # sSQL = "update tblOrders set PaidDate = GetDate(), IsPaid = 1, PaymentTypeID = 3, PaymentEmpID = 1, Tip = " & pdTip & ", PaymentAuthorization = '" & psReference & "' where OrderID = " & pnOrderID
+        select_order[:PaymentTypeID] = 3
+        select_order[:SSTransactionID] = auth_response.transaction_id
+        select_order[:PaymentAuthorization] = auth_response.authorization_code
+        select_order[:PaymentEmpID] = 1
+        select_order[:IsPaid] = 1
+        select_order.save()
+        ActiveRecord::Base.connection.execute("UPDATE tblOrders SET PaidDate = GetDate() WHERE OrderID = #{select_order[:OrderID]}")
+
+        ActiveRecord::Base.connection.execute_procedure("WebPrintOrder", {:pStoreID => select_store[:StoreID], :pOrderID => select_order[:OrderID]})
+        session[:completeOrder] = select_order[:OrderID]
+        session[:orderId] = nil
+        # json params.to_hash
+        redirect '/order/thanks'
+      end
+
       get '/order/change-store' do
         session[:storeID] = params[:StoreID].to_i
         if session[:deliveryMethod] != 2 && session[:storeID] != select_address.store[:StoreID]
@@ -68,6 +100,9 @@ module Vitos
           session[:storeID] = select_address.store[:StoreID]
         end
         redirect '/order?UnitID=1'
+      end
+      get '/checkout/card' do
+        slim :card
       end
       post '/order/complete' do
         if !params[:payCash].blank?

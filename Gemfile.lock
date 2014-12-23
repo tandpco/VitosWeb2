@@ -95,6 +95,9 @@ GEM
     execjs (2.2.1)
     fastercsv (1.5.5)
     hike (1.2.3)
+    hps (1.0.1)
+      activesupport (>= 2.3.14, < 5.0.0)
+      builder (>= 2.1.2, < 4.0.0)
     i18n (0.6.11)
     json (1.7.7)
     json_pure (1.8.1)
@@ -176,6 +179,7 @@ DEPENDENCIES
   data_mapper
   dotenv
   erubis
+  hps (~> 1.0.1)
   i18n
   json (~> 1.7.7)
   memcachier

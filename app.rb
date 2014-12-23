@@ -36,6 +36,7 @@ require 'app/helpers'
 require 'app/routes'
 require 'slim'
 require 'warden'
+require 'hps'
 
 # puts(ENV.to_hash)
 module Vitos
