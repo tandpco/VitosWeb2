@@ -291,13 +291,30 @@ h1, h2, h3, h4, h5, h6 {
   padding: 20px;
   text-align: center;
 }
-/* line 306, ../../src/sass/custom-theme.scss */
+/* line 307, ../../src/sass/custom-theme.scss */
+#order-items-panel .removeItem {
+  display: inline-block;
+  cursor: pointer;
+  margin-top: 2px;
+  opacity: 1;
+  width: 15px;
+  height: 15px;
+  border-radius: 10px !important;
+  text-decoration: none;
+  background-color: #C00000;
+  font-weight: bold;
+  color: #fff;
+  text-align: center;
+  line-height: 16px;
+  font-size: 15px;
+}
+/* line 323, ../../src/sass/custom-theme.scss */
 #order-items-panel table.order-item-table {
   border-collapse: separate;
   border-spacing: 6px;
   font-family: "Proxima Nova", "proxima-nova", "Helvetica Neue", "Arial", sans-serif;
 }
-/* line 310, ../../src/sass/custom-theme.scss */
+/* line 327, ../../src/sass/custom-theme.scss */
 #order-items-panel table.order-item-table td {
   background-color: #A49685;
   padding: 8px 12px;
@@ -306,19 +323,19 @@ h1, h2, h3, h4, h5, h6 {
   position: relative;
   vertical-align: top;
 }
-/* line 317, ../../src/sass/custom-theme.scss */
+/* line 334, ../../src/sass/custom-theme.scss */
 #order-items-panel table.order-item-table td .itemDescription {
   font-weight: bold;
 }
-/* line 321, ../../src/sass/custom-theme.scss */
+/* line 338, ../../src/sass/custom-theme.scss */
 #order-items-panel table.order-item-table td:hover .itemQty {
   display: none;
 }
-/* line 324, ../../src/sass/custom-theme.scss */
+/* line 341, ../../src/sass/custom-theme.scss */
 #order-items-panel table.order-item-table td:hover .removeItem {
   display: block;
 }
-/* line 328, ../../src/sass/custom-theme.scss */
+/* line 345, ../../src/sass/custom-theme.scss */
 #order-items-panel table.order-item-table td .removeItem {
   display: none;
   cursor: pointer;
@@ -336,12 +353,12 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 17px;
   float: right;
 }
-/* line 344, ../../src/sass/custom-theme.scss */
+/* line 361, ../../src/sass/custom-theme.scss */
 #order-items-panel table.order-item-table td .removeItem:hover {
   background-color: red;
   opacity: 1;
 }
-/* line 349, ../../src/sass/custom-theme.scss */
+/* line 366, ../../src/sass/custom-theme.scss */
 #order-items-panel table.order-item-table td .itemSize {
   padding: 10px 10px 0 10px;
   font-weight: bold;
@@ -357,7 +374,7 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 13px;
   white-space: nowrap;
 }
-/* line 363, ../../src/sass/custom-theme.scss */
+/* line 380, ../../src/sass/custom-theme.scss */
 #order-items-panel table.order-item-table td .itemSize:after {
   content: attr(data-size);
   text-transform: none;
@@ -369,11 +386,11 @@ h1, h2, h3, h4, h5, h6 {
   padding: 10px 10px 0 10px;
   background-color: #706353;
 }
-/* line 374, ../../src/sass/custom-theme.scss */
+/* line 391, ../../src/sass/custom-theme.scss */
 #order-items-panel table.order-item-table td .itemSize:hover:after {
   display: block;
 }
-/* line 379, ../../src/sass/custom-theme.scss */
+/* line 396, ../../src/sass/custom-theme.scss */
 #order-items-panel table.order-item-table td:last-child {
   font-size: 12px;
   font-weight: bold;
@@ -382,19 +399,19 @@ h1, h2, h3, h4, h5, h6 {
   white-space: nowrap;
   line-height: 20px;
 }
-/* line 387, ../../src/sass/custom-theme.scss */
+/* line 404, ../../src/sass/custom-theme.scss */
 #order-items-panel table.order-item-table td:first-child {
   padding-left: 48px;
 }
-/* line 388, ../../src/sass/custom-theme.scss */
+/* line 405, ../../src/sass/custom-theme.scss */
 #order-items-panel table.order-item-table td:first-child.noSize {
   padding-left: 12px;
 }
-/* line 394, ../../src/sass/custom-theme.scss */
+/* line 411, ../../src/sass/custom-theme.scss */
 #order-items-panel .promo-code-input {
   float: right;
 }
-/* line 396, ../../src/sass/custom-theme.scss */
+/* line 413, ../../src/sass/custom-theme.scss */
 #order-items-panel .promo-code-input #promoCode-lg, #order-items-panel .promo-code-input button.btn {
   display: block;
   float: left;
@@ -408,12 +425,12 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 500;
   vertical-align: top;
 }
-/* line 408, ../../src/sass/custom-theme.scss */
+/* line 425, ../../src/sass/custom-theme.scss */
 #order-items-panel .promo-code-input #promoCode-lg:focus, #order-items-panel .promo-code-input button.btn:focus {
   outline: 0;
   border-color: #706353;
 }
-/* line 413, ../../src/sass/custom-theme.scss */
+/* line 430, ../../src/sass/custom-theme.scss */
 #order-items-panel .promo-code-input #promoCode-lg {
   border-right-width: 0px;
   border-top-right-radius: 0;
@@ -423,7 +440,7 @@ h1, h2, h3, h4, h5, h6 {
   width: 82px;
   font-weight: 400;
 }
-/* line 422, ../../src/sass/custom-theme.scss */
+/* line 439, ../../src/sass/custom-theme.scss */
 #order-items-panel .promo-code-input button.btn {
   border-left-width: 0px;
   border-top-left-radius: 0;
@@ -434,33 +451,33 @@ h1, h2, h3, h4, h5, h6 {
   color: #fff;
   width: 54px;
 }
-/* line 432, ../../src/sass/custom-theme.scss */
+/* line 449, ../../src/sass/custom-theme.scss */
 #order-items-panel .promo-code-input button.btn:focus {
   outline: 0;
   border-color: #A49685;
 }
-/* line 436, ../../src/sass/custom-theme.scss */
+/* line 453, ../../src/sass/custom-theme.scss */
 #order-items-panel .promo-code-input button.btn:hover {
   outline: 0;
   background-color: #352f28;
 }
-/* line 442, ../../src/sass/custom-theme.scss */
+/* line 459, ../../src/sass/custom-theme.scss */
 #order-items-panel #order-items-listing {
   overflow: auto;
   padding-bottom: 26px;
 }
-/* line 446, ../../src/sass/custom-theme.scss */
+/* line 463, ../../src/sass/custom-theme.scss */
 #order-items-panel #order-items-listing.fixed {
   position: fixed;
   right: 0;
   top: 0px;
   padding: 20px 30px;
 }
-/* line 452, ../../src/sass/custom-theme.scss */
+/* line 469, ../../src/sass/custom-theme.scss */
 #order-items-panel #order-items-listing.fixed #order-table-right {
   margin-bottom: 0 !important;
 }
-/* line 456, ../../src/sass/custom-theme.scss */
+/* line 473, ../../src/sass/custom-theme.scss */
 #order-items-panel .order-table-total-wrapper {
   background-color: #A49685;
   margin: 0 -30px;
@@ -468,45 +485,45 @@ h1, h2, h3, h4, h5, h6 {
   color: #fff;
   box-shadow: 0px -4px 35px rgba(0, 0, 0, 0.2);
 }
-/* line 462, ../../src/sass/custom-theme.scss */
+/* line 479, ../../src/sass/custom-theme.scss */
 #order-items-panel .order-table-total-wrapper.fixed {
   margin: 0;
   position: fixed;
   right: 0;
   bottom: 0;
 }
-/* line 468, ../../src/sass/custom-theme.scss */
+/* line 485, ../../src/sass/custom-theme.scss */
 #order-items-panel .order-table-total-wrapper h2 {
   font-size: 20px;
   border-color: #fff;
   margin-bottom: 10px;
   text-transform: none;
 }
-/* line 474, ../../src/sass/custom-theme.scss */
+/* line 491, ../../src/sass/custom-theme.scss */
 #order-items-panel .order-table-total-wrapper table {
   border-collapse: collapse;
 }
-/* line 476, ../../src/sass/custom-theme.scss */
+/* line 493, ../../src/sass/custom-theme.scss */
 #order-items-panel .order-table-total-wrapper table td {
   padding: 5px 0;
   font-weight: 500;
   font-size: 12px;
 }
-/* line 481, ../../src/sass/custom-theme.scss */
+/* line 498, ../../src/sass/custom-theme.scss */
 #order-items-panel .order-table-total-wrapper table td:last-child {
   padding-right: 10px;
   text-align: right;
 }
-/* line 485, ../../src/sass/custom-theme.scss */
+/* line 502, ../../src/sass/custom-theme.scss */
 #order-items-panel .order-table-total-wrapper table tr.total-line td {
   font-weight: bold;
   font-size: 16px;
 }
-/* line 489, ../../src/sass/custom-theme.scss */
+/* line 506, ../../src/sass/custom-theme.scss */
 #order-items-panel .order-table-total-wrapper table hr {
   margin: 5px 0 10px 0;
 }
-/* line 492, ../../src/sass/custom-theme.scss */
+/* line 509, ../../src/sass/custom-theme.scss */
 #order-items-panel .order-table-total-wrapper table input[type="text"] {
   border-width: 0;
   background-color: #fff;
@@ -521,123 +538,123 @@ h1, h2, h3, h4, h5, h6 {
   color: #6f6962;
   font-weight: 500;
 }
-/* line 505, ../../src/sass/custom-theme.scss */
+/* line 522, ../../src/sass/custom-theme.scss */
 #order-items-panel .order-table-total-wrapper table input[type="text"]:focus {
   outline: 0;
   border: 2px solid #706353;
 }
 
-/* line 515, ../../src/sass/custom-theme.scss */
+/* line 532, ../../src/sass/custom-theme.scss */
 #order-table {
   margin: 20px;
   border-spacing: 5px;
   border-collapse: separate;
 }
-/* line 519, ../../src/sass/custom-theme.scss */
+/* line 536, ../../src/sass/custom-theme.scss */
 #order-table th {
   border-bottom: 1px solid #716963;
   color: #716963;
   margin-bottom: 10px;
 }
 
-/* line 525, ../../src/sass/custom-theme.scss */
+/* line 542, ../../src/sass/custom-theme.scss */
 #itemSize {
   margin-right: 20px;
   background-color: #a69585;
 }
 
-/* line 530, ../../src/sass/custom-theme.scss */
+/* line 547, ../../src/sass/custom-theme.scss */
 #itemDescription {
   background-color: #bdafa0;
 }
 
-/* line 534, ../../src/sass/custom-theme.scss */
+/* line 551, ../../src/sass/custom-theme.scss */
 #footer {
   background-color: #716963;
 }
 
-/* line 538, ../../src/sass/custom-theme.scss */
+/* line 555, ../../src/sass/custom-theme.scss */
 #grid-table {
   height: 100%;
 }
-/* line 540, ../../src/sass/custom-theme.scss */
+/* line 557, ../../src/sass/custom-theme.scss */
 #grid-table tr {
   height: 100%;
 }
-/* line 542, ../../src/sass/custom-theme.scss */
+/* line 559, ../../src/sass/custom-theme.scss */
 #grid-table tr th {
   height: 100%;
 }
-/* line 545, ../../src/sass/custom-theme.scss */
+/* line 562, ../../src/sass/custom-theme.scss */
 #grid-table tr td {
   height: 100%;
 }
 
-/* line 552, ../../src/sass/custom-theme.scss */
+/* line 569, ../../src/sass/custom-theme.scss */
 #modal-location .modal-body {
   width: 80%;
   margin-left: 10%;
 }
-/* line 555, ../../src/sass/custom-theme.scss */
+/* line 572, ../../src/sass/custom-theme.scss */
 #modal-location .modal-body .row {
   margin-top: 10px;
   margin-bottom: 10px;
 }
-/* line 558, ../../src/sass/custom-theme.scss */
+/* line 575, ../../src/sass/custom-theme.scss */
 #modal-location .modal-body .row .modal-title {
   width: 100%;
   text-align: center;
   font-weight: bold;
   font-size: 26px;
 }
-/* line 564, ../../src/sass/custom-theme.scss */
+/* line 581, ../../src/sass/custom-theme.scss */
 #modal-location .modal-body .row div {
   overflow-y: hidden;
   background-color: #F0E8DE;
 }
-/* line 567, ../../src/sass/custom-theme.scss */
+/* line 584, ../../src/sass/custom-theme.scss */
 #modal-location .modal-body .row div img {
   width: 100%;
   height: auto;
 }
-/* line 571, ../../src/sass/custom-theme.scss */
+/* line 588, ../../src/sass/custom-theme.scss */
 #modal-location .modal-body .row div div {
   margin: 20px;
 }
-/* line 575, ../../src/sass/custom-theme.scss */
+/* line 592, ../../src/sass/custom-theme.scss */
 #modal-location .modal-body .row button {
   width: 100%;
   padding: 5px;
   font-size: 20px;
   text-shadow: 1px 1px black;
 }
-/* line 581, ../../src/sass/custom-theme.scss */
+/* line 598, ../../src/sass/custom-theme.scss */
 #modal-location .modal-body .row h5 {
   font-weight: bold;
   font-size: 20px;
 }
-/* line 585, ../../src/sass/custom-theme.scss */
+/* line 602, ../../src/sass/custom-theme.scss */
 #modal-location .modal-body .row h5 + h5 {
   border-bottom: 1px solid black;
 }
 
-/* line 594, ../../src/sass/custom-theme.scss */
+/* line 611, ../../src/sass/custom-theme.scss */
 #modal-invalid-login .modal-body {
   width: 80%;
   margin-left: 10%;
 }
-/* line 597, ../../src/sass/custom-theme.scss */
+/* line 614, ../../src/sass/custom-theme.scss */
 #modal-invalid-login .modal-body .row {
   margin-top: 10px;
   margin-bottom: 10px;
 }
-/* line 600, ../../src/sass/custom-theme.scss */
+/* line 617, ../../src/sass/custom-theme.scss */
 #modal-invalid-login .modal-body .row .modal-title {
   width: 100%;
   text-align: center;
   font-weight: bold;
 }
-/* line 606, ../../src/sass/custom-theme.scss */
+/* line 623, ../../src/sass/custom-theme.scss */
 #modal-invalid-login .modal-body .row button {
   width: 100%;
   padding: 5px;
@@ -645,7 +662,7 @@ h1, h2, h3, h4, h5, h6 {
   text-shadow: 1px 1px black;
 }
 
-/* line 619, ../../src/sass/custom-theme.scss */
+/* line 636, ../../src/sass/custom-theme.scss */
 #modal-please-wait .modal-dialog .modal-content img {
   width: 20%;
   margin-left: 40%;
@@ -654,11 +671,11 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 20px;
 }
 
-/* line 631, ../../src/sass/custom-theme.scss */
+/* line 648, ../../src/sass/custom-theme.scss */
 #modal-delivery img {
   width: 49%;
 }
-/* line 634, ../../src/sass/custom-theme.scss */
+/* line 651, ../../src/sass/custom-theme.scss */
 #modal-delivery h5 {
   font-weight: bold;
   font-size: 20px;
@@ -666,24 +683,24 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 25px;
 }
 
-/* line 643, ../../src/sass/custom-theme.scss */
+/* line 660, ../../src/sass/custom-theme.scss */
 #modal-stores .modal-body {
   width: 80%;
   margin-left: 10%;
 }
-/* line 646, ../../src/sass/custom-theme.scss */
+/* line 663, ../../src/sass/custom-theme.scss */
 #modal-stores .modal-body .row {
   margin-top: 10px;
   margin-bottom: 10px;
 }
-/* line 649, ../../src/sass/custom-theme.scss */
+/* line 666, ../../src/sass/custom-theme.scss */
 #modal-stores .modal-body .row .modal-title {
   width: 100%;
   text-align: center;
   font-weight: bold;
   font-size: 26px;
 }
-/* line 657, ../../src/sass/custom-theme.scss */
+/* line 674, ../../src/sass/custom-theme.scss */
 #modal-stores .modal-body div#stores div {
   margin-top: 5px;
   margin-bottom: 5px;
@@ -691,12 +708,12 @@ h1, h2, h3, h4, h5, h6 {
   background-color: #F0E8DE;
 }
 
-/* line 672, ../../src/sass/custom-theme.scss */
+/* line 689, ../../src/sass/custom-theme.scss */
 .modal-modify .modal-dialog .modal-content .modal-header {
   padding: 0px;
   border: none;
 }
-/* line 675, ../../src/sass/custom-theme.scss */
+/* line 692, ../../src/sass/custom-theme.scss */
 .modal-modify .modal-dialog .modal-content .modal-header > img {
   position: absolute;
   z-index: 5;
@@ -710,19 +727,19 @@ h1, h2, h3, h4, h5, h6 {
   /* Standard */
   margin-left: calc(100% - 25px);
 }
-/* line 688, ../../src/sass/custom-theme.scss */
+/* line 705, ../../src/sass/custom-theme.scss */
 .modal-modify .modal-dialog .modal-content .modal-header > ul {
   padding-bottom: 1px;
   background-color: #629168;
   border: none;
 }
-/* line 693, ../../src/sass/custom-theme.scss */
+/* line 710, ../../src/sass/custom-theme.scss */
 .modal-modify .modal-dialog .modal-content .modal-header > ul > li {
   width: 33%;
   height: 100%;
   border: none;
 }
-/* line 697, ../../src/sass/custom-theme.scss */
+/* line 714, ../../src/sass/custom-theme.scss */
 .modal-modify .modal-dialog .modal-content .modal-header > ul > li > a, .modal-modify .modal-dialog .modal-content .modal-header > ul > li a:hover, .modal-modify .modal-dialog .modal-content .modal-header > ul > li a:active {
   background-color: #629168;
   color: #37653f;
@@ -730,7 +747,7 @@ h1, h2, h3, h4, h5, h6 {
   border: none;
   border-radius: 0px;
 }
-/* line 706, ../../src/sass/custom-theme.scss */
+/* line 723, ../../src/sass/custom-theme.scss */
 .modal-modify .modal-dialog .modal-content .modal-header > ul li.active a {
   font-weight: bold;
   color: white;
@@ -748,80 +765,80 @@ h1, h2, h3, h4, h5, h6 {
   /* W3C Markup, IE10 Release Preview */
   background-image: linear-gradient(to bottom, #007043 0%, #00482c 100%);
 }
-/* line 732, ../../src/sass/custom-theme.scss */
+/* line 749, ../../src/sass/custom-theme.scss */
 .modal-modify .modal-dialog .modal-content .modal-body table {
   width: 100%;
 }
-/* line 735, ../../src/sass/custom-theme.scss */
+/* line 752, ../../src/sass/custom-theme.scss */
 .modal-modify .modal-dialog .modal-content .modal-body table tr td {
   width: 50%;
 }
-/* line 737, ../../src/sass/custom-theme.scss */
+/* line 754, ../../src/sass/custom-theme.scss */
 .modal-modify .modal-dialog .modal-content .modal-body table tr td li {
   margin: 1px;
   padding: 3px;
 }
-/* line 741, ../../src/sass/custom-theme.scss */
+/* line 758, ../../src/sass/custom-theme.scss */
 .modal-modify .modal-dialog .modal-content .modal-body table tr td li.header {
   font-weight: bold;
   margin-top: 5px;
 }
-/* line 745, ../../src/sass/custom-theme.scss */
+/* line 762, ../../src/sass/custom-theme.scss */
 .modal-modify .modal-dialog .modal-content .modal-body table tr td li.item {
   background-color: #f0e8de;
   box-shadow: 1px 1px 0px #ddd3c6;
   margin-bottom: 5px;
 }
-/* line 753, ../../src/sass/custom-theme.scss */
+/* line 770, ../../src/sass/custom-theme.scss */
 .modal-modify .modal-dialog .modal-content .modal-body button {
   width: 49%;
   margin-top: 20px;
 }
 
-/* line 763, ../../src/sass/custom-theme.scss */
+/* line 780, ../../src/sass/custom-theme.scss */
 #order-items-panel #order-table-sm, #order-items-panel #order-table-right, #order-items-panel-sm #order-table-sm, #order-items-panel-sm #order-table-right, #items-panel #order-table-sm, #items-panel #order-table-right {
   width: 100%;
 }
-/* line 765, ../../src/sass/custom-theme.scss */
+/* line 782, ../../src/sass/custom-theme.scss */
 #order-items-panel #order-table-sm *, #order-items-panel #order-table-right *, #order-items-panel-sm #order-table-sm *, #order-items-panel-sm #order-table-right *, #items-panel #order-table-sm *, #items-panel #order-table-right * {
   border: none;
   border-radius: 0px;
 }
-/* line 772, ../../src/sass/custom-theme.scss */
+/* line 789, ../../src/sass/custom-theme.scss */
 #order-items-panel #order-table-sm th, #order-items-panel #order-table-right th, #order-items-panel-sm #order-table-sm th, #order-items-panel-sm #order-table-right th, #items-panel #order-table-sm th, #items-panel #order-table-right th {
   font-size: 18px;
   color: #716963;
   text-decoration: underline;
 }
-/* line 778, ../../src/sass/custom-theme.scss */
+/* line 795, ../../src/sass/custom-theme.scss */
 #order-items-panel #order-table-sm td .panel-heading, #order-items-panel #order-table-right td .panel-heading, #order-items-panel-sm #order-table-sm td .panel-heading, #order-items-panel-sm #order-table-right td .panel-heading, #items-panel #order-table-sm td .panel-heading, #items-panel #order-table-right td .panel-heading {
   background-color: #A49685;
 }
-/* line 780, ../../src/sass/custom-theme.scss */
+/* line 797, ../../src/sass/custom-theme.scss */
 #order-items-panel #order-table-sm td .panel-heading a, #order-items-panel #order-table-sm td .panel-heading a:hover, #order-items-panel #order-table-right td .panel-heading a, #order-items-panel #order-table-right td .panel-heading a:hover, #order-items-panel-sm #order-table-sm td .panel-heading a, #order-items-panel-sm #order-table-sm td .panel-heading a:hover, #order-items-panel-sm #order-table-right td .panel-heading a, #order-items-panel-sm #order-table-right td .panel-heading a:hover, #items-panel #order-table-sm td .panel-heading a, #items-panel #order-table-sm td .panel-heading a:hover, #items-panel #order-table-right td .panel-heading a, #items-panel #order-table-right td .panel-heading a:hover {
   width: 100%;
   text-decoration: none;
 }
-/* line 783, ../../src/sass/custom-theme.scss */
+/* line 800, ../../src/sass/custom-theme.scss */
 #order-items-panel #order-table-sm td .panel-heading a > span, #order-items-panel #order-table-sm td .panel-heading a:hover > span, #order-items-panel #order-table-right td .panel-heading a > span, #order-items-panel #order-table-right td .panel-heading a:hover > span, #order-items-panel-sm #order-table-sm td .panel-heading a > span, #order-items-panel-sm #order-table-sm td .panel-heading a:hover > span, #order-items-panel-sm #order-table-right td .panel-heading a > span, #order-items-panel-sm #order-table-right td .panel-heading a:hover > span, #items-panel #order-table-sm td .panel-heading a > span, #items-panel #order-table-sm td .panel-heading a:hover > span, #items-panel #order-table-right td .panel-heading a > span, #items-panel #order-table-right td .panel-heading a:hover > span {
   color: white;
   font-weight: bold;
 }
-/* line 789, ../../src/sass/custom-theme.scss */
+/* line 806, ../../src/sass/custom-theme.scss */
 #order-items-panel #order-table-sm td .panel-body, #order-items-panel #order-table-right td .panel-body, #order-items-panel-sm #order-table-sm td .panel-body, #order-items-panel-sm #order-table-right td .panel-body, #items-panel #order-table-sm td .panel-body, #items-panel #order-table-right td .panel-body {
   background-color: #BDAFA0;
 }
-/* line 791, ../../src/sass/custom-theme.scss */
+/* line 808, ../../src/sass/custom-theme.scss */
 #order-items-panel #order-table-sm td .panel-body > p, #order-items-panel #order-table-right td .panel-body > p, #order-items-panel-sm #order-table-sm td .panel-body > p, #order-items-panel-sm #order-table-right td .panel-body > p, #items-panel #order-table-sm td .panel-body > p, #items-panel #order-table-right td .panel-body > p {
   color: white;
 }
 
-/* line 802, ../../src/sass/custom-theme.scss */
+/* line 819, ../../src/sass/custom-theme.scss */
 input[type="radio"], input[type="checkbox"] {
   display: none;
 }
 
-/* line 805, ../../src/sass/custom-theme.scss */
+/* line 822, ../../src/sass/custom-theme.scss */
 input[type="radio"] + label, input[type="checkbox"] + label {
   background: url(/img/checkbox_unchecked.jpg) no-repeat;
   padding-left: 30px;
@@ -829,7 +846,7 @@ input[type="radio"] + label, input[type="checkbox"] + label {
   font-weight: normal;
 }
 
-/* line 811, ../../src/sass/custom-theme.scss */
+/* line 828, ../../src/sass/custom-theme.scss */
 input[type="radio"]:checked + label, input[type="checkbox"]:checked + label {
   background: url(/img/checkbox_checked.jpeg) no-repeat;
 }
@@ -845,19 +862,19 @@ label.btn.active {
     background:url(/Content/img/checkbox_checked.jpeg) no-repeat;
 }
 */
-/* line 827, ../../src/sass/custom-theme.scss */
+/* line 844, ../../src/sass/custom-theme.scss */
 .tan-highlight {
   background-color: #F0E8DE;
   box-shadow: 1px 1px 0 #DDD3C6;
   margin-bottom: 5px;
 }
 
-/* line 833, ../../src/sass/custom-theme.scss */
+/* line 850, ../../src/sass/custom-theme.scss */
 .modal {
   background-color: rgba(255, 255, 255, 0.75);
   overflow-x: hidden;
 }
-/* line 837, ../../src/sass/custom-theme.scss */
+/* line 854, ../../src/sass/custom-theme.scss */
 .modal .modal-dialog .modal-content {
   width: 80%;
   margin-left: 10%;
@@ -865,7 +882,7 @@ label.btn.active {
   border-radius: 0px;
 }
 
-/* line 846, ../../src/sass/custom-theme.scss */
+/* line 863, ../../src/sass/custom-theme.scss */
 .shaded-input {
   height: 35px;
   border: none;
@@ -873,7 +890,7 @@ label.btn.active {
   padding: 10px;
 }
 
-/* line 852, ../../src/sass/custom-theme.scss */
+/* line 869, ../../src/sass/custom-theme.scss */
 .red-gradient-button {
   color: white;
   font-weight: bold;
@@ -897,19 +914,19 @@ label.btn.active {
   /* W3C Markup, IE10 Release Preview */
   background-image: linear-gradient(to bottom, #cc1231 0%, #8f0923 100%);
 }
-/* line 880, ../../src/sass/custom-theme.scss */
+/* line 897, ../../src/sass/custom-theme.scss */
 .red-gradient-button.r {
   border-radius: 3px;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
 }
-/* line 885, ../../src/sass/custom-theme.scss */
+/* line 902, ../../src/sass/custom-theme.scss */
 .red-gradient-button:hover {
   text-decoration: none;
   color: #fff;
 }
 
-/* line 890, ../../src/sass/custom-theme.scss */
+/* line 907, ../../src/sass/custom-theme.scss */
 .outline-button {
   color: gray;
   font-weight: bold;
@@ -921,18 +938,18 @@ label.btn.active {
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
 }
-/* line 900, ../../src/sass/custom-theme.scss */
+/* line 917, ../../src/sass/custom-theme.scss */
 .outline-button:hover {
   border-color: gray;
 }
 
-/* line 906, ../../src/sass/custom-theme.scss */
+/* line 923, ../../src/sass/custom-theme.scss */
 .strikethrough {
   text-decoration: line-through;
   opacity: 0.5;
 }
 
-/* line 911, ../../src/sass/custom-theme.scss */
+/* line 928, ../../src/sass/custom-theme.scss */
 .green-gradient-button {
   color: white;
   font-weight: bold;
@@ -954,7 +971,7 @@ label.btn.active {
 }
 
 @media (min-width: 768px) {
-  /* line 938, ../../src/sass/custom-theme.scss */
+  /* line 955, ../../src/sass/custom-theme.scss */
   .sub-navbar .navbar-nav > li > a {
     padding: 0 25px;
     line-height: 28px;
@@ -962,22 +979,22 @@ label.btn.active {
   }
 }
 @media (min-width: 992px) and (max-width: 1200px) {
-  /* line 945, ../../src/sass/custom-theme.scss */
+  /* line 962, ../../src/sass/custom-theme.scss */
   .container {
     width: 100%;
     max-width: 1170px;
   }
 
-  /* line 949, ../../src/sass/custom-theme.scss */
+  /* line 966, ../../src/sass/custom-theme.scss */
   #items-panel > .container > .row > div .item-panel-image {
     width: 18%;
   }
-  /* line 951, ../../src/sass/custom-theme.scss */
+  /* line 968, ../../src/sass/custom-theme.scss */
   #items-panel > .container > .row > div .item-panel-image img {
     transition: width 0.5s;
     width: 20px;
   }
-  /* line 955, ../../src/sass/custom-theme.scss */
+  /* line 972, ../../src/sass/custom-theme.scss */
   #items-panel > .container > .row > div .item-panel-image:hover img {
     width: 125px;
   }

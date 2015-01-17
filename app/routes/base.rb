@@ -57,7 +57,7 @@ module Vitos
      
       def check_authentication
         unless warden_handler.authenticated?
-          redirect '/login'
+          redirect '/login?error=1'
         end
       end
 

@@ -3,7 +3,7 @@
 a
   cursor pointer
 .overlay
-  font-family "Proxima Nova"
+  font-family "Proxima Nova","proxima-nova",sans-serif
   background-color rgba(238,232,221,0.8)
   padding 20px
   font-size 16px
@@ -134,12 +134,15 @@ a
         height 50px
         float left
         font-weight bold
+        border-right 1px solid #007043
         &.closeIcon
           padding-right 15px
           float right
+          border-right-width 0
           a
             color #fff
             font-size 30px
+            padding 0
             &:hover
               text-decoration none
               color #b60001
@@ -147,19 +150,37 @@ a
         &.active
           // text-transform uppercase
           background-image linear-gradient(to bottom, #007043 0%, #00482c 100%)
-          margin-left 25px
+          // margin-left 25px
           &:first-child
             margin-left 0
           a
-            padding-right 25px
+            // padding-right 15px
             color #fff
         a
           line-height 50px
           display block
           font-size 14px
           color #3c663d
-          padding 0 0 0 25px
-
+          padding 0 16px
+span.strikeThrough
+  text-decoration line-through
+span.dealPrice
+  border-radius 4px
+  background-color green
+  padding 0 5px
+  margin-left 8px
+  font-size 14px
+  color #fff
+span.dropdownArrow
+  width 8px
+  height 8px
+  display block
+  position absolute
+  right 13px
+  top 12px
+  border-right 2px solid #fff !important
+  border-bottom 2px solid #fff !important
+  transform rotate(45deg)
 table.grid
   width 100%
   border-collapse collapse

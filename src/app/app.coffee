@@ -35,7 +35,7 @@ $app.config ($stateProvider, $urlRouterProvider,RestangularProvider)->
       controller:()->
     })
     .state('detail', {
-      url: "/detail/:unitId/:specialtyId",
+      url: "/detail/:unitId/:specialtyId?coupon",
       templateUrl: "app/partials/detail.html",
       resolve:
         $specialty: (Restangular,$stateParams)->
@@ -53,10 +53,25 @@ $app.config ($stateProvider, $urlRouterProvider,RestangularProvider)->
         $scope.$selectedToppings = {}
         $scope.$selectedToppers = {}
         $UnitID = parseInt $stateParams.unitId
+        $scope.$line.UnitID = $UnitID
+
         if $specialty.styles.length is 0 and $specialty.sizes.length > 0
           $scope.$line.SizeID = $specialty.sizes[0].SizeID
         if $specialty.styles.length > 0 and !$scope.$line.StyleID
           $scope.$line.StyleID = $specialty.styles[0].StyleID
+
+
+
+        if $stateParams.coupon
+          $coupon = $scope.$root.getCoupon($stateParams.coupon)
+          $scope.$coupon = $coupon
+          if $coupon
+            $to = $coupon.AppliesTo[0]
+            if $to.StyleID
+              $scope.$line.StyleID = $to.StyleID
+            if $to.SizeID
+              $scope.$line.SizeID = $to.SizeID
+          console.log $coupon
         # @NOTE: Ideally get these units flagged in the database for easier management later. is bread?
         $scope.isBread = ->
           if [1,2,32].indexOf($UnitID) isnt -1
@@ -136,9 +151,33 @@ $app.config ($stateProvider, $urlRouterProvider,RestangularProvider)->
 
         $scope.calcPrice = (x)->
           if $specialty.specialty
-            return x.SpecialtyBasePrice + (x.StyleSurcharge || 0)
+            $out = x.SpecialtyBasePrice + (x.StyleSurcharge || 0)
           else
-            return x.StandardBasePrice + (x.StyleSurcharge || 0)
+            $out = x.StandardBasePrice + (x.StyleSurcharge || 0)
+          return $out
+
+        $scope.couponPrice = (x)->
+          if not x?
+            for size in $scope.$sp.sizes
+              if size.SizeID is $scope.$line.SizeID
+                x = size
+                break
+          $price = $scope.calcPrice x
+          $coupon = $scope.$coupon
+          if not $coupon
+            return null
+          if x.SizeID
+            for $for in $coupon.AppliesTo
+              if $for.SizeID is x.SizeID and $for.UnitID is x.UnitID
+                if $for.FixedPrice
+                  $out = $for.FixedPrice
+                if $for.DollarOff
+                  $out = $price - $for.DollarOff
+                if x.SpecialtyID
+                  $out += $for.AddForSpecialty
+                return $out
+          return null
+    
         $scope.styleSurcharge = ()->
           for x in $scope.$sp.sizes
             if $scope.$line.SizeID == x.SizeID and x.StyleSurcharge > 0
@@ -383,7 +422,12 @@ $app.run ($state,$rootScope,Restangular)->
     if out.toLowerCase() is 'me' 
       return 'MD'
     return out
-      
+  
+  $scope.getCoupon = (id)->
+    for $coupon in $scope.$appliedCoupons
+      if $coupon.CouponID is parseInt(id)
+        return $coupon
+    return null  
   $scope.showSubmit = ()->
     if window.location.pathname == '/order' || window.location.pathname == '/locations' || window.location.pathname == '/deals'
       return true
@@ -394,19 +438,27 @@ $app.run ($state,$rootScope,Restangular)->
     return halfs[half]
   $scope.updateOrder = ()->
     $scope.__loadingOrder = true
-    $scope.$appliedCoupons = Restangular.all('applied-coupons').getList().$object
+    $scope.$appliedCoupons = []
+    Restangular.all('applied-coupons').getList().then (v)->
+      $scope.$appliedCoupons = v
     Restangular.one("order").get().then(($order)->
       # alert $order.OrderID
       # console.log 'order',v
       $scope.$order = $order
       if not angular.isFunction $order.getList
         $scope.__loadingOrder = false
+        if $scope.$appliedCoupons.length
+          $coupon = $scope.$appliedCoupons[0]
+          $to = $coupon.AppliesTo[0]
+          $state.go 'detail', {unitId:$to.UnitID,specialtyId:$to.SpecialtyID,coupon:$coupon.CouponID}
         return
       $order.getList('lines').then(($items)->
         # alert $items.length + ' Items'
         $scope.$lines = $items
         updateSubtotal($scope.$lines)
         $scope.__loadingOrder = false
+
+        
       , ()->
         $scope.__loadingError = true
         $scope.__loadingOrder = false

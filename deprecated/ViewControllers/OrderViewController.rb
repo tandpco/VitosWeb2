@@ -79,7 +79,7 @@ class OrderViewController
             newOrder['pCustomerID']      = current_user['CustomerID']
 
             newOrder['pCustomerName']    = current_user['FirstName']+' '+current_user['LastName']
-            newOrder['pCustomerPhone']   = order['pCustomerPhone']
+            newOrder['pCustomerPhone']   = current_user['HomePhone'] || current_user['CellPhone'] || current_user['WorkPhone']
             newOrder['pAddressID']       = address['AddressID']
             newOrder['pOrderTypeID']     = convertToInt(orderTypeID)
 

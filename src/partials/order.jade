@@ -12,10 +12,11 @@
               div(style="margin: 0 -6px -6px;")
                 table(width="100%" cellspacing="10" class="order-item-table")
                   tbody
-                    tr
+                    tr(style="cursor:pointer")
                       td(ng-class="{noSize:$line.UnitID == 15 || $line.UnitID == 7}")
-                        span(style="float:right" class="itemQty") <b>× {{$line.Quantity}}</b>
-                        a(class="removeItem" ng-click="deleteLineItem($line)") ×
+                        span.dropdownArrow
+                        //- span(style="float:right" class="itemQty") <b>× {{$line.Quantity}}</b>
+                        //- a(class="removeItem" ng-click="deleteLineItem($line)") ×
                         span(class="itemSize" data-size="{{$line.extra.size.SizeDescription}}",ng-hide="$line.UnitID == 15 || $line.UnitID == 7") {{sizePretty($line.extra.size.SizeShortDescription)}}
                         a(class="accordion-toggle" style="display:block;color:#fff;font-size:14px")
                           span.itemDescription {{adjustUnitName($line.extra)}}
@@ -31,6 +32,8 @@
                       .micro-badge Sauce
                       |  {{$line.extra.sauce.SauceDescription}} 
                       div(ng-show="$line.extra.sauceModifier") {{$line.extra.sauceModifier.SauceModifierDescription}}
+                    td
+                      a(class="removeItem" ng-click="deleteLineItem($line)") ×
                   tr(ng-show="$line.OrderLineNotes")
                     td(colspan="2",style="padding-top:8px") <b class="micro-badge">Note</b> {{$line.OrderLineNotes}}
 
@@ -43,7 +46,7 @@
                           span(ng-show="$topping.HalfID").micro-badge {{halfPretty($topping.HalfID)}}
                     td(ng-show="$line.extra.toppers.length || $line.extra.sides.length")
                       div(ng-show="$line.extra.toppers.length")
-                        div: strong Crust Flavor
+                        div: strong Crust Toppings
                         ul
                           li(ng-repeat="$topper in $line.extra.toppers") {{$topper.TopperDescription}}
                       div(ng-show="$line.extra.sides.length")
@@ -82,5 +85,5 @@
         td#total {{$orderTotal | currency}}
       tr(ng-show="showSubmit()"): td(colspan="2")
         hr
-        a.red-gradient-button(href="/checkout") SUBMIT ORDER
+        a.red-gradient-button(href="/checkout") CHECKOUT
 

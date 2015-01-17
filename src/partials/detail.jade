@@ -20,7 +20,7 @@
               input(type="radio",ng-model="$line.StyleID",ng-value="x.StyleID")
               | {{x.StyleShortDescription}}
         .col-md-6(ng-show="$sp.toppers")
-          h5 {{isBread() && 'Crust' || ''}} Flavor
+          h5 {{isBread() && 'Crust' || ''}} Toppings
           ul.selection
             li(ng-repeat="x in $sp.toppers"): label(ng-class="{active:$selectedToppers[x.TopperID]}")
               input(type="checkbox",ng-model="$selectedToppers[x.TopperID]",ng-change="setTopper(x,$selectedToppers[x.TopperID])")
@@ -34,7 +34,8 @@
                   td
                     .sizeSelect(ng-class="{active:x.SizeID == $line.SizeID}",ng-click="$line.SizeID = x.SizeID")
                       strong {{x.SizeDescription}}
-                      | {{calcPrice(x) | currency}}
+                      span(ng-class="{strikeThrough:couponPrice(x)}") {{calcPrice(x) | currency}}
+                      span.dealPrice(ng-show="couponPrice(x)") {{couponPrice(x) | currency}}
           div(ng-show="checkingSizes && (!$sp.toppers.length && $sp.styles.length)").loadingMessage
             img(src="/img/ajax-loader.gif")
             |  Updating...
@@ -50,14 +51,24 @@
               td(ng-repeat="x in $sp.sizes",style="width:{{100 / $sp.sizes.length}}%")
                 .sizeSelect(ng-class="{active:x.SizeID == $line.SizeID}",ng-click="$line.SizeID = x.SizeID")
                   strong {{x.SizeDescription}}
-                  | {{calcPrice(x) | currency}}
+                  span(ng-class="{strikeThrough:couponPrice(x)}") {{calcPrice(x) | currency}}
+                  span(ng-show="couponPrice(x)")  {{couponPrice(x) | currency}}
 
       hr
       .row(style="margin-bottom:20px")
         .col-md-3
-          input.shaded-input(type="text",ng-model="$line.Quantity",style="width:100%;height:40px",placeholder="Qty")
+          select.shaded-input(ng-model="$line.Quantity",style="width:100%")
+            option 1
+            option 2
+            option 3
+            option 4
+            option 5
+            option More than 5? Place order by phone.
+          //- input.shaded-input(type="text",ng-model="$line.Quantity",style="width:100%;height:40px",placeholder="Qty")
         .col-md-9
           input.shaded-input(type="text",ng-model="$line.Note",style="width:100%;height:40px",placeholder="Special Notes")
+      .row(ng-show="$coupon",style="margin-bottom:10px;font-size:12px"):.col-md-12 <b>Applied Coupon:</b> {{$coupon.Description}}
+        span(ng-show="!couponPrice()", style="color:red")  (not valid for selected size / style)
       .row
         .col-md-6
             button(type="button" class="red-gradient-button" ng-click="orderItem()").r {{__orderingItem && 'One Moment...' || 'Add To Order'}}

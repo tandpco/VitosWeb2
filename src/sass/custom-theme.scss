@@ -303,6 +303,23 @@ h1, h2, h3, h4, h5, h6 {
         padding: 20px;
         text-align: center;
     }
+
+    .removeItem {
+        display: inline-block;
+        cursor: pointer;
+        margin-top: 2px;
+        opacity: 1;
+        width:15px;
+        height:15px;
+        border-radius: 10px !important;
+        text-decoration: none;
+        background-color: #C00000;
+        font-weight: bold;
+        color: #fff;
+        text-align:center;
+        line-height: 16px;
+        font-size: 15px;
+    }
     table.order-item-table {
         border-collapse: separate;
         border-spacing:6px;

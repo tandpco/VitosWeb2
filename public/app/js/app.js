@@ -37,7 +37,7 @@
       template: '<div></div>',
       controller: function() {}
     }).state('detail', {
-      url: "/detail/:unitId/:specialtyId",
+      url: "/detail/:unitId/:specialtyId?coupon",
       templateUrl: "app/partials/detail.html",
       resolve: {
         $specialty: function(Restangular, $stateParams) {
@@ -49,7 +49,7 @@
         }
       },
       controller: function($scope, $specialty, $stateParams, $state, Restangular) {
-        var $UnitID, freeColors, theSideGroup, verifySelectedSize, x, _i, _j, _len, _len1, _ref, _ref1;
+        var $UnitID, $coupon, $to, freeColors, theSideGroup, verifySelectedSize, x, _i, _j, _len, _len1, _ref, _ref1;
         $scope.$sp = $specialty;
         $scope.onMeat = true;
         $scope.__orderingItem = false;
@@ -68,11 +68,26 @@
         $scope.$selectedToppings = {};
         $scope.$selectedToppers = {};
         $UnitID = parseInt($stateParams.unitId);
+        $scope.$line.UnitID = $UnitID;
         if ($specialty.styles.length === 0 && $specialty.sizes.length > 0) {
           $scope.$line.SizeID = $specialty.sizes[0].SizeID;
         }
         if ($specialty.styles.length > 0 && !$scope.$line.StyleID) {
           $scope.$line.StyleID = $specialty.styles[0].StyleID;
+        }
+        if ($stateParams.coupon) {
+          $coupon = $scope.$root.getCoupon($stateParams.coupon);
+          $scope.$coupon = $coupon;
+          if ($coupon) {
+            $to = $coupon.AppliesTo[0];
+            if ($to.StyleID) {
+              $scope.$line.StyleID = $to.StyleID;
+            }
+            if ($to.SizeID) {
+              $scope.$line.SizeID = $to.SizeID;
+            }
+          }
+          console.log($coupon);
         }
         $scope.isBread = function() {
           if ([1, 2, 32].indexOf($UnitID) !== -1) {
@@ -234,11 +249,50 @@
           return total;
         };
         $scope.calcPrice = function(x) {
+          var $out;
           if ($specialty.specialty) {
-            return x.SpecialtyBasePrice + (x.StyleSurcharge || 0);
+            $out = x.SpecialtyBasePrice + (x.StyleSurcharge || 0);
           } else {
-            return x.StandardBasePrice + (x.StyleSurcharge || 0);
+            $out = x.StandardBasePrice + (x.StyleSurcharge || 0);
           }
+          return $out;
+        };
+        $scope.couponPrice = function(x) {
+          var $for, $out, $price, size, _i, _j, _len, _len1, _ref, _ref1;
+          if (x == null) {
+            _ref = $scope.$sp.sizes;
+            for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+              size = _ref[_i];
+              if (size.SizeID === $scope.$line.SizeID) {
+                x = size;
+                break;
+              }
+            }
+          }
+          $price = $scope.calcPrice(x);
+          $coupon = $scope.$coupon;
+          if (!$coupon) {
+            return null;
+          }
+          if (x.SizeID) {
+            _ref1 = $coupon.AppliesTo;
+            for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
+              $for = _ref1[_j];
+              if ($for.SizeID === x.SizeID && $for.UnitID === x.UnitID) {
+                if ($for.FixedPrice) {
+                  $out = $for.FixedPrice;
+                }
+                if ($for.DollarOff) {
+                  $out = $price - $for.DollarOff;
+                }
+                if (x.SpecialtyID) {
+                  $out += $for.AddForSpecialty;
+                }
+                return $out;
+              }
+            }
+          }
+          return null;
         };
         $scope.styleSurcharge = function() {
           var x, _i, _len, _ref;
@@ -544,6 +598,17 @@
       }
       return out;
     };
+    $scope.getCoupon = function(id) {
+      var $coupon, _i, _len, _ref;
+      _ref = $scope.$appliedCoupons;
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        $coupon = _ref[_i];
+        if ($coupon.CouponID === parseInt(id)) {
+          return $coupon;
+        }
+      }
+      return null;
+    };
     $scope.showSubmit = function() {
       if (window.location.pathname === '/order' || window.location.pathname === '/locations' || window.location.pathname === '/deals') {
         return true;
@@ -558,11 +623,24 @@
     };
     $scope.updateOrder = function() {
       $scope.__loadingOrder = true;
-      $scope.$appliedCoupons = Restangular.all('applied-coupons').getList().$object;
+      $scope.$appliedCoupons = [];
+      Restangular.all('applied-coupons').getList().then(function(v) {
+        return $scope.$appliedCoupons = v;
+      });
       return Restangular.one("order").get().then(function($order) {
+        var $coupon, $to;
         $scope.$order = $order;
         if (!angular.isFunction($order.getList)) {
           $scope.__loadingOrder = false;
+          if ($scope.$appliedCoupons.length) {
+            $coupon = $scope.$appliedCoupons[0];
+            $to = $coupon.AppliesTo[0];
+            $state.go('detail', {
+              unitId: $to.UnitID,
+              specialtyId: $to.SpecialtyID,
+              coupon: $coupon.CouponID
+            });
+          }
           return;
         }
         return $order.getList('lines').then(function($items) {

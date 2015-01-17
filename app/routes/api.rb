@@ -32,14 +32,18 @@ module Vitos
             out = []
             used = []
             # coupons = []
-            lines = ActiveRecord::Base.connection.select_all('SELECT [tblorderLines].* FROM [tblorderLines] WHERE OrderID = ' + session[:orderId].to_s + ' AND 1 = 1 ORDER BY OrderLineID ASC')
-            lines.each do |line|
-              if !line['CouponID'].blank?
-                used.push(line['CouponID'])
+            if !session[:orderId].blank?
+              lines = ActiveRecord::Base.connection.select_all('SELECT [tblorderLines].* FROM [tblorderLines] WHERE OrderID = ' + session[:orderId].to_s + ' AND 1 = 1 ORDER BY OrderLineID ASC')
+              lines.each do |line|
+                if !line['CouponID'].blank?
+                  used.push(line['CouponID'])
+                end
               end
             end
             session[:Coupons].each do |x|
               item = ActiveRecord::Base.connection.select_all('SELECT * FROM tblCoupons WHERE CouponID = '+x.to_s).first.to_hash
+              applies = ActiveRecord::Base.connection.select_all('SELECT tblCouponAppliesTo.* FROM tblCouponAppliesTo WHERE CouponID = \''+item['CouponID'].to_s+'\'').to_hash
+              item[:AppliesTo] = applies
               if used.include? x
                 item[:Used] = true
               else

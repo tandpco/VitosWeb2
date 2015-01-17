@@ -3,6 +3,13 @@ module Vitos
   module Routes
     class Nav < Base
       get '/' do
+        if warden_handler.authenticated?
+          redirect "/order?UnitID=1"
+        else
+          redirect "/login"
+        end
+      end
+      get '/login' do
         _states = ActiveRecord::Base.connection.select_all("select MAX(State) as State FROM tblCASSAddresses GROUP BY State ORDER BY State DESC")
         _cities = ActiveRecord::Base.connection.select_all("select MAX(City) as City,MAX(State) as State FROM tblCASSAddresses GROUP BY City,State ORDER BY State DESC, City ASC")
         @cities = []
@@ -17,16 +24,10 @@ module Vitos
         end
         @csv_city = @csv_city.join(',')
         puts('==>',@cities)
-        if warden_handler.authenticated?
-          redirect "/order?UnitID=1"
-        end
         slim :login
       end
-      get '/login' do
-        redirect "/"
-      end
       post '/unauthenticated' do
-        redirect "/"
+        redirect "/login?error=Invalid username or password."
       end
       get '/test' do
         @req = request
@@ -65,9 +66,7 @@ module Vitos
       post '/login' do
         warden_handler.authenticate!
         if warden_handler.authenticated?
-          redirect "/order?UnitID=1" 
-        else
-          redirect "/"
+          redirect "/order?UnitID=1"
         end
       end
     end

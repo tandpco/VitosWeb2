@@ -39,6 +39,8 @@ javascript:
     .col-md-6
       form.block-form method="post" action="/login"
         h2 RETURN CUSTOMER
+        - if params[:error]
+          div(style="background:#cb0000;padding:7px 10px;color:#fff;margin:10px 0")=params[:error]
         .row: .col-md-12
           p Email Address
           input#sign-in-email-address.shaded-input type="email" name="email" required="required"
@@ -72,6 +74,7 @@ javascript:
             / input#city.shaded-input(type="text" name="city")
             input#city(type="hidden" name="city")
             select.shaded-input#cityr
+              option(value="") Select One
               - @states.each do |state|
                 optgroup(label=state['State'])
                   - @cities.each do |x|

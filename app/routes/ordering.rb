@@ -19,6 +19,15 @@ module Vitos
           redirect "/locations"
         end
       end
+      get '/order/preload-coupon' do
+        if session[:Coupons].blank?
+          session[:Coupons] = [params[:CouponID].to_i]
+        else
+          session[:Coupons].push(params[:CouponID].to_i)
+        end
+        # OrderViewController.updatePrice(session);
+        redirect "/"
+      end
       get '/order/apply-coupon' do
         if session[:Coupons].blank?
           session[:Coupons] = [params[:CouponID].to_i]
