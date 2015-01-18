@@ -19,5 +19,32 @@
               p.body=y["InternetDescription"]
               button.red-gradient-button ui-sref="detail({unitId:#{x['UnitID']},specialtyId:#{y['SpecialtyID']}})" style="margin-right:4%" ORDER NOW
           / li.list-group-item: a(ui-sref="detail({unitId:#{x['UnitID']},specialtyId:#{y['SpecialtyID']}})")= y['SpecialtyDescription']
-.col-md-4#order-items-panel(ng-include src="'app/partials/order.html'")
+.col-md-4#order-items-panel
+  - if !current_user.blank?
+    div(style="font-size:12px; margin-bottom:10px")
+      - if session[:completeOrder].blank?
+        span Hi 
+      - else
+        span Thank you 
+      span = current_user[:FirstName]+" "+current_user[:LastName]
+      - address = select_address
+      - store =select_store
+      / a change delivery address
+      / @TODO: Allow editing of delivery address (requires same address normalization via USPS as signup) [github.com/tandpco/VitosWeb2/issues/5]
+      / |  | 
+      - if (session[:orderId].blank? && session[:completeOrder].blank?) || !session[:orderId].blank?
+        - if session[:deliveryMethod].blank? or session[:deliveryMethod] === 1
+          strong  &mdash; we'll deliver your order to 
+          a href="/account" <u>#{address[:AddressLine1]} #{address[:AddressLine2]} &bull; #{address[:City]}</u> 
+          |  from 
+          a href="https://www.google.com/maps/preview?q=Vito's Pizza and Subs, #{select_store[:Address1]} #{select_store[:City]} #{select_store[:State]}" target="_blank" <u>#{store.Address1} &bull; #{store.City}</u>
+          | &nbsp; 
+          a(href="/order/switch-method?deliveryMethod=2") switch to pickup
+        - else
+          strong
+            | &mdash; you're picking up from 
+            a href="https://www.google.com/maps/preview?q=Vito's Pizza and Subs, #{select_store[:Address1]} #{select_store[:City]} #{select_store[:State]}" target="_blank" <u>#{store.Address1} &bull; #{{store.Address2}} &bull; #{store.City}</u>
+          |  &nbsp; 
+          a(href="/order/switch-method?deliveryMethod=1") switch to delivery
+  div(ng-include src="'app/partials/order.html'")
 ui-view
