@@ -1,4 +1,7 @@
 #items-panel.col-md-8
+  .row.col-md-12
+    - if params[:no_location]
+      div(style="font-size:18px;margin:15px 0") We were unable to locate a store for delivery near your address, please choose a store for pick up.
   #items-grid-panel.container
     .row
       - @locations.each do |x|
@@ -8,7 +11,7 @@
           td.item-panel-content valign="top" 
             p.header=x[:Address1]
             p.body=x[:FriendlyLocation]
-            - if select_store[:StoreID] == x[:StoreID]
+            - if !select_store.nil? && select_store[:StoreID] == x[:StoreID]
               a.red-gradient-button style="background:#2d2d2d;width:100%" selected currently
             - else
               a.red-gradient-button href="/order/change-store?StoreID=#{x[:StoreID]}" style="width:100%" PICKUP HERE

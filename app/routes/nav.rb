@@ -23,7 +23,7 @@ module Vitos
           end
         end
         @csv_city = @csv_city.join(',')
-        puts('==>',@cities)
+        # puts('==>',@cities)
         slim :login
       end
       post '/unauthenticated' do

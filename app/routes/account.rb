@@ -13,10 +13,11 @@ module Vitos
 
         # locate store from address information
         store = Hacks.getStoreByAddress(pieces)
-        if store.nil? then redirect '/?error=invalid store' end
+        # if store.nil? then redirect '/login?error=invalid store' end
 
         address = Hacks.findOrCreateAddress(pieces,store) 
-        if address.nil? then redirect '/?error=invalid address' end
+        puts(address)
+        if address.nil? then redirect '/login?error=invalid address' end
 
         # update or insert new customer (with assigned address information)
         if customer.nil?

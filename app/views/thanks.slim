@@ -10,7 +10,9 @@
             div: strong Have questions? Call #{select_store[:Phone]}.
             div For reference the payment authorization code is <b>#{order[:PaymentAuthorization]}</b>. If you need to make any changes to your order, please call our store. Normal delivery times are 30 minutes and pick up orders are generally ready in 15 minutes.
         - else
-          .text-center(style="font-size:28px") Your order is in the oven!
+          .text-center(style="font-size:28px")
+            div Your order is in the oven! Your order number is <b>#{order[:OrderID]}</b>.
+            div: strong Have questions? Call #{select_store[:Phone]}.
         hr
         .row
           - if session[:deliveryMethod] == 1

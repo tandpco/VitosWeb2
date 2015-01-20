@@ -51,6 +51,8 @@ javascript:
     .col-md-6
       form.block-form method="post" action="/test-signup"
         h2 NEW CUSTOMER
+        - if params[:r_error]
+          div(style="background:#cb0000;padding:7px 10px;color:#fff;margin:10px 0")=params[:r_error]
         .row
           .col-md-5
             p First Name

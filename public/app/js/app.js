@@ -344,8 +344,8 @@
           if ($scope.__orderingItem === true) {
             return;
           }
-          if ($scope.$parent.$lines.length >= 5) {
-            return alert("You can only add 5 items to your order.");
+          if ($scope.$parent.$lines.length >= 15) {
+            return alert("You can only add 15 items to your order.");
           }
           $scope.__orderingItem = true;
           orderItemJson = {

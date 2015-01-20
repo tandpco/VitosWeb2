@@ -11,10 +11,11 @@
         input.form-control type='hidden' name="ReturnURL" placeholder="ReturnURL" value='#{@req.scheme}://#{@req.host_with_port}/order/pay-return'
         input.form-control type='hidden' name="HasHeader" placeholder="HasHeader" value='false'
         input.form-control type='hidden' name="NameOnCard" placeholder="NameOnCard" value="#{current_user[:FirstName]} #{current_user[:LastName]}"
-        input.form-control type='hidden' name="Address" placeholder="Address" value=select_address[:AddressLine1]
-        input.form-control type='hidden' name="City" placeholder="City" value=select_address[:City]
-        input.form-control type='hidden' name="State" placeholder="State" value=select_address[:State]
-        input.form-control type='hidden' name="Zip" placeholder="Zip" value=select_address[:PostalCode]
+        - if !select_address.nil?
+          input.form-control type='hidden' name="Address" placeholder="Address" value=select_address[:AddressLine1]
+          input.form-control type='hidden' name="City" placeholder="City" value=select_address[:City]
+          input.form-control type='hidden' name="State" placeholder="State" value=select_address[:State]
+          input.form-control type='hidden' name="Zip" placeholder="Zip" value=select_address[:PostalCode]
         input.form-control type='hidden' name="CanSaveCard" placeholder="CanSaveCard" value='No'
         input.form-control type='hidden' name="InvoiceNo" placeholder="InvoiceNo" value=select_order[:OrderID]
         input.form-control type='hidden' name="FirstName" placeholder="FirstName" value=current_user[:FirstName]
@@ -38,7 +39,8 @@
             a.pull-right href="/order/switch-method?deliveryMethod=2" Switch to Pickup
             h3(style="margin-top:0") Delivering from:
           - else
-            a.pull-right href="/order/switch-method?deliveryMethod=1" Switch to Delivery
+            - if !select_address.nil?
+              a.pull-right href="/order/switch-method?deliveryMethod=1" Switch to Delivery
             h3(style="margin-top:0") Pickup location:
           div: strong=select_store[:StoreName]
           div=select_store[:Address1]

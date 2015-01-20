@@ -86,11 +86,11 @@ module Vitos
 
       get '/order/change-store' do
         session[:storeID] = params[:StoreID].to_i
-        if session[:deliveryMethod] != 2 && session[:storeID] != select_address.store[:StoreID]
+        if select_address.nil? || session[:deliveryMethod] != 2 && session[:storeID] != select_address.store[:StoreID]
           session[:deliveryMethod] = 2
         end
         if(!session[:orderId].blank?)
-          if session[:storeID] != select_address.store[:StoreID]
+          if select_address.nil? || session[:storeID] != select_address.store[:StoreID]
             OrderViewController.updateDeliveryMethod(2,session)
           else
             select_order[:StoreID] = session[:storeID]
@@ -102,7 +102,7 @@ module Vitos
         redirect request.referrer
       end
       get '/order/create-new' do
-        session[:deliveryMethod] = 1
+        session[:deliveryMethod] = select_address.blank? && 2 || 1
         session[:completeOrder] = nil
         session[:orderId] = nil
         if !select_address.blank?
@@ -144,21 +144,25 @@ module Vitos
       end
       get '/order' do
         check_authentication
-        if(params[:UnitID].blank?)
-          @units = ActiveRecord::Base.connection.select_all("SELECT tblUnit.* FROM tblUnit WHERE UnitID NOT IN (1,3,14,32) and UnitID NOT IN (17,21,18,28) and IsActive <> 0 and IsInternet <> 0 order by UnitMenuSortOrder")
+        if session[:storeID].blank?
+          redirect '/locations?no_location=true'
         else
-          @units = ActiveRecord::Base.connection.select_all("SELECT tblUnit.* FROM tblUnit WHERE UnitID = #{params[:UnitID]} and UnitID NOT IN (17,21,18,28) and IsActive <> 0 and IsInternet <> 0 order by UnitMenuSortOrder")
-        end
-        @units.each do |unit|
-          unit[:photo] = '/img/'+Hacks.specialtyImages(nil,unit['UnitID'])
-          unit[:items] = ActiveRecord::Base.connection.select_all("SELECT tblspecialty.* FROM tblspecialty inner join trelStoreSpecialty on trelStoreSpecialty.SpecialtyID = tblSpecialty.SpecialtyID where StoreID = #{session[:storeID]} and UnitID = #{unit['UnitID']} and IsActive <> 0 and IsInternet <> 0 order by tblSpecialty.SpecialtyID")
-          unit[:items].each do |item|
-            # puts(item['SpecialtyID'],Hacks.specialtyImages(item['SpecialtyID']))
-            item[:photo] = '/img/'+Hacks.specialtyImages(item['SpecialtyID'],nil)
+          if(params[:UnitID].blank?)
+            @units = ActiveRecord::Base.connection.select_all("SELECT tblUnit.* FROM tblUnit WHERE UnitID NOT IN (1,3,14,32) and UnitID NOT IN (17,21,18,28) and IsActive <> 0 and IsInternet <> 0 order by UnitMenuSortOrder")
+          else
+            @units = ActiveRecord::Base.connection.select_all("SELECT tblUnit.* FROM tblUnit WHERE UnitID = #{params[:UnitID]} and UnitID NOT IN (17,21,18,28) and IsActive <> 0 and IsInternet <> 0 order by UnitMenuSortOrder")
           end
+          @units.each do |unit|
+            unit[:photo] = '/img/'+Hacks.specialtyImages(nil,unit['UnitID'])
+            unit[:items] = ActiveRecord::Base.connection.select_all("SELECT tblspecialty.* FROM tblspecialty inner join trelStoreSpecialty on trelStoreSpecialty.SpecialtyID = tblSpecialty.SpecialtyID where StoreID = #{session[:storeID]} and UnitID = #{unit['UnitID']} and IsActive <> 0 and IsInternet <> 0 order by tblSpecialty.SpecialtyID")
+            unit[:items].each do |item|
+              # puts(item['SpecialtyID'],Hacks.specialtyImages(item['SpecialtyID']))
+              item[:photo] = '/img/'+Hacks.specialtyImages(item['SpecialtyID'],nil)
+            end
+          end
+          # json @units
+          slim :order
         end
-        # json @units
-        slim :order
       end
     end
   end

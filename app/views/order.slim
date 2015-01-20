@@ -33,7 +33,7 @@
       / @TODO: Allow editing of delivery address (requires same address normalization via USPS as signup) [github.com/tandpco/VitosWeb2/issues/5]
       / |  | 
       - if (session[:orderId].blank? && session[:completeOrder].blank?) || !session[:orderId].blank?
-        - if session[:deliveryMethod].blank? or session[:deliveryMethod] === 1
+        - if !address.nil? && (session[:deliveryMethod].blank? or session[:deliveryMethod] === 1)
           strong  &mdash; we'll deliver your order to 
           a href="/account" <u>#{address[:AddressLine1]} #{address[:AddressLine2]} &bull; #{address[:City]}</u> 
           |  from 
@@ -45,6 +45,7 @@
             | &mdash; you're picking up from 
             a href="https://www.google.com/maps/preview?q=Vito's Pizza and Subs, #{select_store[:Address1]} #{select_store[:City]} #{select_store[:State]}" target="_blank" <u>#{store.Address1} &bull; #{{store.Address2}} &bull; #{store.City}</u>
           |  &nbsp; 
-          a(href="/order/switch-method?deliveryMethod=1") switch to delivery
+          - if !address.nil?
+            a(href="/order/switch-method?deliveryMethod=1") switch to delivery
   div(ng-include src="'app/partials/order.html'")
 ui-view

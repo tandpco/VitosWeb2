@@ -29,7 +29,7 @@ class Hacks
 
     if address.nil?
       newAddress = {
-        'pStoreID' => store.StoreID,
+        'pStoreID' => !store.nil? && store['StoreID'] || nil,
         'pAddressLine1' => Hacks.getAddressStreet(pieces,{:postdirection => true}),
         'pAddressLine2' => Hacks.getAddressSecondary(pieces),
         'pCity' => pieces["city_name"].upcase,
@@ -86,21 +86,24 @@ class Hacks
       19    => "ChickenChipotle3000x300.jpg",
       22    => "TheWorks300x300.jpg",
       94    => "TonyPackos300x300.jpg",
+      # 99    => "Brat300x300.jpg",
+      99    => "TripleSausage300x300.jpg",
+      100    => "Spud300x300.jpg",
       27    => "ItalianFoldoverSub300x300.jpg",
-      28    => "ItalianFoldoverSub300x300.jpg",
-      29    => "ItalianFoldoverSub300x300.jpg",
-      30    => "ItalianFoldoverSub300x300.jpg",
-      32    => "ItalianFoldoverSub300x300.jpg",
-      33    => "ItalianFoldoverSub300x300.jpg",
-      36    => "ItalianFoldoverSub300x300.jpg",
-      37    => "ItalianFoldoverSub300x300.jpg",
-      44    => "ItalianFoldoverSub300x300.jpg",
-      45    => "ItalianFoldoverSub300x300.jpg",
+      28    => "PizzaSub3000x300.jpg",
+      29    => "ChickenBreastSub3000x300.jpg",
+      30    => "BBQChickenSub300x300.jpg",
+      32    => "ClassicClubSub3000x300.jpg",
+      33    => "Ham&CheeseSub3000x300.jpg",
+      36    => "VeggieSub3000x300.jpg",
+      37    => "TonyPackoSub3000x300.jpg",
+      44    => "TacoSub3000x300.jpg",
+      45    => "BLTSub3000x300.jpg",
       38    => "ChickenSalad3000x300.jpg",
-      39    => "salads-background.jpg",
+      39    => "GreekSalad3000x300.jpg",
       40    => "ItalianSalad3000x300.jpg",
       41    => "salads-background.jpg",
-      42    => "salads-background.jpg",
+      42    => "VitoSalad3000x300.jpg",
       8002  => "VitoBread300x300.jpg",
       8004  => "ChickenWings300x300.jpg",
       8005  => "CinnamonBread300x300.jpg",
@@ -114,14 +117,14 @@ class Hacks
       3     => "buildyourownsalad.jpg",  # @NOTE: replace build salad, wings, dippers, bread with real or purchased photo, stolen from google images currently [github.com/tandpco/VitosWeb2/issues/9]
       14    => "buildyourownsalad.jpg", 
       5     => "CinnamonBread300x300.jpg", 
-      4     => "wings.jpg",
+      4     => "ChickenWings300x300.jpg",
       15    => "CokeEtc300x300.jpg",
-      7     => "dippers.jpg",
-      2     => "bread.jpg" 
+      7     => "ChickenDippers300x300.jpg",
+      2     => "VitoBread300x300.jpg" 
     }
     if spec.blank? and !unit.blank? then return uassoc[unit].blank? ? uassoc[1] : uassoc[unit] end
 
-    return assoc[spec].blank? ? assoc[5] : assoc[spec]
+    return assoc[spec].blank? ? 'DefaultImage300x300.jpg' : assoc[spec]
   end
 
 end
