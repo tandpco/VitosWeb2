@@ -24,7 +24,8 @@ module Vitos
         @order = OrderViewController.getOrderNew({},session)
         options = {
           # :to => current_user[:EMail].blank? && 'me@david.gs' || current_user[:EMail],
-          :to => 'me@david.gs',
+          # :to => 'me@david.gs',
+          :to => current_user[:EMail].blank? && 'me@david.gs' || current_user[:EMail],
           :from => 'ordering@vitos.com',
           :subject => "Vito's Pizza Order #{@order['OrderID']} Confirmation",
           # :body => '',
