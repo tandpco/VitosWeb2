@@ -32,12 +32,11 @@ module Vitos
           :html_body => (slim :notify, :layout=>false),
           :via => :smtp,
           :via_options => {
-            :openssl_verify_mode => OpenSSL::SSL::VERIFY_NONE,
-            :address => 'mail.vitos.com',
-            :port => 25,
+            :address => 'smtp.sendgrid.net',
+            :port => 2525,
             :enable_starttls_auto => true,
-            :user_name => 'ordering@vitos.com',
-            :password => 'pizza4U08',
+            :user_name => 'dboskovic',
+            :password => '900miles',
             :authentication => :plain,
             :domain => 'localhost.localdomain'
           }
@@ -118,12 +117,12 @@ module Vitos
           :html_body => (slim :notify, :layout=>false),
           :via => :smtp,
           :via_options => {
-            :openssl_verify_mode => OpenSSL::SSL::VERIFY_NONE,
-            :address => 'mail.vitos.com',
-            :port => 587,
+            # :openssl_verify_mode => OpenSSL::SSL::VERIFY_NONE,
+            :address => 'smtp.sendgrid.net',
+            :port => 2525,
             :enable_starttls_auto => true,
-            :user_name => 'ordering@vitos.com',
-            :password => 'pizza4U08',
+            :user_name => 'dboskovic',
+            :password => '900miles',
             :authentication => :plain,
             :domain => 'localhost.localdomain'
           }
@@ -184,12 +183,12 @@ module Vitos
             :html_body => (slim :notify, :layout=>false),
             :via => :smtp,
             :via_options => {
-              :openssl_verify_mode => OpenSSL::SSL::VERIFY_NONE,
-              :address => 'mail.vitos.com',
-              :port => 587,
+              # :openssl_verify_mode => OpenSSL::SSL::VERIFY_NONE,
+              :address => 'smtp.sendgrid.net',
+              :port => 2525,
               :enable_starttls_auto => true,
-              :user_name => 'ordering@vitos.com',
-              :password => 'pizza4U08',
+              :user_name => 'dboskovic',
+              :password => '900miles',
               :authentication => :plain,
               :domain => 'localhost.localdomain'
             }
