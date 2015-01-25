@@ -34,7 +34,7 @@ module Vitos
           :via_options => {
             :openssl_verify_mode => OpenSSL::SSL::VERIFY_NONE,
             :address => 'mail.vitos.com',
-            :port => 587,
+            :port => 25,
             :enable_starttls_auto => true,
             :user_name => 'ordering@vitos.com',
             :password => 'pizza4U08',
