@@ -19,6 +19,32 @@ module Vitos
           redirect "/locations"
         end
       end
+      get '/order/notify' do
+        @lines = OrderLineViewController.getOrderLines({},session)
+        @order = OrderViewController.getOrderNew({},session)
+        options = {
+          # :to => current_user[:EMail].blank? && 'me@david.gs' || current_user[:EMail],
+          :to => 'me@david.gs',
+          :from => 'ordering@vitos.com',
+          :subject => "Vito's Pizza Order #{@order['OrderID']} Confirmation",
+          # :body => '',
+          :html_body => (slim :notify, :layout=>false),
+          :via => :smtp,
+          :via_options => {
+            :openssl_verify_mode => OpenSSL::SSL::VERIFY_NONE,
+            :address => 'mail.vitos.com',
+            :port => 587,
+            :enable_starttls_auto => true,
+            :user_name => 'ordering@vitos.com',
+            :password => 'pizza4U08',
+            :authentication => :plain,
+            :domain => 'localhost.localdomain'
+          }
+        }
+
+        puts(Pony.mail(options))
+        slim :notify, :layout => false
+      end
       get '/order/preload-coupon' do
         if session[:Coupons].blank?
           session[:Coupons] = [params[:CouponID].to_i]
@@ -79,6 +105,31 @@ module Vitos
 
         ActiveRecord::Base.connection.execute_procedure("WebPrintOrder", {:pStoreID => select_store[:StoreID], :pOrderID => select_order[:OrderID]})
         session[:completeOrder] = select_order[:OrderID]
+
+
+        @lines = OrderLineViewController.getOrderLines({},session)
+        @order = OrderViewController.getOrderNew({},session)
+        options = {
+          # :to => 'me@david.gs',
+          :to => current_user[:EMail].blank? && 'me@david.gs' || current_user[:EMail],
+          :from => 'Vitos <ordering@vitos.com>',
+          :subject => "Vito's Pizza Order #{@order['OrderID']} Confirmation",
+          :html_body => (slim :notify, :layout=>false),
+          :via => :smtp,
+          :via_options => {
+            :openssl_verify_mode => OpenSSL::SSL::VERIFY_NONE,
+            :address => 'mail.vitos.com',
+            :port => 587,
+            :enable_starttls_auto => true,
+            :user_name => 'ordering@vitos.com',
+            :password => 'pizza4U08',
+            :authentication => :plain,
+            :domain => 'localhost.localdomain'
+          }
+        }
+
+        Pony.mail(options)
+
         session[:orderId] = nil
         # json params.to_hash
         redirect '/order/thanks'
@@ -120,6 +171,32 @@ module Vitos
           select_order.save()
           ActiveRecord::Base.connection.execute_procedure("WebPrintOrder", {:pStoreID => select_store[:StoreID], :pOrderID => select_order[:OrderID]})
           session[:completeOrder] = select_order[:OrderID]
+
+
+          @lines = OrderLineViewController.getOrderLines({},session)
+          @order = OrderViewController.getOrderNew({},session)
+          options = {
+            # :to => 'me@david.gs',
+            :to => current_user[:EMail].blank? && 'me@david.gs' || current_user[:EMail],
+            :from => 'Vitos <ordering@vitos.com>',
+            :subject => "Vito's Pizza Order #{@order['OrderID']} Confirmation",
+            :html_body => (slim :notify, :layout=>false),
+            :via => :smtp,
+            :via_options => {
+              :openssl_verify_mode => OpenSSL::SSL::VERIFY_NONE,
+              :address => 'mail.vitos.com',
+              :port => 587,
+              :enable_starttls_auto => true,
+              :user_name => 'ordering@vitos.com',
+              :password => 'pizza4U08',
+              :authentication => :plain,
+              :domain => 'localhost.localdomain'
+            }
+          }
+
+          Pony.mail(options)
+
+
           session[:orderId] = nil
           redirect '/order/thanks'
         else

@@ -71,7 +71,7 @@
         td {{$orderSubtotal | currency}}
       tr
         td TAXES
-        td {{$order.Tax | currency}}
+        td {{$order.Tax + $order.Tax2 | currency}}
       tr
         td DELIVERY CHARGE
         td {{$order.DeliveryCharge | currency}}

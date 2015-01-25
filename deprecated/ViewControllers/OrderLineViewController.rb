@@ -34,7 +34,7 @@ class OrderLineViewController
         return !lineId ? [] :  ActiveRecord::Base.connection.select_all("select OrderLineItemID,HalfID,tblItems.* from tblOrderLineItems LEFT JOIN tblItems ON tblOrderLineItems.ItemID = tblItems.ItemID where OrderLineID = " +lineId.to_s)
     end
     def self.getLineSides(lineId)
-        return !lineId ? [] :  ActiveRecord::Base.connection.select_all("select OrderLineSideID,tblSides.* from tblOrderLineSides LEFT JOIN tblSides ON tblOrderLineSides.SideID = tblSides.SideID where OrderLineID = " +lineId.to_s)
+        return !lineId ? [] :  ActiveRecord::Base.connection.select_all("select OrderLineSideID,IsFreeSide,tblSides.* from tblOrderLineSides LEFT JOIN tblSides ON tblOrderLineSides.SideID = tblSides.SideID where OrderLineID = " +lineId.to_s)
     end
     def self.getUnit(unitId)
         rows = ActiveRecord::Base.connection.select_one("select * from tblUnit where UnitID = " +unitId.to_s)

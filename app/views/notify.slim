@@ -1,0 +1,133 @@
+div(style="font-family:Arial,sans-serif;padding:0px")
+  p Thank you for your order. It has been received by our store and we are diligently working to fulfill your needs. For reference your order number is #{@order['OrderID']}.
+   
+  p If you need to make any changes to your order, please call our store at #{select_store[:Phone]}.
+   
+  p Normal delivery times are 30 minutes and pick up orders a generally ready in 15 minutes.
+   
+  table(style="font-family:Arial,sans-serif;margin-bottom:20px" width="100%")
+    tr
+      td valign="top"
+        - if !select_address.nil?
+          div: strong Your Location:
+          div #{current_user[:FirstName]} #{current_user[:LastName]}
+          div #{select_address[:AddressLine1]}
+          div #{select_address[:AddressLine2]}
+          div #{select_address[:City]}, #{select_address[:State]} #{select_address[:PostalCode]}
+          div #{select_address[:Phone]}
+      td valign="top"
+
+        - if session[:deliveryMethod] == 1
+          div: strong Delivering from:
+        - else
+          div: strong Pickup location:
+        div: strong = select_store[:StoreName]
+        div=select_store[:Address1]
+        div #{{select_store[:Address2]}}
+        div #{select_store[:City]}, #{select_store[:State]} #{select_store[:PostalCode]}
+        div #{select_store[:Phone]} &mdash; #{select_store[:Hours]}
+        - if session[:deliveryMethod] == 2
+          a href="https://www.google.com/maps/preview?q=Vito's Pizza and Subs, #{select_store[:Address1]} #{select_store[:City]} #{select_store[:State]}" target="_blank" Get Directions
+  - subtotal = 0
+  table border="1" cellpadding="6" cellspacing="0" bordercolor="#dadada" style="font-family:Arial,sans-serif;font-size:12px"
+    tr
+      th Qty
+      th Description
+      th Price
+    - @lines.each do |line|
+      - subtotal += line['Quantity'] * line['Cost'] - line['Discount']
+      tr
+        td 1
+        td
+          / td(ng-class="{noSize:$line.UnitID == 15 || $line.UnitID == 7}")
+          - if line['UnitID'] != 15 && line['UnitID'] != 7 # no size
+            | #{line['extra'][:size]['SizeShortDescription']} 
+          - d = line['extra']
+          - if d[:unit]['UnitID'] == 15
+            | #{d[:size]['SizeDescription']} #{d[:style]['StyleDescription']}
+          - elsif d[:unit]['UnitID'] == 7
+            | #{d[:size]['SizeDescription']} #{d[:unit]['UnitDescription']}
+          - elsif !d[:specialty].nil?
+            | #{d[:specialty]['SpecialtyDescription']} #{d[:unit]['UnitID'] != 3 && d[:unit]['UnitDescription'] || ''}
+          - elsif d[:unit]['UnitID'] == 1
+            | Build your Own Pizza
+          - else
+            =d[:unit]['UnitDescription']
+          |  
+          - if !d[:sauce].nil?
+            | w/ 
+            - if !d[:sauceModifier].nil?
+              | #{d[:sauceModifier]['SauceModifierDescription']} 
+            | #{d[:sauce]['SauceDescription']}
+          - if !d[:style].nil?
+            |  (#{d[:style]['StyleDescription']})
+          - if d[:toppings].count > 0
+            - whole = []
+            - left = []
+            - right = []
+            - d[:toppings].each do |topping|
+              - if topping['HalfID'] == 3 || topping['HalfID'] == 0
+                - whole.push(topping)
+              - if topping['HalfID'] == 1
+                - left.push(topping)
+              - if topping['HalfID'] == 2
+                - right.push(topping)
+            - if whole.count > 0
+              div
+                | <b>Whole Toppings</b> 
+                - whole.each.with_index do |topping, index|
+                  span #{topping['HalfID'] == 3 && '2x' || ''} #{topping['ItemDescription']}#{index < whole.count-1 && ',' || ''} 
+            - if left.count > 0
+              div
+                | <b>Left Half Toppings</b> 
+                - left.each.with_index do |topping, index|
+                  span #{topping['ItemDescription']}#{index < left.count-1 && ',' || ''}  
+            - if right.count > 0
+              div
+                | <b>Right Half Toppings</b> 
+                - right.each.with_index do |topping, index|
+                  span #{topping['ItemDescription']}#{index < right.count-1 && ',' || ''}  
+          - if d[:toppers].count > 0
+            div
+              | <b>Crust Toppings</b> 
+              - d[:toppers].each.with_index do |topping, index|
+                span #{topping['TopperDescription']}#{index < d[:toppers].count-1 && ',' || ''} 
+          - if d[:sides].count > 0
+            - free = []
+            - addl = []
+            - d[:sides].each do |side|
+              - if side['IsFreeSide']
+                - free.push(side)
+              - else
+                - addl.push(side)
+            - if free.count > 0
+              div
+                | <b>Included Sides</b> 
+                - free.each.with_index do |side, index|
+                  span #{side['SideDescription']}#{index < free.count-1 && ',' || ''} 
+            - if addl.count > 0
+              div
+                | <b>Additional Sides</b> 
+                - addl.each.with_index do |side, index|
+                  span #{side['SideDescription']}#{index < addl.count-1 && ',' || ''} 
+          - if !line['OrderLineNotes'].blank?
+            div style="background:yellow" = line['OrderLineNotes']
+        td(valign="top") $#{"%.2f" % (line['Cost'] - line['Discount'])}
+    tr
+      th(colspan="2" align="right") Subtotal
+      td $#{"%.2f" % subtotal}
+    tr
+      th(colspan="2" align="right") Taxes
+      td $#{"%.2f" % (@order['Tax']+@order['Tax2'])}
+    tr
+      th(colspan="2" align="right") Delivery Charge
+      td $#{"%.2f" % @order['DeliveryCharge']}
+    tr
+      th(colspan="2" align="right") Tip
+      td $#{"%.2f" % @order['Tip']}
+    tr
+      th(colspan="2" align="right") TOTAL #{@order['IsPaid'] && 'PAID' || 'DUE'}
+      td(style="font-size:16px;font-weight:bold;background:#ccff66") $#{"%.2f" % (subtotal + @order['Tip'] + @order['Tax'] + @order['Tax2'] + @order['DeliveryCharge'])}
+  - if !@order['OrderNotes'].blank?
+    p style="background:yellow" = order['OrderNotes']
+  p This e-mail was sent for order confirmation purposes only. Please do not reply to this e-mail. If you have questions about your order, please call our store at #{select_store[:Phone]}.
