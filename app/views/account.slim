@@ -43,13 +43,13 @@ javascript:
           p Last Name
           input.shaded-input type="text" name="lastname" value=current_user[:LastName] required="required"
       - if current_user[:Password].blank?
-        .row
-          .col-md-5
-            p Password
-            input.shaded-input type="text" name="firstname" required="required"
-          .col-md-7
-            p Confirm Password
-            input.shaded-input type="text" name="lastname" required="required"
+        / .row
+        /   .col-md-5
+        /     p Password
+        /     input.shaded-input type="text" name="password"
+        /   .col-md-7
+        /     p Confirm Password
+        /     input.shaded-input type="text" name="password_confirm"
       .row
         .col-md-8
           p Street Number and Street Name

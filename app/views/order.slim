@@ -26,7 +26,7 @@
         span Hi 
       - else
         span Thank you 
-      span = current_user[:FirstName]+" "+current_user[:LastName]
+      span = current_user[:FirstName].to_s+" "+current_user[:LastName].to_s
       - address = select_address
       - store =select_store
       / a change delivery address
