@@ -100,6 +100,7 @@ module Vitos
         select_order[:PaymentAuthorization] = auth_response.authorization_code
         select_order[:PaymentEmpID] = 1
         select_order[:IsPaid] = 1
+        select_order[:StoreID] = select_store[:StoreID]
         select_order.save()
         ActiveRecord::Base.connection.execute("UPDATE tblOrders SET PaidDate = GetDate() WHERE OrderID = #{select_order[:OrderID]}")
 
@@ -167,6 +168,7 @@ module Vitos
       post '/order/complete' do
         if !params[:payCash].blank?
           select_order[:PaymentTypeID] = 1
+          select_order[:StoreID] = select_store[:StoreID]
           select_order[:OrderNotes] = params[:notes]
           select_order.save()
           ActiveRecord::Base.connection.execute_procedure("WebPrintOrder", {:pStoreID => select_store[:StoreID], :pOrderID => select_order[:OrderID]})
