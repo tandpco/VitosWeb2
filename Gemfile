@@ -37,6 +37,7 @@ gem 'moneta'
 gem 'slim'
 gem 'pony'
 gem 'warden'
+gem 'rack-ssl-enforcer'
 gem 'activerecord-sqlserver-adapter', '4.1.0'
 
 group :development do

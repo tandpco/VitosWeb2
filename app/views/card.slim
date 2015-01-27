@@ -7,31 +7,6 @@ javascript:
               alert(response.message);
           },
       });
-      // var tokenValue, tokenType, tokenExpire;
-      // $("#payment_form").submit(function(){
-      //   hps.tokenize({
-      //     data: {
-      //       public_key: "#{select_store['SSAPIPK']}",
-      //       number: 4242424242424242,
-      //       cvc: 123,
-      //       exp_month: 12,
-      //       exp_year: 2015
-      //     },
-      //     success: function(response) { 
-      //       /** Place additional validation/business logic here. */     
-      //  
-      //       tokenValue = response.token_value;
-      //       tokenType = response.token_type;
-      //       tokenExpire = response.token_expire;
-      //     },
-      //     error: function(response) {
-      //       console.log(error)
-      //       /** Handle Token Error */
-      //     }
-      //   });
-      //   return false;
-      // 
-      // })
   });
 .col-md-8
   #sign-in-panel
@@ -42,7 +17,7 @@ javascript:
         label(for='card_number') Name on Card
         input.shaded-input#card_holder(type='text' value='')
       .row: .col-md-12
-        label(for='card_number') Card number:
+        label(for='card_number') Card number: (numbers only, no spaces)
         input.shaded-input#card_number(type='text' value='')
       .row
         .col-md-4
@@ -50,10 +25,34 @@ javascript:
           input.shaded-input#card_cvc(type='text' value='')
         .col-md-4
           label(for='exp_month') Exp month:
-          input.shaded-input#exp_month(type='text' value='')
+          / input.shaded-input#exp_month(type='text' value='')
+          select#exp_month.shaded-input(style="width:100%")
+            option value="01" 01 - Jan
+            option value="02" 02 - Feb
+            option value="03" 03 - Mar
+            option value="04" 04 - Apr
+            option value="05" 05 - May
+            option value="06" 06 - Jun
+            option value="07" 07 - Jul
+            option value="08" 08 - Aug
+            option value="09" 09 - Sep
+            option value="10" 10 - Oct
+            option value="11" 11 - Nov
+            option value="12" 12 - Dec
         .col-md-4
           label(for='exp_year') Exp year:
-          input.shaded-input#exp_year(type='text' value='')
+          select#exp_year.shaded-input(style="width:100%")
+            option 2015
+            option 2016
+            option 2017
+            option 2018
+            option 2019
+            option 2020
+            option 2021
+            option 2022
+            option 2023
+            option 2024
+            option 2025
       .row: .col-md-12
         input.red-gradient-button(type='submit' value='Submit Payment')
 

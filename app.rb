@@ -38,6 +38,8 @@ require 'slim'
 require 'warden'
 require 'hps'
 
+require 'rack/ssl-enforcer'
+
 # puts(ENV.to_hash)
 module Vitos
   class App < Sinatra::Application
@@ -70,6 +72,7 @@ module Vitos
 
     use Rack::Deflater
     use Rack::Standards
+    use Rack::SslEnforcer,:only_hosts => 'orders.vitos.com'
     use Routes::Static
     # unless settings.production?
     #   use Routes::Assets
