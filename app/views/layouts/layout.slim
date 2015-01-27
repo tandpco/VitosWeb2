@@ -11,6 +11,7 @@ html ng-app="app"
     script type="text/javascript" src="/js/ng-route.js"
     script type="text/javascript" src="/js/ui-router.js"
     script type="text/javascript" src="/js/restangular.js"
+    script type="text/javascript" src="/js/bootstrap.min.js"
     script type="text/javascript" src="/app/js/app.js"
     link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"
     link rel="stylesheet" type="text/css" href="/css/custom-theme.css"
@@ -41,7 +42,7 @@ html ng-app="app"
                   span.icon-bar
                   span.icon-bar
                   span.icon-bar
-              .collapse.navbar-collapse: ul.nav.navbar-nav.navbar-right
+              #navbar.collapse.navbar-collapse: ul.nav.navbar-nav.navbar-right
                 li: a.white-shadow class=(!params[:UnitID].blank? || request.path_info == '/order' ? 'active' : '') href="/order?UnitID=1" MENU
                 li: a.white-shadow href="/deals" class=(request.path_info == '/deals' ? 'active' : '') DEALS
                 li: a.white-shadow href="/locations" class=(request.path_info == '/locations' ? 'active' : '') LOCATIONS

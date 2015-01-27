@@ -29,12 +29,11 @@ class Hacks
       close = store[:CloseSat]
     end
 
-    # close = 1600
-    open_h = (open / 100).to_f.floor
-    open_m = ((open / 100)-open_h)*100
+    open_h = (open.to_f / 100.0).to_f.floor
+    open_m = (((open.to_f / 100.0)-open_h)*100.0).floor
     open_f = open_h.to_s+':'+open_m.to_s.rjust(2,'0')
-    close_h = (close / 100).to_f.floor
-    close_m = ((close / 100)-close_h)*100
+    close_h = (close.to_f / 100.0).to_f.floor
+    close_m = (((close.to_f / 100.0)-close_h)*100.0).floor
     close_f = close_h.to_s+':'+close_m.to_s.rjust(2,'0')
     puts('open: '+open.to_s)
     puts('close: '+close.to_s)

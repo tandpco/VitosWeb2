@@ -999,3 +999,9 @@ label.btn.active {
     width: 125px;
   }
 }
+@media (max-width: 768px) {
+  /* line 978, ../../src/sass/custom-theme.scss */
+  #logo {
+    width: 200px;
+  }
+}
