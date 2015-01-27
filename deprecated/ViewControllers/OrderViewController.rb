@@ -72,7 +72,7 @@ class OrderViewController
             newOrder['pIPAddress']       = "127.0.0.1" #@TODO: connect this to request.ip
             newOrder['pEmpID']           = 1
             newOrder['pRefID']           = nil
-            newOrder['pTransactionDate'] = Time.now.utc.iso8601
+            newOrder['pTransactionDate'] = Time.now.getlocal('-05:00').iso8601
             newOrder['pStoreID']         = storeId
 
             # get from session
