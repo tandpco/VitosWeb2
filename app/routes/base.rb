@@ -71,6 +71,12 @@ module Vitos
         end
         return nil
       end
+      def is_closed
+        if !select_store.nil?
+          return Hacks.storeIsClosed(select_store)
+        end
+        return nil
+      end
 
       def select_address
         if !@address.nil?

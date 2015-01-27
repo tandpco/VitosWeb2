@@ -62,9 +62,17 @@
       textarea.shaded-input(name="notes" style="width:100%;height:80px")
       hr
       .row
-        - if select_store['CCProcessorIDWeb'] == 3
-          .col-md-6: a.red-gradient-button href="/checkout/card" PAY WITH CREDIT / DEBIT CARD
+
+        - if is_closed[:status] != 0
+          div style="background:red;padding:20px;color:#fff;font-weight:bold;margin-right:10px;"
+            - if is_closed[:status] == -1
+              | Store is not open, wait until #{is_closed[:open]} before placing your order.
+            - if is_closed[:status] == 1
+              | Store closed at #{is_closed[:close]}, you will not be able to complete your order.
         - else
-          .col-md-6: input.red-gradient-button type="submit" name="payCard" value="PAY WITH CREDIT / DEBIT CARD"
-        .col-md-6: input.red-gradient-button type="submit" name="payCash" value="PAY WITH CASH / GIFT CARD"
+          - if select_store['CCProcessorIDWeb'] == 3
+            .col-md-6: a.red-gradient-button href="/checkout/card" PAY WITH CREDIT / DEBIT CARD
+          - else
+            .col-md-6: input.red-gradient-button type="submit" name="payCard" value="PAY WITH CREDIT / DEBIT CARD"
+          .col-md-6: input.red-gradient-button type="submit" name="payCash" value="PAY WITH CASH / GIFT CARD"
 .col-md-4#order-items-panel(ng-include src="'app/partials/order.html'")

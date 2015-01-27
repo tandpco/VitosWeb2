@@ -7,6 +7,9 @@ module Vitos
       get '/api/session' do
         json session
       end
+      get '/api/open' do
+        json Hacks.storeIsClosed(select_store)
+      end
       get '/api/specialties' do
         rows = ActiveRecord::Base.connection.select_all('SELECT tblspecialty.* FROM tblspecialty inner join trelStoreSpecialty on trelStoreSpecialty.SpecialtyID = tblSpecialty.SpecialtyID where StoreID = ' + params[:StoreID] + ' and UnitID = ' + params[:UnitID] + ' and IsActive <> 0 and IsInternet <> 0 order by tblSpecialty.SpecialtyID').to_hash
         json rows

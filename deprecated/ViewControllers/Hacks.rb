@@ -1,6 +1,52 @@
 class Hacks
   public
 
+  def self.storeIsClosed(store)
+    time = Time.now.getlocal('-05:00')
+    # time.getlocal('-05:00');
+    hour = time.strftime('%H%M')
+    puts('time: '+time.strftime('%H%M %z'))
+    if time.sunday?
+      open = store[:OpenSun]
+      close = store[:CloseSun]
+    elsif time.monday?
+      open = store[:OpenMon]
+      close = store[:CloseMon]
+    elsif time.tuesday?
+      open = store[:OpenTue]
+      close = store[:CloseTue]
+    elsif time.wednesday?
+      open = store[:OpenWed]
+      close = store[:CloseWed]
+    elsif time.thursday?
+      open = store[:OpenThu]
+      close = store[:CloseThu]
+    elsif time.friday?
+      open = store[:OpenFri]
+      close = store[:CloseFri]
+    elsif time.saturday?
+      open = store[:OpenSat]
+      close = store[:CloseSat]
+    end
+
+    # close = 1600
+    open_h = (open / 100).to_f.floor
+    open_m = ((open / 100)-open_h)*100
+    open_f = open_h.to_s+':'+open_m.to_s.rjust(2,'0')
+    close_h = (close / 100).to_f.floor
+    close_m = ((close / 100)-close_h)*100
+    close_f = close_h.to_s+':'+close_m.to_s.rjust(2,'0')
+    puts('open: '+open.to_s)
+    puts('close: '+close.to_s)
+    if hour.to_i < open.to_i
+      return {:open => open_f,:close => close_f, :status => -1};
+    end
+    if hour.to_i > close.to_i
+      return {:open => open_f,:close => close_f, :status => -1};
+    end
+
+    return {:open => open_f,:close => close_f, :status => 0};
+  end
   def self.totalOrder(order)
     subs = OrderLineViewController.getOrderSubtotal(order[:OrderID])
     puts(subs)
