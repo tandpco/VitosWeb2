@@ -42,7 +42,7 @@ class Hacks
       return {:open => open_f,:close => close_f, :status => -1};
     end
     if hour.to_i > close.to_i
-      return {:open => open_f,:close => close_f, :status => -1};
+      return {:open => open_f,:close => close_f, :status => 1};
     end
 
     return {:open => open_f,:close => close_f, :status => 0};
