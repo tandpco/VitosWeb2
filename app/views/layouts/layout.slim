@@ -20,7 +20,7 @@ html ng-app="app"
       .container
         img#logo src="/img/vitoslogo.png"
         div(style="margin-top:20px;position:absolute;right:0;")
-          - if is_closed[:status] != 0
+          - if !is_closed.nil? && [:status] != 0
             span style="color:red;font-weight:bold;margin-right:10px;"
               - if is_closed[:status] == -1
                 | Store is not open, wait until #{is_closed[:open]} before placing your order.
