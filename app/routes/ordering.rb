@@ -79,12 +79,14 @@ module Vitos
         redirect '/order/thanks'
       end
       post '/order/securesubmit-complete' do
+
+        auth_amount = Hacks.totalOrder(select_order)
         # token_value
         Hps.configure do |config|
           config.secret_api_key = select_store['SSAPISK']
         end  
         charge_service = Hps::HpsChargeService.new
-        auth_response = charge_service.authorize(50.00, "usd", params[:token_value])
+        auth_response = charge_service.authorize(auth_amount, "usd", params[:token_value])
         puts auth_response
         if auth_response.response_text != 'APPROVAL'
           return "Card was not approved."
