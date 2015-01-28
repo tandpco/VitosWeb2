@@ -150,6 +150,7 @@ $app.config ($stateProvider, $urlRouterProvider,RestangularProvider)->
           return total
 
         $scope.calcPrice = (x)->
+          return 0 if !x
           if $specialty.specialty
             $out = x.SpecialtyBasePrice + (x.StyleSurcharge || 0)
           else

@@ -250,6 +250,9 @@
         };
         $scope.calcPrice = function(x) {
           var $out;
+          if (!x) {
+            return 0;
+          }
           if ($specialty.specialty) {
             $out = x.SpecialtyBasePrice + (x.StyleSurcharge || 0);
           } else {
