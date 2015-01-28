@@ -11,14 +11,14 @@ javascript:
 .col-md-8
   #sign-in-panel
     form.block-form#payment_form method="post" action="/order/securesubmit-complete"
-      h2 Enter your Payment Information
+      h2 Enter your Payment & Billing Information
       // Your payment fields go here
       .row: .col-md-12
         label(for='card_number') Name on Card
         input.shaded-input#card_holder(type='text' value='')
       .row: .col-md-12
         label(for='card_number') Card number: (numbers only, no spaces)
-        input.shaded-input#card_number(type='text' value='')
+        input.shaded-input#card_number(type='text' value='' required onkeyup="this.value = this.value.replace(/\D/g,'')")
       .row
         .col-md-4
           label(for='card_cvc') Card cvc:
@@ -53,6 +53,21 @@ javascript:
             option 2023
             option 2024
             option 2025
+      / hr
+      / .row: .col-md-12 Please <u>make sure this is the billing address for your credit card.</u> This <b>will not affect</b> where we deliver your pizza.
+      / .row: .col-md-12
+      /   label(for='card_number') Street Address
+      /   input.shaded-input#card_number(type='text' value=(!select_address.nil? && select_address[:AddressLine1] || ''))
+      / .row
+      /   .col-md-4
+      /     label City
+      /     input.shaded-input type='text' value=(!select_address.nil? && select_address[:City] || '')
+      /   .col-md-4
+      /     label State
+      /     input.shaded-input type='text' value=(!select_address.nil? && select_address[:State] || '')
+      /   .col-md-4
+      /     label Zipcode
+      /     input.shaded-input type='text' value=(!select_address.nil? && select_address[:PostalCode] || '')
       .row: .col-md-12
         input.red-gradient-button(type='submit' value='Submit Payment')
 

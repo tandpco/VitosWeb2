@@ -86,7 +86,11 @@ module Vitos
           config.secret_api_key = select_store['SSAPISK']
         end  
         charge_service = Hps::HpsChargeService.new
-        auth_response = charge_service.authorize(auth_amount, "usd", params[:token_value])
+        trans_details = Hps::HpsTransactionDetails.new
+        trans_details.customer_id = current_user[:CustomerID]
+        trans_details.invoice_number = select_order[:OrderID]
+        trans_details.memo = 'Vitos 2.0'
+        auth_response = charge_service.authorize(auth_amount, "usd", params[:token_value],nil,false,trans_details)
         puts auth_response
         if auth_response.response_text != 'APPROVAL'
           return "Card was not approved."
