@@ -28,7 +28,7 @@ class Hacks
       open = store[:OpenSat]
       close = store[:CloseSat]
     end
-
+    
     open_h = (open.to_f / 100.0).to_f.floor
     open_m = (((open.to_f / 100.0)-open_h)*100.0).floor
     open_f = open_h.to_s+':'+open_m.to_s.rjust(2,'0')
@@ -37,10 +37,10 @@ class Hacks
     close_f = close_h.to_s+':'+close_m.to_s.rjust(2,'0')
     puts('open: '+open.to_s)
     puts('close: '+close.to_s)
-    if hour.to_i < open.to_i
+    if hour.to_i < open.to_i  && (close.to_i > open.to_i || hour.to_i > close.to_i)
       return {:open => open_f,:close => close_f, :status => -1};
     end
-    if hour.to_i > close.to_i
+    if hour.to_i > close.to_i && (close.to_i > open.to_i || hour.to_i < open.to_i)
       return {:open => open_f,:close => close_f, :status => 1};
     end
 
