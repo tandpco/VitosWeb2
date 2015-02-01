@@ -10,11 +10,11 @@
             img src="/img/store-#{x[:StoreID]}-map.png" width="100" height="100"
           td.item-panel-content valign="top" 
             p.header=x[:Address1]
-            div(style="color:green"): b #{x[:Phone].to_s[0,3]} #{x[:Phone].to_s[3,3]}-#{x[:Phone].to_s[6,4]}
+            / div(style="color:green"): b #{x[:Phone].to_s[0,3]} #{x[:Phone].to_s[3,3]}-#{x[:Phone].to_s[6,4]}
             p.body=x[:FriendlyLocation]
             - if !select_store.nil? && select_store[:StoreID] == x[:StoreID]
-              / a.red-gradient-button style="background:#2d2d2d;width:100%" selected currently
+              a.red-gradient-button style="background:#2d2d2d;width:100%" selected currently
             - else
-              / a.red-gradient-button href="/order/change-store?StoreID=#{x[:StoreID]}" style="width:100%" PICKUP HERE
+              a.red-gradient-button href="/order/change-store?StoreID=#{x[:StoreID]}" style="width:100%" PICKUP HERE
 .col-md-4#order-items-panel(ng-include src="'app/partials/order.html'")
 ui-view
