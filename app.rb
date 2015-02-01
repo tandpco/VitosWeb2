@@ -72,7 +72,7 @@ module Vitos
 
     use Rack::Deflater
     use Rack::Standards
-    use Rack::SslEnforcer,:only_hosts => 'orders.vitos.com'
+    use Rack::SslEnforcer,:only_hosts => 'orders1.vitos.com'
     use Routes::Static
     # unless settings.production?
     #   use Routes::Assets
