@@ -83,64 +83,69 @@ module Vitos
         puts("CC complete order => #{select_order[:OrderID]}")
         auth_amount = Hacks.totalOrder(select_order)
         # token_value
-        Hps.configure do |config|
-          config.secret_api_key = select_store['SSAPISK']
-        end  
-        charge_service = Hps::HpsChargeService.new
-        trans_details = Hps::HpsTransactionDetails.new
-        trans_details.customer_id = current_user[:CustomerID]
-        trans_details.invoice_number = select_order[:OrderID]
-        trans_details.memo = 'Vitos 2.0'
-        auth_response = charge_service.authorize(auth_amount, "usd", params[:token_value],nil,false,trans_details)
-        puts auth_response
-        if auth_response.response_text != 'APPROVAL'
-          return "Card was not approved."
-        end
+        # 
+        begin
+          Hps.configure do |config|
+            config.secret_api_key = select_store['SSAPISK']
+          end  
+          charge_service = Hps::HpsChargeService.new
+          trans_details = Hps::HpsTransactionDetails.new
+          trans_details.customer_id = current_user[:CustomerID]
+          trans_details.invoice_number = select_order[:OrderID]
+          trans_details.memo = 'Vitos 2.0'
+          auth_response = charge_service.authorize(auth_amount, "usd", params[:token_value],nil,false,trans_details)
+          puts auth_response
+          if auth_response.response_text != 'APPROVAL'
+            return "Card was not approved."
+          end
 
-        # puts 'happy'
-        # puts params
-        # json auth_response
-        # return
-        # sSQL = "update tblOrders set PaidDate = GetDate(), IsPaid = 1, PaymentTypeID = 3, PaymentEmpID = 1, Tip = " & pdTip & ", PaymentAuthorization = '" & psReference & "' where OrderID = " & pnOrderID
-        select_order[:PaymentTypeID] = 3
-        select_order[:SSTransactionID] = auth_response.transaction_id
-        select_order[:PaymentAuthorization] = auth_response.authorization_code
-        select_order[:PaymentEmpID] = 1
-        select_order[:IsPaid] = 1
-        select_order[:StoreID] = select_store[:StoreID]
-        if !select_address.nil?
-          select_order[:AddressID] = select_address[:AddressID]
-        end
-        select_order.save()
-        ActiveRecord::Base.connection.execute("UPDATE tblOrders SET PaidDate = GetDate() WHERE OrderID = #{select_order[:OrderID]}")
+          # puts 'happy'
+          # puts params
+          # json auth_response
+          # return
+          # sSQL = "update tblOrders set PaidDate = GetDate(), IsPaid = 1, PaymentTypeID = 3, PaymentEmpID = 1, Tip = " & pdTip & ", PaymentAuthorization = '" & psReference & "' where OrderID = " & pnOrderID
+          select_order[:PaymentTypeID] = 3
+          select_order[:SSTransactionID] = auth_response.transaction_id
+          select_order[:PaymentAuthorization] = auth_response.authorization_code
+          select_order[:PaymentEmpID] = 1
+          select_order[:IsPaid] = 1
+          select_order[:StoreID] = select_store[:StoreID]
+          if !select_address.nil?
+            select_order[:AddressID] = select_address[:AddressID]
+          end
+          select_order.save()
+          ActiveRecord::Base.connection.execute("UPDATE tblOrders SET PaidDate = GetDate() WHERE OrderID = #{select_order[:OrderID]}")
 
-        ActiveRecord::Base.connection.execute_procedure("WebPrintOrder", {:pStoreID => select_store[:StoreID], :pOrderID => select_order[:OrderID]})
-        session[:completeOrder] = select_order[:OrderID]
+          ActiveRecord::Base.connection.execute_procedure("WebPrintOrder", {:pStoreID => select_store[:StoreID], :pOrderID => select_order[:OrderID]})
+          session[:completeOrder] = select_order[:OrderID]
 
 
-        @lines = OrderLineViewController.getOrderLines({},session)
-        @order = OrderViewController.getOrderNew({},session)
-        options = {
-          # :to => 'me@david.gs',
-          :to => current_user[:EMail].blank? && 'me@david.gs' || current_user[:EMail],
-          :from => 'Vitos <ordering@vitos.com>',
-          :subject => "Vito's Pizza Order #{@order['OrderID']} Confirmation",
-          :html_body => (slim :notify, :layout=>false),
-          :via => :smtp,
-          :via_options => {
-            # :openssl_verify_mode => OpenSSL::SSL::VERIFY_NONE,
-            :address => 'smtp.sendgrid.net',
-            :port => 2525,
-            :enable_starttls_auto => true,
-            :user_name => 'dboskovic',
-            :password => '900miles',
-            :authentication => :plain,
-            :domain => 'localhost.localdomain'
+          @lines = OrderLineViewController.getOrderLines({},session)
+          @order = OrderViewController.getOrderNew({},session)
+          options = {
+            # :to => 'me@david.gs',
+            :to => current_user[:EMail].blank? && 'me@david.gs' || current_user[:EMail],
+            :from => 'Vitos <ordering@vitos.com>',
+            :subject => "Vito's Pizza Order #{@order['OrderID']} Confirmation",
+            :html_body => (slim :notify, :layout=>false),
+            :via => :smtp,
+            :via_options => {
+              # :openssl_verify_mode => OpenSSL::SSL::VERIFY_NONE,
+              :address => 'smtp.sendgrid.net',
+              :port => 2525,
+              :enable_starttls_auto => true,
+              :user_name => 'dboskovic',
+              :password => '900miles',
+              :authentication => :plain,
+              :domain => 'localhost.localdomain'
+            }
           }
-        }
 
-        Pony.mail(options)
+          Pony.mail(options)
 
+        rescue Exception => msg
+          puts msg  
+        end 
         session[:orderId] = nil
         # json params.to_hash
         redirect '/order/thanks'
@@ -186,37 +191,38 @@ module Vitos
           select_order[:OrderNotes] = params[:notes]
           select_order[:Tip] = 0
           select_order.save()
+
           begin
             ActiveRecord::Base.connection.execute_procedure("WebPrintOrder", {:pStoreID => select_store[:StoreID], :pOrderID => select_order[:OrderID]})
+            session[:completeOrder] = select_order[:OrderID]
+
+
+            @lines = OrderLineViewController.getOrderLines({},session)
+            @order = OrderViewController.getOrderNew({},session)
+            options = {
+              # :to => 'me@david.gs',
+              :to => current_user[:EMail].blank? && 'me@david.gs' || current_user[:EMail],
+              :from => 'Vitos <ordering@vitos.com>',
+              :subject => "Vito's Pizza Order #{@order['OrderID']} Confirmation",
+              :html_body => (slim :notify, :layout=>false),
+              :via => :smtp,
+              :via_options => {
+                # :openssl_verify_mode => OpenSSL::SSL::VERIFY_NONE,
+                :address => 'smtp.sendgrid.net',
+                :port => 2525,
+                :enable_starttls_auto => true,
+                :user_name => 'dboskovic',
+                :password => '900miles',
+                :authentication => :plain,
+                :domain => 'localhost.localdomain'
+              }
+            }
+
+            Pony.mail(options)
+
           rescue Exception => msg
             puts msg  
           end 
-          session[:completeOrder] = select_order[:OrderID]
-
-
-          @lines = OrderLineViewController.getOrderLines({},session)
-          @order = OrderViewController.getOrderNew({},session)
-          options = {
-            # :to => 'me@david.gs',
-            :to => current_user[:EMail].blank? && 'me@david.gs' || current_user[:EMail],
-            :from => 'Vitos <ordering@vitos.com>',
-            :subject => "Vito's Pizza Order #{@order['OrderID']} Confirmation",
-            :html_body => (slim :notify, :layout=>false),
-            :via => :smtp,
-            :via_options => {
-              # :openssl_verify_mode => OpenSSL::SSL::VERIFY_NONE,
-              :address => 'smtp.sendgrid.net',
-              :port => 2525,
-              :enable_starttls_auto => true,
-              :user_name => 'dboskovic',
-              :password => '900miles',
-              :authentication => :plain,
-              :domain => 'localhost.localdomain'
-            }
-          }
-
-          Pony.mail(options)
-
 
           session[:orderId] = nil
           redirect '/order/thanks'
