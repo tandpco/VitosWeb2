@@ -5,7 +5,7 @@ class Hacks
     time = Time.now.getlocal('-05:00')
     # time.getlocal('-05:00');
     hour = time.strftime('%H%M')
-    puts('time: '+time.strftime('%H%M %z'))
+    # puts('time: '+time.strftime('%H%M %z'))
     if time.sunday?
       open = store[:OpenSun]
       close = store[:CloseSun]
@@ -35,8 +35,8 @@ class Hacks
     close_h = (close.to_f / 100.0).to_f.floor
     close_m = (((close.to_f / 100.0)-close_h)*100.0).floor
     close_f = close_h.to_s+':'+close_m.to_s.rjust(2,'0')
-    puts('open: '+open.to_s)
-    puts('close: '+close.to_s)
+    # puts('open: '+open.to_s)
+    # puts('close: '+close.to_s)
     if hour.to_i < open.to_i  && (close.to_i > open.to_i || hour.to_i > close.to_i)
       return {:open => open_f,:close => close_f, :status => -1};
     end
@@ -48,7 +48,7 @@ class Hacks
   end
   def self.totalOrder(order)
     subs = OrderLineViewController.getOrderSubtotal(order[:OrderID])
-    puts(subs)
+    # puts(subs)
     subtotal = subs['Cost'] - subs['Discount']
     total = subtotal + order[:Tax] + order[:Tax2] + order[:Tip] + order[:DeliveryCharge]
     return total
@@ -58,7 +58,7 @@ class Hacks
     if !pieces["primary_number"].nil?
       query.push("and tblCASSAddresses.lownumber <= '#{pieces['primary_number']}' and tblCASSAddresses.highnumber >= '#{pieces['primary_number']}'")
     end
-    puts(query.join(" "))
+    # puts(query.join(" "))
     store = ActiveRecord::Base.connection.select_all(query.join(" ")).first
     if !store.nil? and !store["StoreID"].nil?
       return Store.find(store["StoreID"])

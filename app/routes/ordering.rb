@@ -184,7 +184,11 @@ module Vitos
           select_order[:OrderNotes] = params[:notes]
           select_order[:Tip] = 0
           select_order.save()
-          ActiveRecord::Base.connection.execute_procedure("WebPrintOrder", {:pStoreID => select_store[:StoreID], :pOrderID => select_order[:OrderID]})
+          begin
+            ActiveRecord::Base.connection.execute_procedure("WebPrintOrder", {:pStoreID => select_store[:StoreID], :pOrderID => select_order[:OrderID]})
+          rescue Exception => msg
+            puts msg  
+          end 
           session[:completeOrder] = select_order[:OrderID]
 
 

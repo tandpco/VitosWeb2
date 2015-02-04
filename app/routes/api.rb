@@ -74,7 +74,7 @@ module Vitos
           end
       end
       get '/api/item-sizes' do
-        puts(session[:storeID])
+        # puts(session[:storeID])
           json Inventory.listSizesForStyle(session[:storeID],params[:UnitID],params[:StyleID])
       end
 

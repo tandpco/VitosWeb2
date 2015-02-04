@@ -101,7 +101,7 @@ class OrderViewController
         qtyLimit = orderItem['pQuantity'].blank? && 1 || convertToInt(orderItem['pQuantity'])
         qtyPointer = 1
         while qtyPointer <= qtyLimit
-            puts("==> adding to to order #{qtyPointer} of #{qtyLimit}")
+            # puts("==> adding to to order #{qtyPointer} of #{qtyLimit}")
             orderItem['pOrderID']     = orderId
 
             # OrderItem
