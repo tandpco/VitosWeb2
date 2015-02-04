@@ -80,6 +80,7 @@ module Vitos
       end
       post '/order/securesubmit-complete' do
 
+        puts("CC complete order => #{select_order[:OrderID]}")
         auth_amount = Hacks.totalOrder(select_order)
         # token_value
         Hps.configure do |config|
@@ -175,6 +176,7 @@ module Vitos
         slim :card
       end
       post '/order/complete' do
+        puts("CASH complete order => #{select_order[:OrderID]}")
         if !params[:payCash].blank?
           select_order[:PaymentTypeID] = 1
           select_order[:StoreID] = select_store[:StoreID]
