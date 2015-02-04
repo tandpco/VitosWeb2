@@ -53,6 +53,8 @@ $app.config ($stateProvider, $urlRouterProvider,RestangularProvider)->
         $scope.$selectedToppings = {}
         $scope.$selectedToppers = {}
         $UnitID = parseInt $stateParams.unitId
+        if $UnitID is 1 and !$stateParams.SpecialtyID
+          $scope.$line.SauceID = 6
         $scope.$line.UnitID = $UnitID
 
         if $specialty.styles.length is 0 and $specialty.sizes.length > 0
@@ -329,7 +331,21 @@ $app.config ($stateProvider, $urlRouterProvider,RestangularProvider)->
           for x in $specialty.toppings
             if x.IsBaseCheese
               $scope.setTopping x,true,x.SpecialtyItemQuantity is 2 && '2x' || 'whole'
+        $scope.sideByDefault = []
+        $scope.$watchCollection "$sp.defaultSideGroups", (v)->
+          # reset preselected sides
+          for y in $scope.sideByDefault
+            $scope.setSide(y,0)
+          $scope.sideByDefault = []
 
+          if v? and _.isArray v
+            for x in v
+              if _.isArray x.sides
+                for r in x.sides
+                  if r.IsDefault
+                    $scope.sideByDefault.push(r)
+                    # console.log 'side:',r
+                    $scope.setSide(r,1)
         # $scope.$watchCollection "$line.Sides",(v)->
         #   console.log 'chosen sides',v
         # $scope.$watchCollection "$line.Toppings",(v)->

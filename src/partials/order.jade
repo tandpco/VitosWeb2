@@ -10,6 +10,8 @@
           .panel-group
             .panel.panel-default(ng-click="$line.active = !$line.active")
               div(style="margin: 0 -6px -6px;")
+                
+                a(class="removeItem" ng-click="deleteLineItem($line)") ×
                 table(width="100%" cellspacing="10" class="order-item-table")
                   tbody
                     tr(style="cursor:pointer")
@@ -32,8 +34,7 @@
                       .micro-badge Sauce
                       |  {{$line.extra.sauce.SauceDescription}} 
                       div(ng-show="$line.extra.sauceModifier") {{$line.extra.sauceModifier.SauceModifierDescription}}
-                    td
-                      a(class="removeItem" ng-click="deleteLineItem($line)") ×
+                    //- td &nbsp;
                   tr(ng-show="$line.OrderLineNotes")
                     td(colspan="2",style="padding-top:8px") <b class="micro-badge">Note</b> {{$line.OrderLineNotes}}
 

@@ -281,7 +281,7 @@ h1, h2, h3, h4, h5, h6 {
     right: 0px;
     background-color: $COLOR_DARK_TAN;
     color:#6f6962;
-    overflow: hidden;
+    overflow: visible;
     h2 {
         margin:0;
         font-size:25px;
@@ -298,14 +298,23 @@ h1, h2, h3, h4, h5, h6 {
     .panel {
         background-color: transparent;
         box-shadow: none;
+        overflow:  visible;
+        position: relative;
     }
+    .panel:hover .removeItem {
+        display: block;
+    }
+
     .loading-order {
         padding: 20px;
         text-align: center;
     }
 
     .removeItem {
-        display: inline-block;
+        display: none;
+        position:  absolute;
+        right: -20px;
+        top: 13px;
         cursor: pointer;
         margin-top: 2px;
         opacity: 1;

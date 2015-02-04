@@ -182,6 +182,7 @@ module Vitos
             select_order[:AddressID] = select_address[:AddressID]
           end
           select_order[:OrderNotes] = params[:notes]
+          select_order[:Tip] = 0
           select_order.save()
           ActiveRecord::Base.connection.execute_procedure("WebPrintOrder", {:pStoreID => select_store[:StoreID], :pOrderID => select_order[:OrderID]})
           session[:completeOrder] = select_order[:OrderID]

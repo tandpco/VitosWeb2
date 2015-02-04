@@ -68,6 +68,9 @@
         $scope.$selectedToppings = {};
         $scope.$selectedToppers = {};
         $UnitID = parseInt($stateParams.unitId);
+        if ($UnitID === 1 && !$stateParams.SpecialtyID) {
+          $scope.$line.SauceID = 6;
+        }
         $scope.$line.UnitID = $UnitID;
         if ($specialty.styles.length === 0 && $specialty.sizes.length > 0) {
           $scope.$line.SizeID = $specialty.sizes[0].SizeID;
@@ -491,6 +494,42 @@
             }
           }
         }
+        $scope.sideByDefault = [];
+        $scope.$watchCollection("$sp.defaultSideGroups", function(v) {
+          var r, y, _k, _l, _len2, _len3, _ref2, _results;
+          _ref2 = $scope.sideByDefault;
+          for (_k = 0, _len2 = _ref2.length; _k < _len2; _k++) {
+            y = _ref2[_k];
+            $scope.setSide(y, 0);
+          }
+          $scope.sideByDefault = [];
+          if ((v != null) && _.isArray(v)) {
+            _results = [];
+            for (_l = 0, _len3 = v.length; _l < _len3; _l++) {
+              x = v[_l];
+              if (_.isArray(x.sides)) {
+                _results.push((function() {
+                  var _len4, _m, _ref3, _results1;
+                  _ref3 = x.sides;
+                  _results1 = [];
+                  for (_m = 0, _len4 = _ref3.length; _m < _len4; _m++) {
+                    r = _ref3[_m];
+                    if (r.IsDefault) {
+                      $scope.sideByDefault.push(r);
+                      _results1.push($scope.setSide(r, 1));
+                    } else {
+                      _results1.push(void 0);
+                    }
+                  }
+                  return _results1;
+                })());
+              } else {
+                _results.push(void 0);
+              }
+            }
+            return _results;
+          }
+        });
         $scope.$watch("$line.StyleID", function(v) {
           if (v) {
             $scope.checkingSizes = true;

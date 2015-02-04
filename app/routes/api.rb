@@ -4,6 +4,9 @@ module Vitos
       get '/api/me' do
         json current_user
       end
+      get '/api/address' do
+        json select_address
+      end
       get '/api/session' do
         json session
       end
