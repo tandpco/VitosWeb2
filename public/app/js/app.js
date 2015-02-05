@@ -68,7 +68,7 @@
         $scope.$selectedToppings = {};
         $scope.$selectedToppers = {};
         $UnitID = parseInt($stateParams.unitId);
-        if ($UnitID === 1 && !$stateParams.SpecialtyID) {
+        if ($UnitID === 1 && !$stateParams.specialtyId) {
           $scope.$line.SauceID = 6;
         }
         $scope.$line.UnitID = $UnitID;

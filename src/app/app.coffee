@@ -53,7 +53,7 @@ $app.config ($stateProvider, $urlRouterProvider,RestangularProvider)->
         $scope.$selectedToppings = {}
         $scope.$selectedToppers = {}
         $UnitID = parseInt $stateParams.unitId
-        if $UnitID is 1 and !$stateParams.SpecialtyID
+        if $UnitID is 1 and !$stateParams.specialtyId
           $scope.$line.SauceID = 6
         $scope.$line.UnitID = $UnitID
 
