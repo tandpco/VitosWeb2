@@ -93,12 +93,17 @@ module Vitos
           trans_details.customer_id = current_user[:CustomerID]
           trans_details.invoice_number = select_order[:OrderID]
           trans_details.memo = 'Vitos 2.0'
+          begin
           auth_response = charge_service.authorize(auth_amount, "usd", params[:token_value],nil,false,trans_details)
           puts auth_response
+          puts auth_response.response_text
           if auth_response.response_text != 'APPROVAL'
-            return "Card was not approved."
+            return redirect "/checkout/card?error=#{auth_response.response_text}"
           end
 
+          rescue Exception => msg
+            return redirect "/checkout/card?error=#{msg}"
+          end
           # puts 'happy'
           # puts params
           # json auth_response
@@ -144,7 +149,7 @@ module Vitos
           Pony.mail(options)
 
         rescue Exception => msg
-          puts msg  
+          puts "Caught error: #{msg}"  
         end 
         session[:orderId] = nil
         # json params.to_hash

@@ -13,6 +13,9 @@ javascript:
     form.block-form#payment_form method="post" action="/order/securesubmit-complete"
       h2 Enter your Payment & Billing Information
       // Your payment fields go here
+      / div(style="background:red")
+      - if params[:error]
+        div(style="background:#cb0000;padding:7px 10px;color:#fff;margin:10px 0")=params[:error]
       .row: .col-md-12
         label(for='card_number') Name on Card
         input.shaded-input#card_holder(type='text' value='')
