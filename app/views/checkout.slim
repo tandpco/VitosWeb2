@@ -58,21 +58,45 @@
             a href="https://www.google.com/maps/preview?q=Vito's Pizza and Subs, #{select_store[:Address1]} #{select_store[:City]} #{select_store[:State]}" target="_blank" style="background: #fff url(/img/store-#{select_store[:StoreID]}-map.png) no-repeat center center; background-size:cover; height:180px;display:block"
         
       hr
-      p Add a note to your order.
-      textarea.shaded-input(name="notes" style="width:100%;height:80px")
-      hr
-      .row
+      - if current_user[:HomePhone].blank? && current_user[:WorkPhone].blank? && current_user[:CellPhone].blank?
+        h3 We need your phone number to continue
+        - if params[:error]
+          div(style="background:#cb0000;padding:7px 10px;color:#fff;margin:10px 0")=params[:error]
+        .row
+          .col-md-6
+            p Phone Number
+            div
+              | (
+              input.shaded-input(type="text" value="" name="phone_1" style="width:25%;display:inline-block" placeholder="999" maxlength="3")
+              | ) 
+              input.shaded-input(type="text" value="" name="phone_2" style="width:25%;display:inline-block" placeholder="999" maxlength="3")
+              |  - 
+              input.shaded-input(type="text" value="" name="phone_3" style="width:35%;display:inline-block" placeholder="9999" maxlength="4")
+          .col-md-3
+            p Phone Type
+            select.shaded-input(name="phone_type" style="width:100%")
+              option(value="CellPhone") Cell Phone
+              option(value="HomePhone") Home Phone
+              option(value="WorkPhone") Work Phone
+          .col-md-3
+            p &nbsp;
+            input.red-gradient-button type="submit" name="addPhone" value="ADD PHONE"
+      - else
+        p Add a note to your order.
+        textarea.shaded-input(name="notes" style="width:100%;height:80px")
+        hr
+        .row
 
-        - if is_closed[:status] != 0
-          div style="background:red;padding:20px;color:#fff;font-weight:bold;margin-right:10px;"
-            - if is_closed[:status] == -1
-              | Store is not open, wait until #{is_closed[:open]} before placing your order.
-            - if is_closed[:status] == 1
-              | Store closed at #{is_closed[:close]}, you will not be able to complete your order.
-        - else
-          - if select_store['CCProcessorIDWeb'] == 3
-            .col-md-6: a.red-gradient-button href="/checkout/card" PAY WITH CREDIT / DEBIT CARD
+          - if is_closed[:status] != 0
+            div style="background:red;padding:20px;color:#fff;font-weight:bold;margin-right:10px;"
+              - if is_closed[:status] == -1
+                | Store is not open, wait until #{is_closed[:open]} before placing your order.
+              - if is_closed[:status] == 1
+                | Store closed at #{is_closed[:close]}, you will not be able to complete your order.
           - else
-            .col-md-6: input.red-gradient-button type="submit" name="payCard" value="PAY WITH CREDIT / DEBIT CARD"
-          .col-md-6: input.red-gradient-button type="submit" name="payCash" value="PAY WITH CASH / GIFT CARD" onclick="this.value = 'One moment...'; var formButton = this; setTimeout(function(){formButton.disabled=true;},10)"
+            - if select_store['CCProcessorIDWeb'] == 3
+              .col-md-6: a.red-gradient-button href="/checkout/card" PAY WITH CREDIT / DEBIT CARD
+            - else
+              .col-md-6: input.red-gradient-button type="submit" name="payCard" value="PAY WITH CREDIT / DEBIT CARD"
+            .col-md-6: input.red-gradient-button type="submit" name="payCash" value="PAY WITH CASH / GIFT CARD" onclick="this.value = 'One moment...'; var formButton = this; setTimeout(function(){formButton.disabled=true;},10)"
 .col-md-4#order-items-panel(ng-include src="'app/partials/order.html'")

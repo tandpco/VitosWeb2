@@ -187,6 +187,16 @@ module Vitos
       end
       post '/order/complete' do
         puts("CASH complete order => #{select_order[:OrderID]}")
+        if !params[:addPhone].blank?
+          phone = "#{params[:phone_1]}#{params[:phone_2]}#{params[:phone_3]}"
+          if phone.length != 10
+            return redirect '/checkout?error=Invalid phone number.'
+          end
+          current_user[params[:phone_type]] = phone
+          current_user.save();
+          redirect '/checkout'
+          return
+        end
         if !params[:payCash].blank?
           select_order[:PaymentTypeID] = 1
           select_order[:StoreID] = select_store[:StoreID]
