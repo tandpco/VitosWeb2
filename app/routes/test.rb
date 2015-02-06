@@ -3,8 +3,14 @@ module Vitos
   module Routes
     class Test < Base
       post '/test-signup' do
-        if(params[:components].blank?) then redirect '/?error=no address' end
+        if(params[:components].blank?) then redirect '/login?r_error=no address' end
         pieces =  JSON.parse(params[:components])
+
+
+        if params[:email].blank?
+          redirect '/login?r_error=please provide an email address'
+          return
+        end
 
         # locate customer via email address
         customer = Customer.where(EMail: params[:email]).first
