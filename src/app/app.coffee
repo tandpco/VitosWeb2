@@ -335,7 +335,7 @@ $app.config ($stateProvider, $urlRouterProvider,RestangularProvider)->
         $scope.$watchCollection "$sp.defaultSideGroups", (v)->
           # reset preselected sides
           for y in $scope.sideByDefault
-            $scope.setSide(y,0)
+            $scope.setSide(y,'0')
           $scope.sideByDefault = []
 
           if v? and _.isArray v
@@ -345,7 +345,7 @@ $app.config ($stateProvider, $urlRouterProvider,RestangularProvider)->
                   if r.IsDefault
                     $scope.sideByDefault.push(r)
                     # console.log 'side:',r
-                    $scope.setSide(r,1)
+                    $scope.setSide(r,'1')
         # $scope.$watchCollection "$line.Sides",(v)->
         #   console.log 'chosen sides',v
         # $scope.$watchCollection "$line.Toppings",(v)->

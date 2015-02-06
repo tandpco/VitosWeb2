@@ -500,7 +500,7 @@
           _ref2 = $scope.sideByDefault;
           for (_k = 0, _len2 = _ref2.length; _k < _len2; _k++) {
             y = _ref2[_k];
-            $scope.setSide(y, 0);
+            $scope.setSide(y, '0');
           }
           $scope.sideByDefault = [];
           if ((v != null) && _.isArray(v)) {
@@ -516,7 +516,7 @@
                     r = _ref3[_m];
                     if (r.IsDefault) {
                       $scope.sideByDefault.push(r);
-                      _results1.push($scope.setSide(r, 1));
+                      _results1.push($scope.setSide(r, '1'));
                     } else {
                       _results1.push(void 0);
                     }
