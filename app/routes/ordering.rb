@@ -115,6 +115,7 @@ module Vitos
           select_order[:PaymentEmpID] = 1
           select_order[:IsPaid] = 1
           select_order[:StoreID] = select_store[:StoreID]
+          select_order[:CustomerPhone] = current_user[:CellPhone] || current_user[:WorkPhone] || current_user[:HomePhone]
           if !select_address.nil?
             select_order[:AddressID] = select_address[:AddressID]
           end
@@ -205,6 +206,7 @@ module Vitos
           end
           select_order[:OrderNotes] = params[:notes]
           select_order[:Tip] = 0
+          select_order[:CustomerPhone] = current_user[:CellPhone] || current_user[:WorkPhone] || current_user[:HomePhone]
           select_order.save()
 
           begin
@@ -244,6 +246,7 @@ module Vitos
         else
           select_order[:PaymentTypeID] = 3
           select_order[:OrderNotes] = params[:notes]
+          select_order[:CustomerPhone] = current_user[:CellPhone] || current_user[:WorkPhone] || current_user[:HomePhone]
           select_order.save()
           redirect 'https://hps.webportal.test.secureexchange.net/PaymentMain.aspx', 307
         end
