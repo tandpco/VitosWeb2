@@ -69,6 +69,11 @@ module Vitos
         redirect "/login"
       end
       post '/login' do
+        if params[:email].blank?
+          redirect '/login?error=please provide an email address'
+          return
+        end
+
         warden_handler.authenticate!
         if warden_handler.authenticated?
           redirect "/order?UnitID=1"
