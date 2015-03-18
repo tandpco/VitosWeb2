@@ -2,29 +2,30 @@ class Hacks
   public
 
   def self.storeIsClosed(store)
-    time = Time.now.getlocal('-05:00')
+    time = Time.now.getlocal('-04:00') # est
     # time.getlocal('-05:00');
     hour = time.strftime('%H%M')
+    hh = time.strftime('%H').to_i
     # puts('time: '+time.strftime('%H%M %z'))
-    if time.sunday?
+    if time.sunday? || (time.monday? && hh < 5)
       open = store[:OpenSun]
       close = store[:CloseSun]
-    elsif time.monday?
+    elsif time.monday? || (time.tuesday? && hh < 5)
       open = store[:OpenMon]
       close = store[:CloseMon]
-    elsif time.tuesday?
+    elsif time.tuesday? || (time.wednesday? && hh < 5)
       open = store[:OpenTue]
       close = store[:CloseTue]
-    elsif time.wednesday?
+    elsif time.wednesday? || (time.thursday? && hh < 5)
       open = store[:OpenWed]
       close = store[:CloseWed]
-    elsif time.thursday?
+    elsif time.thursday? || (time.friday? && hh < 5)
       open = store[:OpenThu]
       close = store[:CloseThu]
-    elsif time.friday?
+    elsif time.friday? || (time.saturday? && hh < 5)
       open = store[:OpenFri]
       close = store[:CloseFri]
-    elsif time.saturday?
+    elsif time.saturday? || (time.sunday? && hh < 5)
       open = store[:OpenSat]
       close = store[:CloseSat]
     end
