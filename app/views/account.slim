@@ -70,21 +70,25 @@ javascript:
           input#components(type="hidden" name="components")
       .row
         .col-md-4
-          p Phone Number
-          input.shaded-input(type="text" value=current_user[:CellPhone] name="phone")
-        .col-md-3
-          p Phone Type
-          select.shaded-input(name="phone_type" style="width:100%")
-            option(value="cell") Cell Phone
-            / option(value="home") Home Phone
-            / option(value="work") Work Phone
-        .col-md-3
-          p Birthdate
-          input.shaded-input(type="text" name="birth_year" placeholder="MM")
-        .col-md-2
-          p &nbsp;
-          input.shaded-input(type="text" name="birth_month" placeholder="YYYY")
+          p Cell Phone
+          input.shaded-input(type="text" value=current_user[:CellPhone] name="CellPhone")
+        .col-md-4
+          p Home Phone
+          input.shaded-input(type="text" value=current_user[:HomePhone] name="HomePhone")
+        .col-md-4
+          p Work Phone
+          input.shaded-input(type="text" value=current_user[:WorkPhone] name="WorkPhone")
       .row
-        .col-md-6: input.red-gradient-button type="submit" value="UPDATE ACCOUNT DETAILS"
+        / .col-md-3
+          p Birthdate
+          select.shaded-input name="birth_month" style="width:100%"
+            - month_names.each_with_index do |x,i|
+              option(value=i+1)=x
+        / .col-md-2
+          p &nbsp;
+          input.shaded-input(type="text" name="birth_year" placeholder="YYYY")
+        .col-md-7
+          p &nbsp;
+          input.red-gradient-button type="submit" value="UPDATE ACCOUNT DETAILS"
 .col-md-4#order-items-panel(ng-include src="'app/partials/order.html'")
 ui-view

@@ -32,10 +32,10 @@ class Hacks
     
     open_h = (open.to_f / 100.0).to_f.floor
     open_m = (((open.to_f / 100.0)-open_h)*100.0).floor
-    open_f = open_h.to_s+':'+open_m.to_s.rjust(2,'0')
+    open_f = (open_h > 12 && (open_h - 12).to_s || (open_h == 0 && '12' || open_h.to_s)).to_s+':'+open_m.to_s.rjust(2,'0')+(open_h > 12 && ' PM' || ' AM')
     close_h = (close.to_f / 100.0).to_f.floor
     close_m = (((close.to_f / 100.0)-close_h)*100.0).floor
-    close_f = close_h.to_s+':'+close_m.to_s.rjust(2,'0')
+    close_f = (close_h > 12 && (close_h - 12).to_s || (close_h == 0 && '12' || close_h.to_s))+':'+close_m.to_s.rjust(2,'0')+(close_h > 12 && ' PM' || ' AM')
     # puts('open: '+open.to_s)
     # puts('close: '+close.to_s)
     if hour.to_i < open.to_i  && (close.to_i > open.to_i || hour.to_i > close.to_i)

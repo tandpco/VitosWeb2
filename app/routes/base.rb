@@ -78,6 +78,10 @@ module Vitos
         return nil
       end
 
+      def month_names
+        return Date::MONTHNAMES.slice(1,12)
+      end
+
       def select_address
         if !@address.nil?
           return @address

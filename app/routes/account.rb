@@ -51,6 +51,9 @@ module Vitos
           # customer[:PrimaryAddressID]   = address[:AddressID]
         customer[:FirstName]          = params[:firstname]
         customer[:LastName]           = params[:lastname]
+        customer[:CellPhone]           = params[:CellPhone]
+        customer[:HomePhone]           = params[:HomePhone]
+        customer[:WorkPhone]           = params[:WorkPhone]
         customer.save()
         
         if(!params[:components].blank?)

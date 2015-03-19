@@ -11,7 +11,12 @@
           td.item-panel-content valign="top" 
             p.header=x[:Address1]
             / div(style="color:green"): b #{x[:Phone].to_s[0,3]} #{x[:Phone].to_s[3,3]}-#{x[:Phone].to_s[6,4]}
-            p.body=x[:FriendlyLocation]
+            p.body
+              =x[:FriendlyLocation]
+              br
+              strong #{x.phone}
+              br
+              span Today: #{Hacks.storeIsClosed(select_store)[:open]} &ndash; #{Hacks.storeIsClosed(select_store)[:close]}
             - if !select_store.nil? && select_store[:StoreID] == x[:StoreID]
               a.red-gradient-button style="background:#2d2d2d;width:100%" selected currently
             - else
