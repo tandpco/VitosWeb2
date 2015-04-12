@@ -77,7 +77,9 @@ module Vitos
         end
         return nil
       end
-
+      def delivery_method_selected
+        session[:delivery_method_selected].present?
+      end
       def month_names
         return Date::MONTHNAMES.slice(1,12)
       end

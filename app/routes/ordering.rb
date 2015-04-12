@@ -19,6 +19,20 @@ module Vitos
           redirect "/locations"
         end
       end
+      get '/order/select_method' do
+        if request.params["type"] == 'delivery'
+          session[:deliveryMethod] = 1
+          session[:storeID] = select_address.store[:StoreID]
+        else
+          session[:deliveryMethod] = 2
+        end
+
+        if(!session[:orderId].blank?)
+          OrderViewController.updateDeliveryMethod(session[:deliveryMethod],session)
+        end
+        session[:delivery_method_selected]  = 1
+        redirect request.referrer
+      end
       get '/order/notify' do
         @lines = OrderLineViewController.getOrderLines({},session)
         @order = OrderViewController.getOrderNew({},session)
