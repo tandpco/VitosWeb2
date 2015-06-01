@@ -34,7 +34,7 @@ function SignInController () {
         $('#main').append(ModalPleaseWait.createMarkup('modal-please-wait', 'Please wait'));
         $('#main').append(ModalInvalidLogin.createMarkup('modal-invalid-login', 'Click to try again'));
         $('#main').append(ModalLocation.createMarkup('modal-location', 'LOCATION CLOSEST TO YOU'));
-        $('#main').append(ModalDelivery.createMarkup('modal-delivery', 'HOW WOULD YOU LIKE YOUR ORDER?','YES'));
+        $('#main').append(ModalDelivery.createMarkup('modal-delivery', '4th - HOW WOULD YOU LIKE YOUR ORDER?','YES'));
         $('#main').append(ModalStores.createMarkup('modal-stores', 'CHOOSE STORE'));
         $('#main').append(ModalStoreIsClosed.createMarkup('modal-store-is-closed', 'OK'));
 

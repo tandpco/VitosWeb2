@@ -40,8 +40,10 @@ gem 'pony'
 gem 'warden'
 gem 'rack-ssl-enforcer'
 gem 'activerecord-sqlserver-adapter', '4.1.0'
+gem 'rerun'
 
 group :development do
   gem 'thin'
   gem 'byebug'
+  gem 'pry-byebug'
 end

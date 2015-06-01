@@ -48,10 +48,20 @@ $app.config ($stateProvider, $urlRouterProvider,RestangularProvider)->
         $scope.onMeat = true
         $scope.__orderingItem = false
         $scope.tab = 'size'
-        $scope.$line = {SauceID:$specialty.specialty && $specialty.specialty.SauceID || null,SizeID:null,Sides:[],Toppings:[],StyleID:null,Toppers:[],Note:'',Quantity:1}
+        $scope.$line = {
+          SauceID:$specialty.specialty && $specialty.specialty.SauceID || null,
+          SizeID:9,
+          Sides:[],
+          Toppings:[],
+          StyleID:null,
+          Toppers:[],
+          Note:'',
+          Quantity:1
+        }
         $scope.$selectedSides = {}
         $scope.$selectedToppings = {}
         $scope.$selectedToppers = {}
+        console.log($scope)
         $UnitID = parseInt $stateParams.unitId
         if $UnitID is 1 and !$stateParams.specialtyId
           $scope.$line.SauceID = 6
@@ -388,16 +398,18 @@ $app.run ($state,$rootScope,Restangular)->
       $scope.$order.customPOST({CouponCode:$scope.$promoCode},'add-promo').then ()->
         $scope.updateOrder()
   $scope.deleteLineItem = ($line)->
-    for $cl,$i in $scope.$lines
-      if $cl.OrderLineID is $line.OrderLineID
-        $scope.$lines.splice($i,1)
+    for key, value in $scope.$lines
+      if key.OrderLineID is $line.OrderLineID
+        $scope.$lines.splice(value,1)
         # $scope.$apply()
+        console.log(key, value)
         break
     $line.remove().then ()->
       $scope.__loadingOrder = true
       Restangular.one("order").get().then ($order)->
         $scope.$order = $order
         $scope.__loadingOrder = false
+    console.log('SCOPELINE',$scope.$lines)
     updateSubtotal($scope.$lines)
 
   $scope.adjustUnitName = (d)->
@@ -486,7 +498,7 @@ $app.run ($state,$rootScope,Restangular)->
     )
   # $scope.$watchCollection "$lines", updateSubtotal
   updateSubtotal = ($items)->
-    if $items.length > 0
+    if $items.length >= 0
       total = 0
       for item in $items
         total += item.Quantity * (item.Cost - item.Discount)

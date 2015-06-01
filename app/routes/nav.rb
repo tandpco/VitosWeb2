@@ -1,4 +1,5 @@
 require 'digest/md5'
+require 'pry-byebug'
 module Vitos
   module Routes
     class Nav < Base
@@ -73,7 +74,6 @@ module Vitos
           redirect '/login?error=please provide an email address'
           return
         end
-
         warden_handler.authenticate!
         if warden_handler.authenticated?
           redirect "/order?UnitID=1"

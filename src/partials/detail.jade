@@ -1,4 +1,5 @@
 .overlay: .dialog
+  //- pre {{$line}}
   ul.tabs
     li(ng-class="{active:tab == 'size'}",ng-click="tab = 'size'"): a Size
       span(ng-show="isBread()")  &amp; Crust

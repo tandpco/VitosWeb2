@@ -56,7 +56,7 @@
         $scope.tab = 'size';
         $scope.$line = {
           SauceID: $specialty.specialty && $specialty.specialty.SauceID || null,
-          SizeID: null,
+          SizeID: 9,
           Sides: [],
           Toppings: [],
           StyleID: null,
@@ -67,6 +67,7 @@
         $scope.$selectedSides = {};
         $scope.$selectedToppings = {};
         $scope.$selectedToppers = {};
+        console.log($scope);
         $UnitID = parseInt($stateParams.unitId);
         if ($UnitID === 1 && !$stateParams.specialtyId) {
           $scope.$line.SauceID = 6;
@@ -584,12 +585,13 @@
       }
     };
     $scope.deleteLineItem = function($line) {
-      var $cl, $i, _i, _len, _ref;
+      var key, value, _i, _len, _ref;
       _ref = $scope.$lines;
-      for ($i = _i = 0, _len = _ref.length; _i < _len; $i = ++_i) {
-        $cl = _ref[$i];
-        if ($cl.OrderLineID === $line.OrderLineID) {
-          $scope.$lines.splice($i, 1);
+      for (value = _i = 0, _len = _ref.length; _i < _len; value = ++_i) {
+        key = _ref[value];
+        if (key.OrderLineID === $line.OrderLineID) {
+          $scope.$lines.splice(value, 1);
+          console.log(key, value);
           break;
         }
       }
@@ -600,6 +602,7 @@
           return $scope.__loadingOrder = false;
         });
       });
+      console.log('SCOPELINE', $scope.$lines);
       return updateSubtotal($scope.$lines);
     };
     $scope.adjustUnitName = function(d) {
@@ -700,7 +703,7 @@
     };
     updateSubtotal = function($items) {
       var item, total, _i, _len;
-      if ($items.length > 0) {
+      if ($items.length >= 0) {
         total = 0;
         for (_i = 0, _len = $items.length; _i < _len; _i++) {
           item = $items[_i];

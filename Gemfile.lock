@@ -41,6 +41,9 @@ GEM
       columnize (~> 0.8)
       debugger-linecache (~> 1.2)
       slop (~> 3.6)
+    celluloid (0.16.0)
+      timers (~> 4.0.0)
+    coderay (1.1.0)
     coffee-script (2.3.0)
       coffee-script-source
       execjs
@@ -92,7 +95,9 @@ GEM
     eventmachine (1.0.4)
     execjs (2.2.2)
     fastercsv (1.5.5)
+    ffi (1.9.8)
     hike (1.2.3)
+    hitimes (1.2.2)
     hps (1.0.1)
       activesupport (>= 2.3.14, < 5.0.0)
       builder (>= 2.1.2, < 4.0.0)
@@ -100,10 +105,15 @@ GEM
     json (1.7.7)
     json_pure (1.8.2)
     kgio (2.9.3)
+    listen (2.10.0)
+      celluloid (~> 0.16.0)
+      rb-fsevent (>= 0.9.3)
+      rb-inotify (>= 0.9)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
     memcachier (0.0.2)
     memoist (0.11.0)
+    method_source (0.8.2)
     mime-types (2.4.3)
     minitest (5.5.1)
     moneta (0.8.0)
@@ -113,6 +123,13 @@ GEM
     phony (2.12.3)
     pony (1.11)
       mail (>= 2.0)
+    pry (0.10.1)
+      coderay (~> 1.1.0)
+      method_source (~> 0.8.1)
+      slop (~> 3.4)
+    pry-byebug (2.0.0)
+      byebug (~> 3.4)
+      pry (~> 0.10)
     rack (1.6.0)
     rack-protection (1.5.3)
       rack
@@ -122,6 +139,11 @@ GEM
       rack (>= 1.0)
     raindrops (0.13.0)
     rake (10.4.2)
+    rb-fsevent (0.9.4)
+    rb-inotify (0.9.5)
+      ffi (>= 0.5.0)
+    rerun (0.10.0)
+      listen (~> 2.7, >= 2.7.3)
     ruby-geometry (0.0.5)
       activesupport
       memoist
@@ -155,6 +177,8 @@ GEM
       rack (~> 1.0)
     thread_safe (0.3.4)
     tilt (1.4.1)
+    timers (4.0.1)
+      hitimes
     tiny_tds (0.6.2)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
@@ -192,9 +216,11 @@ DEPENDENCIES
   mongo (= 1.10.2)
   phony
   pony
+  pry-byebug
   rack-ssl-enforcer
   rack-standards
   rake
+  rerun
   ruby-geometry
   sinatra
   sinatra-activerecord

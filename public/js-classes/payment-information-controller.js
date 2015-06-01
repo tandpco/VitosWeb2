@@ -4,7 +4,7 @@ function PaymentInformationController () {
         $('#nav-container').append(NavBar.createMarkup());
         $('#order-items-panel').append(PanelOrderItems.createMarkup());
         $('#order-items-panel-sm').append(PanelOrderItemsSmall.createMarkup());
-        $('#main').append(ModalDelivery.createMarkup('modal-delivery', 'HOW WOULD YOU LIKE YOUR ORDER?','YES'));
+        $('#main').append(ModalDelivery.createMarkup('modal-delivery', '3rd -HOW WOULD YOU LIKE YOUR ORDER?','YES'));
         OrderItems.buildYourOrder(); 
         
         $('#applyAddr').click(function() {
