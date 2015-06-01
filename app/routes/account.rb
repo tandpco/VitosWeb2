@@ -33,7 +33,7 @@ module Vitos
           customer[:LastName]           = params[:lastname]
           customer.save()
         end
-        
+
         rel = ActiveRecord::Base.connection.select_all("select CustomerID from trelCustomerAddresses where CustomerID = #{customer[:CustomerID]} and AddressID = #{address[:AddressID]}").first
         # update relationship or create new relationship
         if rel.nil?

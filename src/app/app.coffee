@@ -48,7 +48,16 @@ $app.config ($stateProvider, $urlRouterProvider,RestangularProvider)->
         $scope.onMeat = true
         $scope.__orderingItem = false
         $scope.tab = 'size'
-        $scope.$line = {SauceID:$specialty.specialty && $specialty.specialty.SauceID || null,SizeID:null,Sides:[],Toppings:[],StyleID:null,Toppers:[],Note:'',Quantity:1}
+        $scope.$line = {
+          SauceID:$specialty.specialty && $specialty.specialty.SauceID || null,
+          SizeID:null,
+          Sides:[],
+          Toppings:[],
+          StyleID:null,
+          Toppers:[],
+          Note:'',
+          Quantity:1
+        }
         $scope.$selectedSides = {}
         $scope.$selectedToppings = {}
         $scope.$selectedToppers = {}
@@ -56,7 +65,8 @@ $app.config ($stateProvider, $urlRouterProvider,RestangularProvider)->
         if $UnitID is 1 and !$stateParams.specialtyId
           $scope.$line.SauceID = 6
         $scope.$line.UnitID = $UnitID
-
+        if $UnitID is 1
+          $scope.$line.SizeID = 9
         if $specialty.styles.length is 0 and $specialty.sizes.length > 0
           $scope.$line.SizeID = $specialty.sizes[0].SizeID
         if $specialty.styles.length > 0 and !$scope.$line.StyleID
@@ -388,10 +398,9 @@ $app.run ($state,$rootScope,Restangular)->
       $scope.$order.customPOST({CouponCode:$scope.$promoCode},'add-promo').then ()->
         $scope.updateOrder()
   $scope.deleteLineItem = ($line)->
-    for $cl,$i in $scope.$lines
-      if $cl.OrderLineID is $line.OrderLineID
-        $scope.$lines.splice($i,1)
-        # $scope.$apply()
+    for value, key in $scope.$lines
+      if value.OrderLineID is $line.OrderLineID
+        $scope.$lines.splice(key,1)
         break
     $line.remove().then ()->
       $scope.__loadingOrder = true
@@ -486,7 +495,7 @@ $app.run ($state,$rootScope,Restangular)->
     )
   # $scope.$watchCollection "$lines", updateSubtotal
   updateSubtotal = ($items)->
-    if $items.length > 0
+    if $items.length >= 0
       total = 0
       for item in $items
         total += item.Quantity * (item.Cost - item.Discount)

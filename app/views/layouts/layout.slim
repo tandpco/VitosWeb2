@@ -19,7 +19,7 @@ html ng-app="app"
   body
     - if current_user && !delivery_method_selected
       .overlay: .dialog.text-center
-        h5.modal-title HOW YOU WOULD YOU LIKE YOUR ORDER?
+        h5.modal-title HOW WOULD YOU LIKE YOUR ORDER?
         a#modeDelivery href="/order/select_method?type=delivery"
           img src="/img/mode-delivery.png" style="width:200px"
         a#modePickup href="/order/select_method?type=pickup"
