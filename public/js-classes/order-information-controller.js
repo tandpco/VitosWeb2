@@ -4,7 +4,7 @@ function OrderInformationController () {
         $('#nav-container').append(NavBar.createMarkup());
         $('#order-items-panel').append(PanelOrderItems.createMarkup());
         $('#order-items-panel-sm').append(PanelOrderItemsSmall.createMarkup());
-        $('#main').append(ModalDelivery.createMarkup('modal-delivery', '1st- HOW WOULD YOU LIKE YOUR ORDER?','YES'));
+        $('#main').append(ModalDelivery.createMarkup('modal-delivery', 'HOW WOULD YOU LIKE YOUR ORDER?','YES'));
         OrderItems.buildYourOrder(); 
         $("#email_address").val(Session.get("email")); 
         $("#confirm_email_address").val(Session.get("email"));

@@ -23,7 +23,7 @@ function OrderItemsController () {
 
         $('#main').append(ModalPleaseWait.createMarkup('modal-please-wait', 'Please wait'));
         $('#main').append(ModalInvalidPromo.createMarkup('modal-invalid-promo', 'Invalid promo code'));
-        $('#main').append(ModalDelivery.createMarkup('modal-delivery', '2nd - HOW WOULD YOU LIKE YOUR ORDER?','YES'));
+        $('#main').append(ModalDelivery.createMarkup('modal-delivery', 'HOW WOULD YOU LIKE YOUR ORDER?','YES'));
 
         $('#main').append(ModalLocation.createMarkup('modal-location', 'LOCATION CLOSEST TO YOU'));
         $('#main').append(ModalStores.createMarkup('modal-stores', 'CHOOSE STORE'));
