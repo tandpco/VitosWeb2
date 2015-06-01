@@ -56,7 +56,7 @@
         $scope.tab = 'size';
         $scope.$line = {
           SauceID: $specialty.specialty && $specialty.specialty.SauceID || null,
-          SizeID: 9,
+          SizeID: null,
           Sides: [],
           Toppings: [],
           StyleID: null,
@@ -67,12 +67,14 @@
         $scope.$selectedSides = {};
         $scope.$selectedToppings = {};
         $scope.$selectedToppers = {};
-        console.log($scope);
         $UnitID = parseInt($stateParams.unitId);
         if ($UnitID === 1 && !$stateParams.specialtyId) {
           $scope.$line.SauceID = 6;
         }
         $scope.$line.UnitID = $UnitID;
+        if ($UnitID === 1) {
+          $scope.$line.SizeID = 9;
+        }
         if ($specialty.styles.length === 0 && $specialty.sizes.length > 0) {
           $scope.$line.SizeID = $specialty.sizes[0].SizeID;
         }
@@ -587,11 +589,10 @@
     $scope.deleteLineItem = function($line) {
       var key, value, _i, _len, _ref;
       _ref = $scope.$lines;
-      for (value = _i = 0, _len = _ref.length; _i < _len; value = ++_i) {
-        key = _ref[value];
-        if (key.OrderLineID === $line.OrderLineID) {
-          $scope.$lines.splice(value, 1);
-          console.log(key, value);
+      for (key = _i = 0, _len = _ref.length; _i < _len; key = ++_i) {
+        value = _ref[key];
+        if (value.OrderLineID === $line.OrderLineID) {
+          $scope.$lines.splice(key, 1);
           break;
         }
       }
@@ -602,7 +603,6 @@
           return $scope.__loadingOrder = false;
         });
       });
-      console.log('SCOPELINE', $scope.$lines);
       return updateSubtotal($scope.$lines);
     };
     $scope.adjustUnitName = function(d) {
