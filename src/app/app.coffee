@@ -1,5 +1,15 @@
-$app = angular.module('app', ['ngRoute','ui.router','restangular'])
+$app = angular.module('app', ['ngRoute','ui.router','restangular', 'ngSanitize', 'mgcrea.ngStrap'])
 .run ($rootScope, $location, $route, Restangular, $modal) ->
+  Restangular.one("session").get().then (session)->
+    delivery_method_selected = true if session[4] 
+
+    Restangular.one("me").get().then (current_user)->
+      if current_user and !delivery_method_selected
+        console.log "OPEN DIALOG"
+        
+        myModal = $modal({title: 'Title', template:"app/partials/pickup-delivery.html", backdrop:false, show: false});
+        myModal.$promise.then(myModal.show)
+
   $rootScope.user = # test user
     first: 'test'
     last: 'user'

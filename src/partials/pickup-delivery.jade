@@ -1,0 +1,14 @@
+//- .overlay: .dialog.text-center
+//- 	h5 HOW WOULD YOU LIKE YOUR ORDER?
+//- 	pre current_user
+//- 	pre delivery_method_selected
+//- 	button.btn.btn-default(ng-click="") Pickup
+//- 	button.btn.btn-default(ng-click="") Delivery
+
+//- - if current_user && !delivery_method_selected
+.overlay: .dialog.text-center
+	h5.modal-title HOW WOULD YOU LIKE YOUR ORDER?
+	a#modeDelivery(href="/order/select_method?type=delivery")
+		img(src="/img/mode-delivery.png" style="width:200px")
+	a#modePickup(href="/order/select_method?type=pickup")
+		img(src="/img/mode-pickup.png" style="width:200px")
