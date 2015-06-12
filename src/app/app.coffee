@@ -63,7 +63,8 @@ $app.config ($stateProvider, $urlRouterProvider,RestangularProvider)->
     .state('home', {
       url:'/'
       template:'<div></div>'
-      controller:()->
+      controller: () ->
+        console.log "LOADED home ctrl"
     })
     .state('detail', {
       url: "/detail/:unitId/:specialtyId?coupon",
