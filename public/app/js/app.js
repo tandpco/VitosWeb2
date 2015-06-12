@@ -1,57 +1,7 @@
 (function() {
   var $app;
 
-  $app = angular.module('app', ['ngRoute', 'ui.router', 'restangular', 'ngSanitize', 'mgcrea.ngStrap']).run(function($rootScope, $location, $route, $modal, $http) {
-    $http.get('/api/locations').success(function(locations) {
-      return $rootScope.locations = locations;
-    });
-    $http.get('/api/session').success(function(session) {
-      var delivery_method_selected, storeID;
-      console.log("$http session :", session);
-      if (session[4]) {
-        delivery_method_selected = true;
-      }
-      storeID = session[0][1];
-      $rootScope.pickupLocation = $rootScope.locations[storeID - 1].Address1 + $rootScope.locations[storeID - 1].Address2;
-      return $http.get('/api/me').success(function(current_user) {
-        var methodModal;
-        if (current_user && !delivery_method_selected) {
-          console.log("OPEN DIALOG");
-          methodModal = $modal({
-            template: "app/partials/pickup-delivery.html",
-            backdrop: false,
-            show: false
-          });
-          methodModal.$promise.then(methodModal.show);
-        }
-        return $rootScope.selectMethod = function(method) {
-          var confirmModal;
-          methodModal.$promise.then(methodModal.hide);
-          if (method === 'delivery') {
-            console.log("deliver was chosen");
-          }
-          if (method === 'pickup') {
-            confirmModal = $modal({
-              template: "app/partials/confirm-pickup-location.html",
-              backdrop: false,
-              show: false
-            });
-            return confirmModal.$promise.then(confirmModal.show);
-          }
-        };
-      });
-    });
-    return $rootScope.user = {
-      first: 'test',
-      last: 'user',
-      email: 'vitosfan21@vitos.com',
-      street: "414 S Main St",
-      unit: "1",
-      city: "Findlay",
-      state: "ohio",
-      zipcode: "45840-3214"
-    };
-  });
+  $app = angular.module('app', ['ngRoute', 'ui.router', 'restangular']);
 
   (function(con) {
     "use strict";
@@ -100,7 +50,6 @@
       },
       controller: function($scope, $specialty, $stateParams, $state, Restangular) {
         var $UnitID, $coupon, $to, freeColors, theSideGroup, verifySelectedSize, x, _i, _j, _len, _len1, _ref, _ref1;
-        console.log("LOADED detail ctrl");
         $scope.$sp = $specialty;
         $scope.onMeat = true;
         $scope.__orderingItem = false;
@@ -725,9 +674,8 @@
       });
       return Restangular.one("order").get().then(function($order) {
         var $coupon, $to;
-        if ($order) {
-          $scope.$order = $order;
-        } else {
+        $scope.$order = $order;
+        if (!angular.isFunction($order.getList)) {
           $scope.__loadingOrder = false;
           if ($scope.$appliedCoupons.length) {
             $coupon = $scope.$appliedCoupons[0];

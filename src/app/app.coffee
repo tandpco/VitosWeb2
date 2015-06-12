@@ -1,34 +1,5 @@
-$app = angular.module('app', ['ngRoute','ui.router','restangular', 'ngSanitize', 'mgcrea.ngStrap'])
-#temporary hack. We should split into controllers
-.run ($rootScope, $location, $route, $modal, $http) ->
-  $http.get('/api/locations').success (locations) ->
-    $rootScope.locations = locations
-  #temporary solution:
-
-
-    # returns Birthdate: nullCellPhone: nullCustomerID: 444263EMail: "vitosfan21@vitos.com"FAXPhone: nullFirstName: "test"HomePhone: nullIsEMailList: falseIsTextList: falseLastName: "user"NoChecks: falsePassword: nullPrimaryAddressID: 227509RADRAT: "2015-06-12T11:34:00.740Z"WorkPhone: nullextension: nullnotes: null
-  $http.get('/api/session').success (session) ->
-    console.log "$http session :", session
-    delivery_method_selected = true if session[4]
-    storeID = session[0][1]
-    $rootScope.pickupLocation = $rootScope.locations[storeID-1].Address1 + $rootScope.locations[storeID-1].Address2
-
-    $http.get('/api/me').success (current_user) ->
-      if current_user and !delivery_method_selected
-        console.log "OPEN DIALOG"
-        
-        methodModal = $modal({template:"app/partials/pickup-delivery.html", backdrop:false, show: false});
-        methodModal.$promise.then(methodModal.show)
-
-      $rootScope.selectMethod = (method) ->
-        methodModal.$promise.then(methodModal.hide)
-        if method is 'delivery'
-          console.log "deliver was chosen"
-
-        if method is 'pickup'
-          confirmModal = $modal({template:"app/partials/confirm-pickup-location.html", backdrop:false, show: false})
-          confirmModal.$promise.then(confirmModal.show)
-
+$app = angular.module('app', ['ngRoute','ui.router','restangular'])
+.run ($rootScope, $location, $route, Restangular, $modal) ->
   $rootScope.user = # test user
     first: 'test'
     last: 'user'
@@ -94,7 +65,6 @@ $app.config ($stateProvider, $urlRouterProvider,RestangularProvider)->
             "SpecialtyID":  $stateParams.specialtyId
             "SizeID":  null
       controller: ($scope,$specialty,$stateParams,$state,Restangular)->
-        console.log "LOADED detail ctrl"
         $scope.$sp = $specialty
         $scope.onMeat = true
         $scope.__orderingItem = false
@@ -519,12 +489,10 @@ $app.run ($state,$rootScope,Restangular)->
     Restangular.all('applied-coupons').getList().then (v)->
       $scope.$appliedCoupons = v
     Restangular.one("order").get().then(($order)->
-      if $order
       # alert $order.OrderID
       # console.log 'order',v
-        $scope.$order = $order 
-      # if not angular.isFunction $order.getList
-      else
+      $scope.$order = $order
+      if not angular.isFunction $order.getList
         $scope.__loadingOrder = false
         if $scope.$appliedCoupons.length
           $coupon = $scope.$appliedCoupons[0]
