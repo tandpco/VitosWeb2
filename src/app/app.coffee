@@ -76,6 +76,7 @@ $app.config ($stateProvider, $urlRouterProvider,RestangularProvider)->
             "SpecialtyID":  $stateParams.specialtyId
             "SizeID":  null
       controller: ($scope,$specialty,$stateParams,$state,Restangular)->
+        console.log "LOADED detail ctrl"
         $scope.$sp = $specialty
         $scope.onMeat = true
         $scope.__orderingItem = false
@@ -500,10 +501,12 @@ $app.run ($state,$rootScope,Restangular)->
     Restangular.all('applied-coupons').getList().then (v)->
       $scope.$appliedCoupons = v
     Restangular.one("order").get().then(($order)->
+      if $order
       # alert $order.OrderID
       # console.log 'order',v
-      $scope.$order = $order
-      if not angular.isFunction $order.getList
+        $scope.$order = $order 
+      # if not angular.isFunction $order.getList
+      else
         $scope.__loadingOrder = false
         if $scope.$appliedCoupons.length
           $coupon = $scope.$appliedCoupons[0]
