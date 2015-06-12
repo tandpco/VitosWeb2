@@ -1,6 +1,9 @@
 module Vitos
   module Routes
     class API < Base
+      get '/api/locations' do
+        json Store.where(isActive: true)
+      end
       get '/api/me' do
         json current_user
       end

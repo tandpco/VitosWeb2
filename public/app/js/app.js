@@ -2,11 +2,16 @@
   var $app;
 
   $app = angular.module('app', ['ngRoute', 'ui.router', 'restangular', 'ngSanitize', 'mgcrea.ngStrap']).run(function($rootScope, $location, $route, Restangular, $modal) {
+    Restangular.all("locations").get().then(function(locations) {
+      return console.log(locations);
+    });
     Restangular.one("session").get().then(function(session) {
       var delivery_method_selected;
       if (session[4]) {
         delivery_method_selected = true;
       }
+      console.log($rootScope.pickupLocation = session[0]);
+      $rootScope.pickupLocation = session[0][1];
       return Restangular.one("me").get().then(function(current_user) {
         var methodModal;
         if (current_user && !delivery_method_selected) {

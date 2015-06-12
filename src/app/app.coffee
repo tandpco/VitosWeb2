@@ -1,14 +1,29 @@
 $app = angular.module('app', ['ngRoute','ui.router','restangular', 'ngSanitize', 'mgcrea.ngStrap'])
+#temporary hack. We should split into controllers
 .run ($rootScope, $location, $route, Restangular, $modal) ->
+  Restangular.all("locations").get().then (locations)->
+    console.log locations
+  #temporary solution:
   Restangular.one("session").get().then (session)->
-    delivery_method_selected = true if session[4] 
+    delivery_method_selected = true if session[4]
+    console.log $rootScope.pickupLocation = session[0]
+    $rootScope.pickupLocation = session[0][1]
 
     Restangular.one("me").get().then (current_user)->
       if current_user and !delivery_method_selected
         console.log "OPEN DIALOG"
         
-        myModal = $modal({title: 'Title', template:"app/partials/pickup-delivery.html", backdrop:false, show: false});
-        myModal.$promise.then(myModal.show)
+        methodModal = $modal({template:"app/partials/pickup-delivery.html", backdrop:false, show: false});
+        methodModal.$promise.then(methodModal.show)
+
+      $rootScope.selectMethod = (method) ->
+        methodModal.$promise.then(methodModal.hide)
+        if method is 'delivery'
+          console.log "deliver was chosen"
+
+        if method is 'pickup'
+          confirmModal = $modal({template:"app/partials/confirm-pickup-location.html", backdrop:false, show: false})
+          confirmModal.$promise.then(confirmModal.show)
 
   $rootScope.user = # test user
     first: 'test'
