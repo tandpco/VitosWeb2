@@ -4,4 +4,6 @@ tmp
 mails
 node_modules
 .sass-cache
-*.sublime-workspacepublic/**
+*.sublime-workspace
+mattsnotes.txt
+public/**
