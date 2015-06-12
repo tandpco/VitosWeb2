@@ -1,18 +1,19 @@
 (function() {
   var $app;
 
-  $app = angular.module('app', ['ngRoute', 'ui.router', 'restangular', 'ngSanitize', 'mgcrea.ngStrap']).run(function($rootScope, $location, $route, Restangular, $modal) {
-    Restangular.all("locations").get().then(function(locations) {
-      return console.log(locations);
+  $app = angular.module('app', ['ngRoute', 'ui.router', 'restangular', 'ngSanitize', 'mgcrea.ngStrap']).run(function($rootScope, $location, $route, $modal, $http) {
+    $http.get('/api/locations').success(function(locations) {
+      return $rootScope.locations = locations;
     });
-    Restangular.one("session").get().then(function(session) {
-      var delivery_method_selected;
+    $http.get('/api/session').success(function(session) {
+      var delivery_method_selected, storeID;
+      console.log("$http session :", session);
       if (session[4]) {
         delivery_method_selected = true;
       }
-      console.log($rootScope.pickupLocation = session[0]);
-      $rootScope.pickupLocation = session[0][1];
-      return Restangular.one("me").get().then(function(current_user) {
+      storeID = session[0][1];
+      $rootScope.pickupLocation = $rootScope.locations[storeID - 1].Address1 + $rootScope.locations[storeID - 1].Address2;
+      return $http.get('/api/me').success(function(current_user) {
         var methodModal;
         if (current_user && !delivery_method_selected) {
           console.log("OPEN DIALOG");

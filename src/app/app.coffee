@@ -1,15 +1,19 @@
 $app = angular.module('app', ['ngRoute','ui.router','restangular', 'ngSanitize', 'mgcrea.ngStrap'])
 #temporary hack. We should split into controllers
-.run ($rootScope, $location, $route, Restangular, $modal) ->
-  Restangular.all("locations").get().then (locations)->
-    console.log locations
+.run ($rootScope, $location, $route, $modal, $http) ->
+  $http.get('/api/locations').success (locations) ->
+    $rootScope.locations = locations
   #temporary solution:
-  Restangular.one("session").get().then (session)->
-    delivery_method_selected = true if session[4]
-    console.log $rootScope.pickupLocation = session[0]
-    $rootScope.pickupLocation = session[0][1]
 
-    Restangular.one("me").get().then (current_user)->
+
+    # returns Birthdate: nullCellPhone: nullCustomerID: 444263EMail: "vitosfan21@vitos.com"FAXPhone: nullFirstName: "test"HomePhone: nullIsEMailList: falseIsTextList: falseLastName: "user"NoChecks: falsePassword: nullPrimaryAddressID: 227509RADRAT: "2015-06-12T11:34:00.740Z"WorkPhone: nullextension: nullnotes: null
+  $http.get('/api/session').success (session) ->
+    console.log "$http session :", session
+    delivery_method_selected = true if session[4]
+    storeID = session[0][1]
+    $rootScope.pickupLocation = $rootScope.locations[storeID-1].Address1 + $rootScope.locations[storeID-1].Address2
+
+    $http.get('/api/me').success (current_user) ->
       if current_user and !delivery_method_selected
         console.log "OPEN DIALOG"
         
