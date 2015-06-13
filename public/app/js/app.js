@@ -1,7 +1,7 @@
 (function() {
   var $app;
 
-  $app = angular.module('app', ['ngRoute', 'ui.router', 'restangular']).run(function($rootScope, $location, $route, Restangular, $modal) {
+  $app = angular.module('app', ['ngRoute', 'ui.router', 'restangular']).run(function($rootScope, $location, $route, Restangular) {
     return $rootScope.user = {
       first: 'test',
       last: 'user',

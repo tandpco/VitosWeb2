@@ -1,5 +1,5 @@
 $app = angular.module('app', ['ngRoute','ui.router','restangular'])
-.run ($rootScope, $location, $route, Restangular, $modal) ->
+.run ($rootScope, $location, $route, Restangular) ->
   $rootScope.user = # test user
     first: 'test'
     last: 'user'
