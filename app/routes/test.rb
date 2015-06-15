@@ -16,7 +16,7 @@ module Vitos
 
         # locate store from address information
         store = Hacks.getStoreByAddress(pieces)
-        # if store.nil? then redirect '/login?r_error=invalid store' end
+        if store.nil? then redirect '/login?r_error=Cannot locate a store within proximity of your address' end
         if !store.nil?
           address = Hacks.findOrCreateAddress(pieces,store)
           if address.nil? then redirect '/login?r_error=invalid address' end
