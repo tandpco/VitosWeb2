@@ -33,6 +33,10 @@ module Vitos
         session[:delivery_method_selected]  = 1
         redirect request.referrer
       end
+      get '/order/confirm_location' do
+        session[:confirmed_location] = true
+        redirect request.referrer
+      end
       get '/order/notify' do
         @lines = OrderLineViewController.getOrderLines({},session)
         @order = OrderViewController.getOrderNew({},session)
@@ -176,6 +180,7 @@ module Vitos
       end
 
       get '/order/change-store' do
+        session[:confirmed_location] = true
         session[:storeID] = params[:StoreID].to_i
         if select_address.nil? || session[:deliveryMethod] != 2 && session[:storeID] != select_address.store[:StoreID]
           session[:deliveryMethod] = 2

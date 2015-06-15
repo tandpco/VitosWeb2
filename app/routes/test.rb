@@ -6,7 +6,6 @@ module Vitos
         if(params[:components].blank?) then redirect '/login?r_error=no address' end
         pieces =  JSON.parse(params[:components])
 
-
         if params[:email].blank?
           redirect '/login?r_error=please provide an email address'
           return
@@ -19,7 +18,7 @@ module Vitos
         store = Hacks.getStoreByAddress(pieces)
         # if store.nil? then redirect '/login?r_error=invalid store' end
         if !store.nil?
-          address = Hacks.findOrCreateAddress(pieces,store) 
+          address = Hacks.findOrCreateAddress(pieces,store)
           if address.nil? then redirect '/login?r_error=invalid address' end
         end
 
