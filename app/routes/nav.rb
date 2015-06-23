@@ -1,5 +1,4 @@
 require 'digest/md5'
-require 'pry-byebug'
 module Vitos
   module Routes
     class Nav < Base
