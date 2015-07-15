@@ -86,7 +86,7 @@ module Vitos
         select_order[:PaymentEmpID] = 1
         select_order[:IsPaid] = 1
         select_order.save()
-        ActiveRecord::Base.connection.execute("UPDATE tblOrders SET PaidDate = GetDate() WHERE OrderID = #{select_order[:OrderID]}")
+        ActiveRecord::Base.connection.execute("UPDATE tblOrders SET PaidDate = GetDate(),TransactionDate = GetDate() WHERE OrderID = #{select_order[:OrderID]}")
 
         ActiveRecord::Base.connection.execute_procedure("WebPrintOrder", {:pStoreID => select_store[:StoreID], :pOrderID => select_order[:OrderID]})
         session[:completeOrder] = select_order[:OrderID]
@@ -136,7 +136,7 @@ module Vitos
             select_order[:AddressID] = select_address[:AddressID]
           end
           select_order.save()
-          ActiveRecord::Base.connection.execute("UPDATE tblOrders SET PaidDate = GetDate() WHERE OrderID = #{select_order[:OrderID]}")
+          ActiveRecord::Base.connection.execute("UPDATE tblOrders SET PaidDate = GetDate(),TransactionDate = GetDate() WHERE OrderID = #{select_order[:OrderID]}")
 
           ActiveRecord::Base.connection.execute_procedure("WebPrintOrder", {:pStoreID => select_store[:StoreID], :pOrderID => select_order[:OrderID]})
           session[:completeOrder] = select_order[:OrderID]
@@ -228,6 +228,8 @@ module Vitos
           select_order.save()
 
           begin
+
+            ActiveRecord::Base.connection.execute("UPDATE tblOrders SET TransactionDate = GetDate() WHERE OrderID = #{select_order[:OrderID]}")
             ActiveRecord::Base.connection.execute_procedure("WebPrintOrder", {:pStoreID => select_store[:StoreID], :pOrderID => select_order[:OrderID]})
             session[:completeOrder] = select_order[:OrderID]
 
