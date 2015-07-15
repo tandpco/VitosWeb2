@@ -147,8 +147,7 @@ module Vitos
           options = {
             # :to => 'me@david.gs',
             :to => current_user[:EMail].blank? && 'me@david.gs' || current_user[:EMail],
-            :from => 'frank@vitos.com',
-            :fromname => 'Vito Cortapassi',
+            :from => 'Vito Cortapassi <frank@vitos.com>',
             :bcc => 'ordering@vitos.com',
             :subject => "Vito's Pizza Order #{@order['OrderID']} Confirmation",
             :html_body => (slim :notify, :layout=>false),
@@ -239,7 +238,7 @@ module Vitos
             options = {
               # :to => 'me@david.gs',
               :to => current_user[:EMail].blank? && 'me@david.gs' || current_user[:EMail],
-              :from => 'Vitos <ordering@vitos.com>',
+              :from => 'Vito Cortapassi <frank@vitos.com>',
               :subject => "Vito's Pizza Order #{@order['OrderID']} Confirmation",
               :html_body => (slim :notify, :layout=>false),
               :via => :smtp,
