@@ -2,7 +2,7 @@ class Hacks
   public
 
   def self.storeIsClosed(store)
-    time = Time.now.getlocal('-04:00') # est
+    time = Time.now.getlocal('-05:00') # est
     # time.getlocal('-05:00');
     hour = time.strftime('%H%M')
     hh = time.strftime('%H').to_i
