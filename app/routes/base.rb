@@ -80,6 +80,12 @@ module Vitos
       def delivery_method_selected
         session[:delivery_method_selected].present?
       end
+      def confirmed_location
+        session[:confirmed_location].present?
+      end
+      def render_location_confirmation?
+        !confirmed_location && session[:deliveryMethod] == 2 && request.path_info != '/locations'
+      end
       def month_names
         return Date::MONTHNAMES.slice(1,12)
       end

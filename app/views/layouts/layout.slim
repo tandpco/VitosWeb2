@@ -24,6 +24,16 @@ html ng-app="app"
           img src="/img/mode-delivery.png" style="width:200px"
         a#modePickup href="/order/select_method?type=pickup"
           img src="/img/mode-pickup.png" style="width:200px"
+    - if current_user && render_location_confirmation?
+      .overlay: .dialog.text-center
+        - store = select_store
+        strong
+          a href="https://www.google.com/maps/preview?q=Vito's Pizza and Subs, #{select_store[:Address1]} #{select_store[:City]} #{select_store[:State]}" target="_blank" <u>#{store.Address1} &bull; #{{store.Address2}} &bull; #{store.City}</u>
+        h5.modal-title  Is this the correct store location that you will be picking up your order from?
+        a.btn.btn-default href="/order/confirm_location"
+          span Confirm Location
+        a.btn.btn-default href="/locations"
+          span Select a different pickup location
     - if false && request.path_info != '/locations'
       div style="position: fixed;top: 0;bottom:0;right:0;left:0;background-color:rgba(0,0,0,.9);color:#fff;font-weight:bold;font-size:30px;padding:100px;z-index:2000"
         | We're very sorry for the inconvience. Our online ordering is currently unavailable.

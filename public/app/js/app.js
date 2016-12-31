@@ -1,7 +1,18 @@
 (function() {
   var $app;
 
-  $app = angular.module('app', ['ngRoute', 'ui.router', 'restangular']);
+  $app = angular.module('app', ['ngRoute', 'ui.router', 'restangular']).run(function($rootScope, $location, $route, Restangular) {
+    return $rootScope.user = {
+      first: 'test',
+      last: 'user',
+      email: 'vitosfan21@vitos.com',
+      street: "414 S Main St",
+      unit: "1",
+      city: "Findlay",
+      state: "ohio",
+      zipcode: "45840-3214"
+    };
+  });
 
   (function(con) {
     "use strict";

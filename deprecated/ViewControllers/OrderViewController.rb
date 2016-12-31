@@ -61,11 +61,11 @@ class OrderViewController
         session[:deliveryMethod] = orderTypeID
 
         theStore = Store.find(storeId)
-
+        
         # puts("OrderID: " + orderId.to_s)
         address = current_user.address
         if(orderId == nil || orderId < 1)
-
+        puts "Testing model just created for store assocation"
             newOrder = Hash.new()
 
             newOrder['pSessionID']       = 0

@@ -1,4 +1,25 @@
 $app = angular.module('app', ['ngRoute','ui.router','restangular'])
+.run ($rootScope, $location, $route, Restangular) ->
+  # $rootScope.user = # test user
+  #   first: 'test'
+  #   last: 'user'
+  #   email: 'vitosfan21@vitos.com'
+  #   street: "414 S Main St"
+  #   unit: "1"
+  #   city: "Findlay"
+  #   state: "ohio"
+  #   zipcode: "45840-3214"
+
+  $rootScope.user = #this is the Delivery Range Issue test user
+    first: 'DeliveryRangeIssueTest'
+    last: 'user'
+    email: 'vitosfan21@vitos.com'
+    street: "11701 Sugar Ridge Rd"
+    unit: ""
+    city: "Bowling Green"
+    state: "ohio"
+    zipcode: "43402-9611"
+
 
 # Console-polyfill. MIT license.
 # https://github.com/paulmillr/console-polyfill

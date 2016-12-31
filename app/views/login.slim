@@ -56,25 +56,25 @@ javascript:
         .row
           .col-md-5
             p First Name
-            input.shaded-input type="text" name="firstname" required="required"
+            input.shaded-input type="text" name="firstname" required="required" ng-model="user.first"
           .col-md-7
             p Last Name
-            input.shaded-input type="text" name="lastname" required="required"
+            input.shaded-input type="text" name="lastname" required="required" ng-model="user.last"
         .row: .col-md-12
           p Email Address
-          input.shaded-input type="text" name="email" required="required"
+          input.shaded-input type="text" name="email" required="required" ng-model="user.email"
         .row
           .col-md-8
             p Street Number and Street Name
-            input#street.shaded-input(type="text" name="street")
+            input#street.shaded-input(type="text" name="street" ng-model="user.street")
           .col-md-4
             p Unit
-            input#unit.shaded-input(type="text" name="unit")
+            input#unit.shaded-input(type="text" name="unit" ng-model="user.unit")
         .row
           .col-md-5
             p City
             / input#city.shaded-input(type="text" name="city")
-            input#city(type="hidden" name="city")
+            input#city(type="hidden" name="city" ng-model="user.city")
             select.shaded-input#cityr
               option(value="") Select One
               - @states.each do |state|
@@ -84,13 +84,13 @@ javascript:
                       option(value=x["City"]) = x["City"]
           .col-md-3
             p State
-            input#state(type="hidden" name="state")
+            input#state(type="hidden" name="state" ng-model="user.state")
             select.shaded-input#stater
               option(value="OH") OHIO
               option(value="MI") MICHIGAN
               option(value="IN") INDIANA
           .col-md-4
             p Zip Code
-            input#zip.shaded-input(type="text" name="zip")
+            input#zip.shaded-input(type="text" name="zip" ng-model="user.zipcode")
             input#components(type="hidden" name="components")
         .row: .col-md-12: input.red-gradient-button type="submit" value="SIGN IN"
